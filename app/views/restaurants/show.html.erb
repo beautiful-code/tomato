@@ -1,0 +1,49 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @restaurant.name %>
+</p>
+
+<p>
+  <b>Address:</b>
+  <%= @restaurant.address %>
+</p>
+
+
+<%= link_to 'Edit', edit_restaurant_path(@restaurant) %> |
+<%= link_to 'Back', restaurants_path %>
+
+<h1>Listing reviews</h1>
+
+<table border=1>
+  <tr>
+    <th>Title</th>
+    <th>Desc</th>
+    <th>Source</th>
+    <th>Created at</th>
+    <th>Author</th>
+    <th>Restaurant ID</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @reviews.each do |review| %>
+  <tr>
+    <td><%= review.title %></td>
+    <td><%= review.desc %></td>
+    <td><%= review.source %></td>
+    <td><%= review.created_at %></td>
+    <td><%= review.author %></td>
+    <td><%= review.restaurant_id %></td>
+    <td><%= link_to 'Show', restaurant_review_path(@restaurant,review) %></td>
+    <td><%= link_to 'Edit', edit_restaurant_review_path(@restaurant,review) %></td>
+    <td><%= link_to 'Destroy', restaurant_review_path(@restaurant,review), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Review', new_restaurant_review_path(@restaurant) %>
