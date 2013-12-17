@@ -1,0 +1,34 @@
+= form_for [@restaurant,@review], :html => { :multipart => true } do |f|
+  -if @review.errors.any?
+    #error_explanation
+      %h2 = pluralize(@review.errors.count, "error") prohibited this review from being saved:
+      %ul
+        -@review.errors.full_messages.each do |msg|
+          %li
+            = msg
+  %div.field
+    = f.label :title
+    %br
+    = f.text_field :title
+  %div.field
+    = f.label :desc
+    %br
+    = f.text_field :desc
+  %div.field
+    = f.label :source
+    %br
+    = f.text_field :source
+  %div.field
+    = f.label :created_at
+    %br
+    = f.date_select :created_at, :disabled => true
+  %div.field
+    = f.label :author
+    %br
+    = f.text_field :author
+  %div.field
+    = f.label :restaurant_id
+    %br
+    = f.text_field :restaurant_id ,:disabled => true
+  %div.field
+    = f.submit

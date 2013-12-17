@@ -1,0 +1,8 @@
+%h1
+  Editing review
+
+= render 'form'
+
+= link_to 'Show', restaurant_review_path(@restaurant,@review)
+|
+= link_to 'Back', restaurant_path(@restaurant)

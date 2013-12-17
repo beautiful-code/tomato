@@ -1,0 +1,53 @@
+%p#notice
+  = notice
+
+%p
+  Name:
+  = @restaurant.name
+%p
+  Address:
+  = @restaurant.address
+
+= link_to 'Edit', edit_restaurant_path(@restaurant) 
+|
+= link_to 'Back', restaurants_path
+
+%h1
+  Listing reviews
+
+%table
+  %tr
+    %th Title
+    %th Desc
+    %th Source
+    %th Created at
+    %th Author
+    %th Restaurant ID
+    %th
+    %th
+    %th
+  -@reviews.each do |review| 
+    %tr
+      %td
+        = review.title 
+      %td 
+        = review.desc 
+      %td 
+        = review.source 
+      %td 
+        = Time.at(review.created_at).to_date
+      %td 
+        = review.author 
+      %td 
+        = review.restaurant_id 
+      %td 
+        = link_to 'Show', restaurant_review_path(@restaurant,review) 
+      %td 
+        = link_to 'Edit', edit_restaurant_review_path(@restaurant,review) 
+      %td 
+        = link_to 'Destroy', restaurant_review_path(@restaurant,review), method: :delete, data: { confirm: 'Are you sure?' } 
+
+%br
+
+%div
+  = render 'reviews/form'
