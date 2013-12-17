@@ -1,27 +1,33 @@
-%h1
-  Listing restaurants
+%div.row
+  %div.large-10.columns
+    %h3
+      Restaurants
 
-%table
-  %tr
-    %th Name
-    %th Address
-    %th
-    %th
-    %th
-  
+    %table
+      %tr
+        %th{width:'200'}
+          %h4 Name
+        %th{width:'200'}
+          %h4 Address
+        %th{width:'80'}
+        %th{width:'80'}
+        %th{width:'80'}
+      
 
-  -@restaurants.each do |restaurant|
-    %tr
-      %td 
-        = restaurant.name
-      %td
-        = restaurant.address
-      %td 
-        = link_to 'Show', restaurant
-      %td 
-        = link_to 'Edit', edit_restaurant_path(restaurant)
-      %td 
-        = link_to 'Destroy', restaurant, method: :delete, data: { confirm: 'Are you sure?' }
-  
-%br
-= link_to 'New Restaurant', new_restaurant_path 
+      -@restaurants.each do |restaurant|
+        %tr
+          %td 
+            %h4.subheader
+              = restaurant.name
+          %td
+            %h4.subheader 
+              = restaurant.address
+          %td 
+            = link_to 'Show', restaurant, class: "small button success radius"
+          %td 
+            = link_to 'Edit', edit_restaurant_path(restaurant), class: "small button radius"
+          %td 
+            = link_to 'Destroy', restaurant, method: :delete, data: { confirm: 'Are you sure?' }, class: "small button alert radius"
+      
+    %br
+    = link_to 'New Restaurant', new_restaurant_path, class: "button radius" 

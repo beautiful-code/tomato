@@ -6,29 +6,24 @@
         -@review.errors.full_messages.each do |msg|
           %li
             = msg
-  %div.field
-    = f.label :title
-    %br
-    = f.text_field :title
-  %div.field
-    = f.label :desc
-    %br
-    = f.text_field :desc
-  %div.field
-    = f.label :source
-    %br
-    = f.text_field :source
-  %div.field
-    = f.label :created_at
-    %br
-    = f.date_select :created_at, :disabled => true
-  %div.field
-    = f.label :author
-    %br
-    = f.text_field :author
-  %div.field
-    = f.label :restaurant_id
-    %br
-    = f.text_field :restaurant_id ,:disabled => true
-  %div.field
-    = f.submit
+  %div.row  
+    %div.small-12
+      %div.row
+        %div.small-3.columns
+          = f.label :title, class: 'right inline'
+        %div.small-9.columns
+          = f.text_field :title
+        %div.small-3.columns
+          = f.label :desc, class: 'right inline'
+        %div.small-9.columns
+          = f.text_area :desc, rows: "30"
+        %div.small-3.columns
+          = f.label :source, class: 'right inline'
+        %div.small-9.columns
+          = f.text_field :source
+        %div.small-3.columns
+          = f.label :author, class: 'right inline'
+        %div.small-9.columns
+          = f.text_field :author
+        %div.small-9.columns
+          = f.submit :Save, class: 'button success radius'

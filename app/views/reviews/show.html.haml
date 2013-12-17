@@ -1,29 +1,23 @@
-%p#notice
-  = notice
-
-%p
-  %b 
-    Title:
-    = @review.title 
-%p
-  %b
-    Desc:
-    = @review.desc
-%p
-  %b
-    Source:
-    = @review.source
-%p
-  %b
-    Created at:
-    = @review.created_at
-%p
-  %b
-    Author:
-    = @review.author
-
-
-
-= link_to 'Edit', edit_restaurant_review_path(@restaurant,@review) 
-|
-= link_to 'Back', restaurant_path(@restaurant)
+%div.row
+  %p#notice
+    = notice
+%div.row
+  %div.large-6.columns
+    %h5 Title:
+    %h5.subheader  
+      = @review.title 
+    %h5 Description
+    %h5.subheader 
+      = @review.desc
+    %h5  Source
+    %h5.subheader 
+      = @review.source
+    %h5 Created Date:
+    %h5.subheader 
+      = @review.created_at
+    %h5 Author
+    %h5.subheader 
+      = @review.author
+    %hr
+    = link_to 'Edit', edit_restaurant_review_path(@restaurant,@review),class: "button radius" 
+    = link_to 'Back', restaurant_path(@restaurant),class: "button alert radius"
