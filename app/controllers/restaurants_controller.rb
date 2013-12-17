@@ -3,11 +3,7 @@ class RestaurantsController < ApplicationController
   # GET /restaurants.json
   def index
     @restaurants = Restaurant.all
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @restaurants }
-    end
+    @review = Review.new
   end
 
   # GET /restaurants/1
@@ -15,10 +11,7 @@ class RestaurantsController < ApplicationController
   def show
     @restaurant = Restaurant.find(params[:id])
     @reviews = @restaurant.reviews
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @restaurant }
-    end
+    @review = Review.new(restaurant_id: @restaurant.id)
   end
 
   # GET /restaurants/new

@@ -25,7 +25,7 @@
   </div>
   <div class="field">
     <%= f.label :created_at %><br />
-    <%= f.datetime_select :created_at %>
+    <%= f.date_select :created_at, :disabled => true %>
   </div>
   <div class="field">
     <%= f.label :author %><br />
@@ -33,7 +33,7 @@
   </div>
   <div class="field">
     <%= f.label :restaurant_id %><br />
-    <%= f.text_field :restaurant_id %>
+    <%= f.text_field :restaurant_id ,:disabled => true%>
   </div>
   <div class="actions">
     <%= f.submit %>
