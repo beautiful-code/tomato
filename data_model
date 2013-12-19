@@ -1,0 +1,48 @@
+Restaurant (has_many reviews)
+- Name
+- Address
+- Email
+- Phone (can't get from burrp spam free)
+- Opening Hours
+- Cost
+- Buffet
+- Description 
+- Food Type
+- Ambiance
+
+Sub Models
+	Highlights
+	Cuisines or Meal type
+	Brunch (Extra Info)
+	Facilities (like a/c, parking etc)
+----------------------
+
+Review (belongs_to user and restaurant, has_many comments)
+- Title
+- Description
+- Rating
+- Created At
+- Helpful/Thank (boolean)
+- Innacurate (boolean)
+- Spam (boolean)
+
+	Comment (belongs_to reviews)
+		- Description
+		- review_id
+-------------------------
+User (has_many reviews and comments, belongs to city)
+- username
+- Name
+- Email
+- Phone
+- City
+- Joined Date
+- Badge
+
+Sub Models
+	- Follow/Followers
+	- Favorites
+	- Wishlist
+------------------------
+City (has many restaurants and users)
+- Name
