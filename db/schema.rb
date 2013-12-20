@@ -16,18 +16,22 @@ ActiveRecord::Schema.define(:version => 20131216104507) do
   create_table "restaurants", :force => true do |t|
     t.string   "name"
     t.string   "address"
+    t.string   "phone"
+    t.string   "zomato_url"
+    t.string   "burrp_url"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
 
   create_table "reviews", :force => true do |t|
     t.string   "title"
-    t.string   "desc"
+    t.text     "desc"
     t.string   "source"
-    t.datetime "created_at",    :null => false
+    t.datetime "review_created_at"
+    t.datetime "created_at",        :null => false
     t.string   "author"
     t.integer  "restaurant_id"
-    t.datetime "updated_at",    :null => false
+    t.datetime "updated_at",        :null => false
   end
 
 end

@@ -3,7 +3,9 @@ class CreateRestaurants < ActiveRecord::Migration
     create_table :restaurants do |t|
       t.string :name
       t.string :address
-
+      t.string :phone
+      t.string :zomato_url
+      t.string :burrp_url
       t.timestamps
     end
   end
