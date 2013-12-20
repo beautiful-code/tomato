@@ -1,0 +1,52 @@
+%div.row
+  %p#notice
+    = notice
+  %div.row
+    %div.large-3.columns
+      %h4 Restaurant Name
+      %h5.subheader 
+        = @restaurant.name
+      %h4 Address
+      %h5.subheader
+        = @restaurant.address
+      %center
+        = link_to 'Edit', edit_restaurant_path(@restaurant),class: "button radius" 
+        &nbsp;
+        = link_to 'Back', restaurants_path,class: "button alert radius"
+      %hr
+      %center
+        %h4 New Review
+        = link_to 'Write',new_restaurant_review_path, class: "button success radius"
+      %hr 
+      %center
+        %h4 Other Sources
+        = link_to 'Zomato Reviews',zomato_restaurant_reviews_path(@restaurant), class: "button radius"
+
+    %div.large-9.columns  
+      %h4
+        Burrp Reviews
+      %div{ style: "float:right"}
+        = paginate @reviews
+      %br
+      %br
+      %table
+        %thead
+          %th{width:'120'}
+            %h6 Author
+          %th{width:'400'}
+            %h6 Desc
+          %th
+          %th
+
+        -@reviews.each do |review| 
+          %tr
+            %td 
+              = review.author 
+            %td 
+              = review.desc 
+            %td 
+              = link_to 'Show', restaurant_review_path(@restaurant,review),class: "small button radius" 
+            %td 
+              = link_to 'Destroy', restaurant_review_path(@restaurant,review), method: :delete, data: { confirm: 'Are you sure?' },class: "small button alert radius" 
+    %hr
+
