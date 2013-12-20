@@ -31,26 +31,26 @@
       %br
       %table
         %thead
-          %th{width:'120'}
-            %h6 Author
-          %th{width:'300'}
+          %th
             %h6 Desc
-          %th
-            %h6 Date
-          %th
-          %th
+          %th{width:'150'}
+            %h6 Additional Info
 
         -@reviews.each do |review| 
           %tr
+            %td
+              %h6
+                = review.title 
+              = review.desc
             %td 
-              = review.author 
-            %td 
-              = review.desc 
-            %td 
-              = review.review_created_at
-            %td 
+              %h6 Author:
+              = review.author
+              %br
+              %h6 Created Date:
+              = review.review_created_at.to_date
+              %br
+              %br
               = link_to 'Show', restaurant_review_path(@restaurant,review),class: "small button radius" 
-            %td 
               = link_to 'Destroy', restaurant_review_path(@restaurant,review), method: :delete, data: { confirm: 'Are you sure?' },class: "small button alert radius" 
     %hr
-
+    
