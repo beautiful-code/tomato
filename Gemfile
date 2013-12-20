@@ -3,6 +3,7 @@ source 'https://rubygems.org'
 gem 'rails', '3.2.14'
 gem 'mysql2'
 gem 'haml'
+gem 'kaminari'
 
 #CSS Framework
 gem 'zurb-foundation'
