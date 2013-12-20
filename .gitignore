@@ -9,7 +9,7 @@
 .idea
 # Ignore the default SQLite database.
 /db/*.sqlite3
-
+vendor
 # Ignore all logfiles and tempfiles.
 /log/*.log
 /tmp
