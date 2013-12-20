@@ -9,7 +9,7 @@
       %h4 Address
       %h5.subheader
         = @restaurant.address
-      %hr  
+ 
       %center
         = link_to 'Edit', edit_restaurant_path(@restaurant),class: "button radius" 
         &nbsp;
@@ -18,10 +18,18 @@
       %center
         %h4 New Review
         = link_to 'Write',new_restaurant_review_path, class: "button success radius"
-      %hr 
+      %hr
+      %center
+        %h4 Other Sources
+        = link_to 'Burrp Reviews',burrp_restaurant_reviews_path(@restaurant), class: "button radius"
+
     %div.large-9.columns  
       %h4
         Zomato Reviews
+      %div{ style: "float:right"}
+        = paginate @reviews
+      %br
+      %br
       %table
         %thead
           %th{width:'120'}
@@ -41,5 +49,5 @@
               = link_to 'Show', restaurant_review_path(@restaurant,review),class: "small button radius" 
             %td 
               = link_to 'Destroy', restaurant_review_path(@restaurant,review), method: :delete, data: { confirm: 'Are you sure?' },class: "small button alert radius" 
-
-
+    %hr
+    

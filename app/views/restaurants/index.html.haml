@@ -1,33 +1,38 @@
 %div.row
-  %div.large-10.columns
+  %div.large-12.columns
     %h3
       Restaurants
-
+    %div{ style: "float:right"}
+      = paginate @restaurants
     %table
       %tr
         %th{width:'200'}
           %h4 Name
-        %th{width:'200'}
+        %th{width:'400'}
           %h4 Address
-        %th{width:'80'}
-        %th{width:'80'}
-        %th{width:'80'}
+        %th{width:'200'}
+          %h4 Phone  
+        %th
+        %th
+        %th
       
-
       -@restaurants.each do |restaurant|
         %tr
           %td 
             %h4.subheader
-              = restaurant.name
+              = link_to restaurant.name,restaurant_path(restaurant)
           %td
             %h4.subheader 
               = restaurant.address
+          %td
+            %h4.subheader 
+              = restaurant.phone              
           %td 
-            = link_to 'Show', restaurant, class: "small button success radius"
+            = link_to 'Show', restaurant, class: "small button success radius", style: "margin:10px;"
           %td 
-            = link_to 'Edit', edit_restaurant_path(restaurant), class: "small button radius"
+            = link_to 'Edit', edit_restaurant_path(restaurant), class: "small button radius", style: "margin:10px;"
           %td 
-            = link_to 'Destroy', restaurant, method: :delete, data: { confirm: 'Are you sure?' }, class: "small button alert radius"
+            = link_to 'Destroy', restaurant, method: :delete, data: { confirm: 'Are you sure?' }, class: "small button alert radius", style: "margin:10px;"
       
     %br
     = link_to 'New Restaurant', new_restaurant_path, class: "button radius" 

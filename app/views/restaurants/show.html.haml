@@ -2,45 +2,26 @@
   %p#notice
     = notice
   %div.row
-    %div.large-3.columns
+    %div.large-5.columns
       %h4 Restaurant Name
       %h5.subheader 
         = @restaurant.name
       %h4 Address
       %h5.subheader
         = @restaurant.address
-      %hr  
       %center
         = link_to 'Edit', edit_restaurant_path(@restaurant),class: "button radius" 
         &nbsp;
-        = link_to 'Back', restaurants_path,class: "button alert radius"
-      %hr
-      %h4 New Review
-      = render 'reviews/form'
-      %hr 
-    %div.large-9.columns  
+        = link_to 'Back', restaurants_path,class: "button alert radius"      
+    %div.large-3.columns  
       %h4
         Reviews
-      %table
-        %thead
-          %th{width:'280'}
-            %h6  Title
-          %th{width:'280'}
-            %h6 Desc
-          %th{width:'60'}
-            %h6 Author
-          %th
-          %th
-        -@reviews.each do |review| 
-          %tr
-            %td
-              = review.title 
-            %td 
-              = review.desc 
-            %td 
-              = review.author 
-            %td 
-              = link_to 'Show', restaurant_review_path(@restaurant,review),class: "small button radius" 
-            %td 
-              = link_to 'Destroy', restaurant_review_path(@restaurant,review), method: :delete, data: { confirm: 'Are you sure?' },class: "small button alert radius" 
-
+      = link_to 'Zomato Reviews',zomato_restaurant_reviews_path(@restaurant),class: "large button radius", style: "width:250px" 
+      %br
+      = link_to 'Burrp Reviews',burrp_restaurant_reviews_path(@restaurant),class: "large button success radius" , style: "width:250px"
+    %hr
+  %div.row  
+    %div.large-7.columns
+      %h4 New Review
+      = render 'reviews/form'
+  %hr
