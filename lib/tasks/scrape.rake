@@ -65,7 +65,8 @@ namespace :burrp do
 			count = (doc.at_css(".count").text[/[0-9]+/].to_i)/10
 		
 			1.upto(count) do |c|
-				url = "http://hyderabad.burrp.com/listing/barbeque-nation_banjara-hills_hyderabad_restaurants/138686871__UR__reviews?page=#{c}"
+				url = "#{restaurant.burrp_url}?page=#{c}"
+				puts url
 				doc = Nokogiri::HTML(open(url))
 				doc.css(".estab_review").each do |s|
 					@review = restaurant.reviews.build

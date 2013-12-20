@@ -8,12 +8,14 @@ class ReviewsController < ApplicationController
   def zomato
     @restaurant = Restaurant.find(params[:restaurant_id])
     @reviews = @restaurant.reviews.find_all_by_source('Zomato')
+    @reviews.sort_by! {|review| review.review_created_at }
     @reviews = Kaminari.paginate_array(@reviews).page(params[:page]).per(4)
   end
 
   def burrp
     @restaurant = Restaurant.find(params[:restaurant_id])
     @reviews = @restaurant.reviews.find_all_by_source('Burrp')
+    @reviews.sort_by! {|review| review.review_created_at }
     @reviews = Kaminari.paginate_array(@reviews).page(params[:page]).per(4)
   end
 

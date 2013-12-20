@@ -34,8 +34,10 @@
         %thead
           %th{width:'120'}
             %h6 Author
-          %th{width:'400'}
+          %th{width:'300'}
             %h6 Desc
+          %th
+            %h6 Date
           %th
           %th
 
@@ -45,6 +47,8 @@
               = review.author 
             %td 
               = review.desc 
+            %td 
+              = review.review_created_at
             %td 
               = link_to 'Show', restaurant_review_path(@restaurant,review),class: "small button radius" 
             %td 
