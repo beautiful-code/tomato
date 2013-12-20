@@ -19,8 +19,9 @@ ActiveRecord::Schema.define(:version => 20131216104507) do
     t.string   "phone"
     t.string   "zomato_url"
     t.string   "burrp_url"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "last_fetched_at"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
   end
 
   create_table "reviews", :force => true do |t|
@@ -28,10 +29,11 @@ ActiveRecord::Schema.define(:version => 20131216104507) do
     t.text     "desc"
     t.string   "source"
     t.datetime "review_created_at"
-    t.datetime "created_at",        :null => false
+    t.datetime "created_at",                                       :null => false
     t.string   "author"
+    t.decimal  "rating",            :precision => 10, :scale => 0
     t.integer  "restaurant_id"
-    t.datetime "updated_at",        :null => false
+    t.datetime "updated_at",                                       :null => false
   end
 
 end

@@ -19,6 +19,18 @@
           = f.label :address, class: 'right inline'
         %div.small-9.columns
           = f.text_area :address, rows: "30"
+        %div.small-3.columns
+          = f.label :phone, class: 'right inline'
+        %div.small-9.columns
+          = f.text_field :phone
+        %div.small-3.columns
+          = f.label :zomato_url, class: 'right inline'
+        %div.small-9.columns
+          = f.text_field :zomato_url
+        %div.small-3.columns
+          = f.label :burrp_url, class: 'right inline'
+        %div.small-9.columns
+          = f.text_field :burrp_url
         %div.small-9.columns
           = f.submit :Save, class: 'button success radius'
   

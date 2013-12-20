@@ -7,6 +7,7 @@ class CreateReviews < ActiveRecord::Migration
       t.datetime :review_created_at
       t.datetime :created_at
       t.string :author
+      t.decimal :rating
       t.references :restaurant
       t.timestamps
     end

@@ -8,20 +8,35 @@
         = @restaurant.name
       %h4 Address
       %h5.subheader
-        = @restaurant.address
+        = @restaurant.address   
+    %div.large-7.columns 
+      %h4 URL's:
+      %h6 Zomato URL
+      %h6.subheader
+        = @restaurant.zomato_url
+      %h6 Burrp URL
+      %h6.subheader
+        = @restaurant.burrp_url 
       %center
         = link_to 'Edit', edit_restaurant_path(@restaurant),class: "button radius" 
         &nbsp;
         = link_to 'Back', restaurants_path,class: "button alert radius"      
-    %div.large-3.columns  
+    %hr
+  %div.row  
+    %div.large-4.columns
+      %h4 New Review
+      = render 'reviews/form'
+    %div.large-7.columns
       %h4
         Reviews
       = link_to 'Zomato Reviews',zomato_restaurant_reviews_path(@restaurant),class: "large button radius", style: "width:250px" 
       %br
       = link_to 'Burrp Reviews',burrp_restaurant_reviews_path(@restaurant),class: "large button success radius" , style: "width:250px"
-    %hr
-  %div.row  
-    %div.large-7.columns
-      %h4 New Review
-      = render 'reviews/form'
+
   %hr
+
+
+
+
+
+
