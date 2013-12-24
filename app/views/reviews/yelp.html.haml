@@ -1,0 +1,56 @@
+%div.row{ style: "max-width:80em;margin-left:30px;margin-right:30px;"}
+  %p#notice
+    = notice
+  %div.row
+    %div.large-2.columns
+      %h4 Restaurant Name
+      %h5.subheader 
+        = @restaurant.name
+      %h4 Address
+      %h5.subheader
+        = @restaurant.address
+      %center
+        = link_to 'Edit', edit_restaurant_path(@restaurant),class: "button radius" 
+        &nbsp;
+        = link_to 'Back', restaurants_path,class: "button alert radius"
+      %hr
+      %center
+        %h4 New Review
+        = link_to 'Write',new_restaurant_review_path, class: "button success radius"
+      %hr 
+      %center
+        %h4 Other Sources
+        = link_to 'Zomato Reviews',zomato_restaurant_reviews_path(@restaurant), class: "button radius"
+        = link_to 'Burrp Reviews',burrp_restaurant_reviews_path(@restaurant), class: "button radius"
+
+    %div.large-10.columns  
+      %h4
+        Yelp Reviews
+      %div{ style: "float:right"}
+        = paginate @reviews
+      %br
+      %br
+      %table
+        %thead
+          %th
+            %h6 Desc
+          %th{width:'150'}
+            %h6 Additional Info
+
+        -@reviews.each do |review| 
+          %tr
+            %td
+              = review.desc
+            %td 
+              %h6 Author:
+              = review.author
+              %br
+              %h6 Created Date:
+              -if review.review_created_at
+                = review.review_created_at.to_date
+              %br
+              %br
+              = link_to 'Show', restaurant_review_path(@restaurant,review),class: "small button radius" 
+              = link_to 'Destroy', restaurant_review_path(@restaurant,review), method: :delete, data: { confirm: 'Are you sure?' },class: "small button alert radius" 
+    %hr
+    
