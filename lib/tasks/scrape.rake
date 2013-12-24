@@ -102,6 +102,61 @@ namespace :burrp do
 end
 
 
+desc "Scrape Reviews from Yelp"
+namespace :yelp do
+	desc "Scrape Restaurant reviews from Burrp"
+	task :reviews => :environment do
+		require 'nokogiri'
+		require 'open-uri'
+		@restaurants = Restaurant.all
+		@restaurants.each do |restaurant|
+			restaurant.last_fetched_at||= 2.days.ago
+			if !restaurant.yelp_url.blank?
+				if restaurant.last_fetched_at < 1.day.ago
+					# url = "http://www.yelp.com/biz/portos-bakery-glendale"
+					doc = Nokogiri::HTML(open(restaurant.yelp_url, "User-Agent" => "Ruby/ruby-1.9.3-p327"))
+
+					restaurant.address = doc.css("address").text.strip
+					restaurant.phone = doc.css("#bizPhone").text.strip
+
+					rcount = doc.css(".reviews-header").text[/[0-9]+/].to_i
+					puts rcount
+
+					(880..rcount).step(40) do |page|
+						url = "#{restaurant.yelp_url}?start=#{page}"
+						doc = Nokogiri::HTML(open(url, "User-Agent" => "Ruby/ruby-1.9.3-p327"))
+						doc.css(".review").each do |r|
+							begin
+								@review = restaurant.reviews.build
+								@review.title = "Not available"
+								@review.source = "Yelp"
+								@review.author = r.css(".user-name a").text.strip
+								@review.review_created_at= r.css(".review-meta .date.smaller").text.strip
+								puts page
+								puts @review.author
+								@review.rating = r.css(".rating-container .rating i")[0]["title"].to_f
+								@review.desc = r.css(".media-story p").text.strip
+								@review.save
+							rescue
+								next
+							end
+						end
+					end
+					restaurant.last_fetched_at = Time.now
+					restaurant.save
+				else
+					puts "Reviews are fetched recently for the restaurant #{restaurant.name} !"
+				end
+			else
+				puts "This Restaurant : #{restaurant.name} is not listed on Yelp"
+			end
+		end
+	end
+end
+
+
+
+
 
 
 

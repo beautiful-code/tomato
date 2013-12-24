@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131216104507) do
+ActiveRecord::Schema.define(:version => 20131224091522) do
 
   create_table "restaurants", :force => true do |t|
     t.string   "name"
@@ -22,6 +22,7 @@ ActiveRecord::Schema.define(:version => 20131216104507) do
     t.datetime "last_fetched_at"
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
+    t.string   "yelp_url"
   end
 
   create_table "reviews", :force => true do |t|

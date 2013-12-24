@@ -20,6 +20,9 @@
       %h6 Burrp URL
       %h6.subheader
         = @restaurant.burrp_url 
+      %h6 Yelp URL
+      %h6.subheader
+        = @restaurant.yelp_url 
       %center
         = link_to 'Edit', edit_restaurant_path(@restaurant),class: "button radius" 
         &nbsp;
@@ -35,6 +38,8 @@
       = link_to 'Zomato Reviews',zomato_restaurant_reviews_path(@restaurant),class: "large button radius", style: "width:250px" 
       %br
       = link_to 'Burrp Reviews',burrp_restaurant_reviews_path(@restaurant),class: "large button success radius" , style: "width:250px"
+      %br
+      = link_to 'Yelp Reviews',yelp_restaurant_reviews_path(@restaurant),class: "large button success radius" , style: "width:250px;background-color:#F08715;border-color:#F08715;"
 
   %hr
 
