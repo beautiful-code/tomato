@@ -20,9 +20,13 @@
       %hr 
       %center
         %h4 Other Sources
-        = link_to 'Zomato Reviews',zomato_restaurant_reviews_path(@restaurant), class: "button radius"
-        = link_to 'Burrp Reviews',burrp_restaurant_reviews_path(@restaurant), class: "button radius"
-
+        -if @restaurant.zomato_url || @restaurant.burrp_url
+          -if @restaurant.zomato_url
+            = link_to 'Zomato Reviews',zomato_restaurant_reviews_path(@restaurant), class: "button radius"
+          -if @restaurant.burrp_url
+            = link_to 'Burrp Reviews',burrp_restaurant_reviews_path(@restaurant), class: "button radius"
+        -else
+          %h6 There are no other review sources for this restaurant.
     %div.large-10.columns  
       %h4
         Yelp Reviews
@@ -32,25 +36,60 @@
       %br
       %table
         %thead
-          %th
-            %h6 Desc
-          %th{width:'150'}
-            %h6 Additional Info
+          %th{width: '700'}
+            %h6 Review Description
+          %th{width: '200'}
+            %h6 Curator Notes
 
         -@reviews.each do |review| 
-          %tr
+          %tr{style: "border-bottom: 1px solid #000;display"}
             %td
               = review.desc
-            %td 
-              %h6 Author:
-              = review.author
-              %br
-              %h6 Created Date:
-              -if review.review_created_at
-                = review.review_created_at.to_date
               %br
               %br
-              = link_to 'Show', restaurant_review_path(@restaurant,review),class: "small button radius" 
-              = link_to 'Destroy', restaurant_review_path(@restaurant,review), method: :delete, data: { confirm: 'Are you sure?' },class: "small button alert radius" 
-    %hr
-    
+              %div{ style: "float:left;width:400px;"}
+                %h6.subheader
+                  Author:
+                  = review.author
+                  &nbsp; | &nbsp;
+                  Created Date:
+                  -if review.review_created_at
+                    = review.review_created_at.to_date
+              %div{ style: "float:right;width:200px;"}
+                = link_to 'Show', restaurant_review_path(@restaurant,review),class: "small button radius" 
+                = link_to 'Destroy', restaurant_review_path(@restaurant,review), method: :delete, data: { confirm: 'Are you sure?' },class: "small button alert radius"
+            %td{style: "padding:5px;"} 
+              -@notes = review.note
+              -if !@notes.nil?  
+                %b Note:
+                -if @notes.item.present? 
+                  = @notes.item
+                %br
+                %b Rating:
+                -if @notes.rating.present? 
+                  = @notes.rating
+                %br
+                %br
+                %center
+                  = link_to 'Edit', edit_restaurant_review_note_path(@restaurant,review,@notes),class: "small button radius" 
+                  = link_to 'Destroy', restaurant_review_note_path(@restaurant,review,@notes), method: :delete, data: { confirm: 'Are you sure?' },class: "small button alert radius"
+              -else
+                = form_for @note, :url => {controller: 'notes' ,:action => :create}, :html => {:method => :post} do |f|
+                  = f.label :note
+                  = f.text_area :item, style: "width:150px;height:50px;"
+                 
+                  = f.label :rating
+                  = f.text_field :rating, style: "width:80px;"
+                  %h6.subheader Rate from 1 - 5 scale
+
+                  = f.text_field :review_id, style: "width:80px;display:none;", value: review.id
+
+                  = f.submit :SaveNote , class: 'small button success radius'
+                %br
+                %br
+                %br
+      %div{ style: "float:right"}
+        = paginate @reviews
+      %br
+      %br
+      %br

@@ -3,6 +3,8 @@ class ReviewsController < ApplicationController
   def show
     @restaurant = Restaurant.find(params[:restaurant_id])
     @review = @restaurant.reviews.find(params[:id])
+    # @notes = @review.note
+    # @note = Note.new(review_id: @review.id)
   end
 
   def zomato
@@ -23,6 +25,8 @@ class ReviewsController < ApplicationController
     @restaurant = Restaurant.find(params[:restaurant_id])
     @reviews = @restaurant.reviews.where(source:'Yelp').order('review_created_at DESC')
     #@reviews.sort_by! {|review| review.review_created_at }
+    # @notes = @reviews.note
+    @note = Note.new(review_id: params[:review_id])
     @reviews = Kaminari.paginate_array(@reviews).page(params[:page]).per(4)
   end
 

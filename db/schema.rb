@@ -11,7 +11,17 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131224091522) do
+ActiveRecord::Schema.define(:version => 20131224124024) do
+
+  create_table "notes", :force => true do |t|
+    t.string   "item"
+    t.float    "rating"
+    t.integer  "review_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "notes", ["review_id"], :name => "index_notes_on_review_id"
 
   create_table "restaurants", :force => true do |t|
     t.string   "name"
