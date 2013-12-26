@@ -68,11 +68,7 @@ class ReviewsController < ApplicationController
 
   def reviews
     @notes = current_user.notes
-    @result= []
-    @notes.each do |note|
-      @result << note.review
-    end
-    @result = @result.uniq
+    @reviews = current_user.reviews;
   end
 
   def destroy

@@ -16,17 +16,14 @@
             <%= f.label :password, class:"right inline" %><br />
           </div>
           <div class="small-9 columns">
-            <%= f.password_field :password %></div>
+            <%= f.password_field :password %>
+            <br>
           </div>
+
         </div>
           <% if devise_mapping.rememberable? -%>
-            <div class="row">
-              <div class="small-3 columns">
-                <%= f.label :remember_me  %>
-              </div>
-              <div class="small-4 columns">
-                <%= f.check_box :remember_me %>
-              </div>
+            <div class="row" style="display: inline;">
+                <%= f.label :remember_me, style: "display: inline;"  %>&nbsp;&nbsp;<%= f.check_box :remember_me %>
             </div>
           <% end %>
 

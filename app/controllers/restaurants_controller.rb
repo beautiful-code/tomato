@@ -1,4 +1,5 @@
 class RestaurantsController < ApplicationController
+  before_filter :authenticate_user!
   def index
     @restaurants = Restaurant.all
     @restaurants = Kaminari.paginate_array(@restaurants).page(params[:page]).per(5)
