@@ -21,7 +21,7 @@
                 = result.desc
                 %br
                 %h6 Source:
-                = result.source
+                %hr
               %td
                 %table
                   %thead
@@ -29,7 +29,7 @@
                       %h5 Item
                     %th{width:'100'}
                       %h5 Rating
-                    %th{width:'150'}
+                    %th
                   -@notes.each do |note|
                     -if result.id == note.review_id
                       %tr
@@ -40,5 +40,5 @@
                           %font{size: "+1"}
                             = note.rating
                         %td
-                          = link_to 'Edit', '',class: "small button radius"
-                          = link_to 'Destroy', '', method: :delete, data: { confirm: 'Are you sure?' },class: "small button alert radius"
+                          = link_to 'Edit',  edit_restaurant_review_note_path(result.restaurant_id,result.id,note.id),class: "small button radius"
+                          = link_to 'Destroy', restaurant_review_note_path(result.restaurant_id,result.id,note.id), method: :delete, data: { confirm: 'Are you sure?' },class: "small button alert radius"
