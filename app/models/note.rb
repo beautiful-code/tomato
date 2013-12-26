@@ -1,4 +1,5 @@
 class Note < ActiveRecord::Base
   belongs_to :review
-  attr_accessible :item, :rating, :review_id
+  belongs_to :user
+  attr_accessible :item, :rating, :review_id, :user_id
 end

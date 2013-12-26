@@ -1,5 +1,7 @@
 Tomato::Application.routes.draw do
   
+  devise_for :users
+
   resources :restaurants do 
   	resources :reviews do 
       resources :notes ,only: [:edit,:create,:update,:new,:destroy]
@@ -7,15 +9,13 @@ Tomato::Application.routes.draw do
   			get 'zomato'
   			get 'burrp'
   			get 'yelp'
-        match "/yelp", to: "notes#create",as: :create_note
-        match "/yelp", to: "notes#destroy",as: :destroy_note
-        match "/yelp", to: "notes#edit",as: :edit_note
-        match "/yelp", to: "notes#update",as: :update_note
   		end
   	end
   end
-  
+
+  get '/users/notes', to: 'reviews#reviews'
   root :to => 'restaurants#index'
 
 
 end
+

@@ -1,0 +1,44 @@
+%div.row
+  %br
+  %h3
+    User Notes
+  %div.row
+    %div.large-12.columns
+      %table
+        %thead
+          %th{width:600}
+            %h4 Review
+          %th{width:400}
+            %h4 Notes
+        -if !@result.blank?
+          -@result.each do |result|
+            %tr
+              %td
+                %h6 Title:
+                = result.title
+                %br
+                %h6 Description:
+                = result.desc
+                %br
+                %h6 Source:
+                = result.source
+              %td
+                %table
+                  %thead
+                    %th{width:'150'}
+                      %h5 Item
+                    %th{width:'100'}
+                      %h5 Rating
+                    %th{width:'150'}
+                  -@notes.each do |note|
+                    -if result.id == note.review_id
+                      %tr
+                        %td
+                          %font{size: "+1"}
+                            = note.item
+                        %td
+                          %font{size: "+1"}
+                            = note.rating
+                        %td
+                          = link_to 'Edit', '',class: "small button radius"
+                          = link_to 'Destroy', '', method: :delete, data: { confirm: 'Are you sure?' },class: "small button alert radius"

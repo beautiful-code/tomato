@@ -25,4 +25,13 @@
       %ul.left
         %li
           =link_to 'Restaurants',restaurants_path
+  %div.row
+    -if notice
+      %p.notice.data-alert.alert-box.info.radius
+        = notice
+        = link_to raw('&times;'),"#", class: "close"
+    -if alert
+      %p.alert.data-alert.alert-box.error.radius
+        = notice
+        = link_to raw('&times;'),"#", class: "close"
   = yield 

@@ -4,6 +4,7 @@ gem 'rails', '3.2.14'
 gem 'mysql2'
 gem 'haml'
 gem 'kaminari'
+gem 'devise'
 
 #CSS Framework
 gem 'zurb-foundation'

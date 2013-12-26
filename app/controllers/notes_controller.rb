@@ -1,4 +1,5 @@
 class NotesController < ApplicationController
+
 	# def index
 	#  @restaurant = Restaurant.find(params[:restaurant_id])
  #    @review = @restaurant.reviews.find(params[:review_id])

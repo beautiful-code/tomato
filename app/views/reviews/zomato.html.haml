@@ -62,8 +62,9 @@
                 = link_to 'Destroy', restaurant_review_path(@restaurant,review), method: :delete, data: { confirm: 'Are you sure?' },class: "small button alert radius"
             %td{style: "padding:5px;"} 
               -@notes = review.notes
-              %table{ border: 0}
-                -if !@notes.blank?
+              -if !@notes.blank?
+                %table{ border: 0}
+
                   %tr
                     %th Item
                     %th Rating
@@ -75,26 +76,25 @@
                       %td
                         = note.rating
                       %td
-                        = link_to 'Edit', edit_restaurant_review_note_path(@restaurant,review,@notes),class: "small button radius"
-                        = link_to 'Destroy', restaurant_review_note_path(@restaurant,review,@notes), method: :delete, data: { confirm: 'Are you sure?' },class: "small button alert radius"
-                  %tr
-                    %center
-                      = link_to 'Add a Note', new_restaurant_review_note_path(@restaurant,review), class: "small button radius"
-                -else
-                  = form_for @note, :url => {controller: 'notes' ,:action => :create}, :html => {:method => :post} do |f|
-                    = f.label :item
-                    = f.text_area :item, style: "width:150px;height:50px;"
+                        = link_to 'Edit', edit_restaurant_review_note_path(@restaurant,review,note),class: "small button radius"
+                        = link_to 'Destroy', restaurant_review_note_path(@restaurant,review,note), method: :delete, data: { confirm: 'Are you sure?' },class: "small button alert radius"
+                %center
+                  = link_to 'Add a Note', new_restaurant_review_note_path(@restaurant,review), class: "small button radius"
+              -else
+                = form_for @note, :url => {controller: 'notes' ,:action => :create}, :html => {:method => :post} do |f|
+                  = f.label :item
+                  = f.text_area :item, style: "width:150px;height:50px;"
 
-                    = f.label :rating
-                    = f.text_field :rating, style: "width:80px;"
-                    %h6.subheader Rate from 1 - 5 scale
+                  = f.label :rating
+                  = f.text_field :rating, style: "width:80px;"
+                  %h6.subheader Rate from 1 - 5 scale
 
-                    = f.text_field :review_id, style: "width:80px;display:none;", value: review.id
+                  = f.text_field :review_id, style: "width:80px;display:none;", value: review.id
 
-                    = f.submit :SaveNote , class: 'small button success radius'
-                  %br
-                  %br
-                  %br
+                  = f.submit :SaveNote , class: 'small button success radius'
+                %br
+                %br
+                %br
       %div{ style: "float:right"}
         = paginate @reviews
       %br

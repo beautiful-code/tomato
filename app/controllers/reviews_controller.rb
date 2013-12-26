@@ -1,9 +1,9 @@
 class ReviewsController < ApplicationController
-
+  before_filter :authenticate_user!
   def show
     @restaurant = Restaurant.find(params[:restaurant_id])
     @review = @restaurant.reviews.find(params[:id])
-    # @notes = @review.note
+    @notes = @review.notes
     # @note = Note.new(review_id: @review.id)
   end
 
@@ -50,7 +50,7 @@ class ReviewsController < ApplicationController
     if @review.save
       redirect_to([@restaurant,@review], notice: 'Review was successfully created.') 
     else
-      render action: "new"
+      render action: 'new'
     end
   end
 
@@ -61,17 +61,25 @@ class ReviewsController < ApplicationController
     if @review.update_attributes(params[:review])
       redirect_to([@restaurant,@review], notice: 'Review was successfully updated.') 
     else
-      render action: "edit" 
+      render action: 'edit'
     end
 
   end
 
+  def reviews
+    @notes = current_user.notes
+    @result= []
+    @notes.each do |note|
+      @result << note.review
+    end
+    @result = @result.uniq
+  end
 
   def destroy
     @review = Review.find(params[:id])
     @review.destroy
 
-    flash[:notice] = "Successfully deleted the review."
+    flash[:notice] = 'Successfully deleted the review.'
     redirect_to restaurant_path(@review.restaurant_id)
   end
 end

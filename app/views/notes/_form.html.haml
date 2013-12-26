@@ -5,5 +5,5 @@
   = f.label :rating
   = f.text_field :rating, style: "width:80px;"
 
-
+  = f.text_field :user_id, style: "width:80px;display:none;", value: current_user.id
   = f.submit :Save, class: 'small button success radius'

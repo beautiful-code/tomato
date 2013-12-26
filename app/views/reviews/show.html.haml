@@ -1,8 +1,12 @@
-%div.row
-  %p#notice
-    = notice
+
 %div.row
   %div.large-6.columns
+    %br
+    %h4
+      = link_to @restaurant.name, restaurant_path(@restaurant)
+    %h5.subheader
+      = @restaurant.address
+    %br
     %h5 Title:
     %h5.subheader  
       = @review.title 
@@ -18,6 +22,30 @@
     %h5 Author
     %h5.subheader 
       = @review.author
+    %h5 Rating
+    %h5.subheader
+      = @review.rating
     %hr
     = link_to 'Edit', edit_restaurant_review_path(@restaurant,@review),class: "button radius" 
     = link_to 'Back', restaurant_path(@restaurant),class: "button alert radius"
+  %div.large-6.columns
+    %br
+    %h4 Curator Notes
+    %table
+      %thead
+        %th Item
+        %th Rating
+        %th
+      -@notes.each do |note|
+        %tr
+          %td
+            = note.item
+          %td
+            = note.rating
+          %td
+            = link_to 'Edit', edit_restaurant_review_note_path(@restaurant,@review,note),class: "small button radius"
+            = link_to 'Destroy', restaurant_review_note_path(@restaurant,@review,note), method: :delete, data: { confirm: 'Are you sure?' },class: "small button alert radius"
+
+    %div{ style: "float:left;width:300px;"}
+      %center
+        = link_to 'Add a Note', new_restaurant_review_note_path(@restaurant,@review), class: "small button radius"
