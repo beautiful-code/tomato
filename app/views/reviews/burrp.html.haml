@@ -1,8 +1,10 @@
-%div.row
-  %p#notice
-    = notice
+%div.row{ style: "max-width:80em;margin-left:30px;margin-right:30px;"}
+  -if notice
+    %p#notice.data-alert.alert-box.info.radius
+      = notice
+      = link_to raw('&times;'),"#", class: "close"
   %div.row
-    %div.large-3.columns
+    %div.large-2.columns
       %h4 Restaurant Name
       %h5.subheader 
         = @restaurant.name
@@ -20,9 +22,14 @@
       %hr 
       %center
         %h4 Other Sources
-        = link_to 'Zomato Reviews',zomato_restaurant_reviews_path(@restaurant), class: "button radius"
-
-    %div.large-9.columns  
+        -if @restaurant.zomato_url || @restaurant.burrp_url
+          -if @restaurant.zomato_url
+            = link_to 'Zomato Reviews',zomato_restaurant_reviews_path(@restaurant), class: "button radius"
+          -if @restaurant.burrp_url
+            = link_to 'Burrp Reviews',burrp_restaurant_reviews_path(@restaurant), class: "button radius"
+        -else
+          %h6 There are no other review sources for this restaurant.
+    %div.large-10.columns  
       %h4
         Burrp Reviews
       %div{ style: "float:right"}
@@ -31,26 +38,65 @@
       %br
       %table
         %thead
-          %th
-            %h6 Desc
-          %th{width:'150'}
-            %h6 Additional Info
+          %th{width: '750'}
+            %h6 Review Description
+          %th{width: '250'}
+            %h6 Curator Notes
 
         -@reviews.each do |review| 
-          %tr
+          %tr{style: "border-bottom: 1px solid #000;display"}
             %td
-              %h6
-                = review.title 
               = review.desc
-            %td 
-              %h6 Author:
-              = review.author
-              %br
-              %h6 Created Date:
-              = review.review_created_at.to_date
               %br
               %br
-              = link_to 'Show', restaurant_review_path(@restaurant,review),class: "small button radius" 
-              = link_to 'Destroy', restaurant_review_path(@restaurant,review), method: :delete, data: { confirm: 'Are you sure?' },class: "small button alert radius" 
-    %hr
-    
+              %div{ style: "float:left;width:400px;"}
+                %h6.subheader
+                  Author:
+                  = review.author
+                  &nbsp; | &nbsp;
+                  Created Date:
+                  -if review.review_created_at
+                    = review.review_created_at.to_date
+              %div{ style: "float:right;width:200px;"}
+                = link_to 'Show', restaurant_review_path(@restaurant,review),class: "small button radius" 
+                = link_to 'Destroy', restaurant_review_path(@restaurant,review), method: :delete, data: { confirm: 'Are you sure?' },class: "small button alert radius"
+            %td{style: "padding:5px;"} 
+              -@notes = review.notes
+              %table{ border: 0}
+                -if !@notes.blank?
+                  %tr
+                    %th Item
+                    %th Rating
+                    %th
+                  -@notes.each do |note|
+                    %tr
+                      %td
+                        = note.item
+                      %td
+                        = note.rating
+                      %td
+                        = link_to 'Edit', edit_restaurant_review_note_path(@restaurant,review,@notes),class: "small button radius"
+                        = link_to 'Destroy', restaurant_review_note_path(@restaurant,review,@notes), method: :delete, data: { confirm: 'Are you sure?' },class: "small button alert radius"
+                  %tr
+                    %center
+                      = link_to 'Add a Note', new_restaurant_review_note_path(@restaurant,review), class: "small button radius"
+                -else
+                  = form_for @note, :url => {controller: 'notes' ,:action => :create}, :html => {:method => :post} do |f|
+                    = f.label :item
+                    = f.text_area :item, style: "width:150px;height:50px;"
+
+                    = f.label :rating
+                    = f.text_field :rating, style: "width:80px;"
+                    %h6.subheader Rate from 1 - 5 scale
+
+                    = f.text_field :review_id, style: "width:80px;display:none;", value: review.id
+
+                    = f.submit :SaveNote , class: 'small button success radius'
+                  %br
+                  %br
+                  %br
+      %div{ style: "float:right"}
+        = paginate @reviews
+      %br
+      %br
+      %br

@@ -7,8 +7,8 @@ class NotesController < ApplicationController
 
   def new
     @restaurant = Restaurant.find(params[:restaurant_id])
-    @review =@restaurant.reviews.find(params[:note][:review_id])
-    @note = @review.build_note
+    @review =@restaurant.reviews.find(params[:review_id])
+    @note = @review.notes.build
   end
   
   def edit
@@ -28,8 +28,8 @@ class NotesController < ApplicationController
 
   def create
     @restaurant = Restaurant.find(params[:restaurant_id])
-    @review = @restaurant.reviews.find(params[:note][:review_id])
-    @note = @review.build_note(params[:note])
+    @review = @restaurant.reviews.find(params[:review_id])
+    @note = @review.notes.build(params[:note])
     if @note.save
       redirect_to yelp_restaurant_reviews_path, notice: 'Note was successfully created.' 
     else
