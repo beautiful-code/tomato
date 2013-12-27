@@ -30,9 +30,10 @@ class NotesController < ApplicationController
   def create
     @restaurant = Restaurant.find(params[:restaurant_id])
     @review = @restaurant.reviews.find(params[:review_id])
+    params[:note][:user_id] = current_user.id
     @note = @review.notes.build(params[:note])
     if @note.save
-      redirect_to restaurant_review_path(params[:restaurant_id],params[:review_id]), notice: 'Note was successfully created.'
+      render :partial => 'reviews/notes', :locals => {:notes => @review.notes}
     else
       render notice: 'Unsuccessful !'
     end

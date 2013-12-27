@@ -13,6 +13,8 @@ class ReviewsController < ApplicationController
     #@reviews.sort_by! {|review| review.review_created_at }
     @note = Note.new(review_id: params[:review_id])
     @reviews = Kaminari.paginate_array(@reviews).page(params[:page]).per(4)
+
+    render 'source_reviews'
   end
 
   def burrp
@@ -21,6 +23,8 @@ class ReviewsController < ApplicationController
     #@reviews.sort_by! {|review| review.review_created_at }
     @note = Note.new(review_id: params[:review_id])
     @reviews = Kaminari.paginate_array(@reviews).page(params[:page]).per(4)
+
+    render 'source_reviews'
   end
 
   def yelp
@@ -30,6 +34,8 @@ class ReviewsController < ApplicationController
     # @notes = @reviews.note
     @note = Note.new(review_id: params[:review_id])
     @reviews = Kaminari.paginate_array(@reviews).page(params[:page]).per(4)
+
+    render 'source_reviews'
   end
 
   def new

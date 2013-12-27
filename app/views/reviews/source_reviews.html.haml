@@ -1,0 +1,45 @@
+#source_reviews.row
+  .large-2.columns
+    = render 'restaurant_info'
+  .large-10.columns
+    %h4
+      Yelp Reviews
+    .page-numbers
+      = paginate @reviews
+
+
+    - @reviews.each do |review|
+      .row.review{:class => cycle('odd', 'even')}
+        .large-8.columns
+          %p= review.desc
+          %div
+            %span.subheader
+              Author:
+              = review.author
+              |
+              - if review.review_created_at.present?
+                Created Date:
+                = review.review_created_at.to_date
+              = link_to 'Show', restaurant_review_path(@restaurant,review)
+
+        .large-4.columns
+          .notes-container{id: "notes_container_#{review.id}"}
+            .review-notes= render :partial => 'notes', :locals => {:notes => review.notes}
+
+            %center
+              = button_tag 'Add a Note', class: "small button radius add-note"
+              = form_for [@restaurant,review,@note], html: { class: 'note-form',id:"note_form_#{review.id}" } do |f|
+                = f.label :item
+                = f.text_field :item
+
+                = f.label :rating
+                = f.text_field :rating
+                %h6.subheader Rate from 1 - 5 scale
+
+
+                = f.submit :SaveNote , class: 'small button success save-button radius'
+                = button_tag 'Cancel', class: "small button radius cancel-button alert"
+
+    .page-numbers
+      = paginate @reviews
+

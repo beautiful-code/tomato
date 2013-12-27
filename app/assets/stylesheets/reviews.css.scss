@@ -1,3 +1,26 @@
-// Place all the styles related to the Reviews controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+
+
+#source_reviews {
+  h4 {
+    display:inline-block;
+    margin-bottom: 10px;
+  }
+  .page-numbers {
+    margin: 5px;
+    float:right;
+  }
+
+  .review {
+    padding: 10px;
+  }
+
+  .even {
+    background-color: #ddd;
+  }
+
+  form.note-form {
+    display:none;
+    button.cancel-button {
+    }
+  }
+}
