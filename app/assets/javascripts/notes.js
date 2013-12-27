@@ -119,6 +119,11 @@ $(document).ready(function () {
                     $this.find('.add-note').show();
                 };
 
+                $this.showNotes = function(data) {
+                    $this.find('.review-notes').html(data);
+                };
+
+
 
                 $this.find('.add-note').click(function(event) {
                    event.preventDefault();
@@ -146,13 +151,10 @@ $(document).ready(function () {
                         data: data
 
                     }).done(function (data) {
-                        $this.find('.review-notes').html(data);
-
+                        $this.showNotes(data);
                         $this.clearForm();
                         $this.hideForm();
                         $this.showAddButton();
-
-
 
                     }).fail(function() {
                       alert('Note creation failed.');
