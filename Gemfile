@@ -31,6 +31,7 @@ group :development do
   # Deploy with Capistrano
   gem 'capistrano'
   gem 'capistrano-ext'
+  gem 'capistrano-utils'
   gem 'capistrano-unicorn', require: false, github: "synctree/capistrano-unicorn", branch: "v0.1.6.1"
   gem 'rvm-capistrano'
   # To use debugger

@@ -12,6 +12,9 @@
     "mysql": {
       "locked_version": "3.0.4"
     },
+    "database": {
+      "locked_version": "1.5.2"
+    },
     "tomato": {
       "path": "./cookbooks/tomato"
     },
@@ -43,6 +46,15 @@
       "locked_version": "1.1.12"
     },
     "openssl": {
+      "locked_version": "1.1.0"
+    },
+    "postgresql": {
+      "locked_version": "3.2.0"
+    },
+    "aws": {
+      "locked_version": "1.0.0"
+    },
+    "xfs": {
       "locked_version": "1.1.0"
     }
   }

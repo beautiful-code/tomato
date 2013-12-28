@@ -23,6 +23,7 @@ test:
 production:
   adapter: mysql2
   host: localhost
-  database: tomato_database_production
+  database: tomato_production
+  password: password
   pool: 5
   timeout: 5000

@@ -20,3 +20,10 @@ include_recipe "nginx"
 include_recipe "git"
 include_recipe "mysql::server"
 include_recipe "mysql"
+include_recipe "database::mysql"
+
+# create a mysql database
+mysql_database 'tomato_production' do
+  connection ({:host => "localhost", :username => 'root', :password => node['mysql']['server_root_password']})
+  action :create
+end
