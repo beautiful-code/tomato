@@ -13,3 +13,5 @@ vendor
 # Ignore all logfiles and tempfiles.
 /log/*.log
 /tmp
+*.swp
+*.swo
