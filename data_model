@@ -45,5 +45,4 @@ Sub Models
 	- Wishlist
 ------------------------
 City (has many restaurants and users)
-- Name
-Pradeep says hi
+Ravi says hi
