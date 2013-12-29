@@ -46,5 +46,5 @@ Sub Models
 ------------------------
 City (has many restaurants and users)
 Ravi says hi
-Pradeep says hi
 LNR says hi
+Pradeep also says hi
