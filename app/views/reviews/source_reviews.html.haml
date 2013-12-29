@@ -24,11 +24,11 @@
 
         .large-4.columns
           .notes-container{id: "notes_container_#{review.id}"}
-            .review-notes= render :partial => 'notes', :locals => {:notes => review.notes}
+            .review-notes= render :partial => 'notes', :locals => {:notes => review.get_notes(current_user) }
 
             %center
               = button_tag 'Add a Note', class: "small button radius add-note"
-              = form_for [@restaurant,review,@note], html: { class: 'note-form',id:"note_form_#{review.id}" } do |f|
+              = form_for [@restaurant,review,Note.new], html: { class: 'note-form',id:"note_form_#{review.id}" } do |f|
                 = f.label :item
                 = f.text_field :item
 

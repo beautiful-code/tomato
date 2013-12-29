@@ -33,7 +33,7 @@ class NotesController < ApplicationController
     params[:note][:user_id] = current_user.id
     @note = @review.notes.build(params[:note])
     if @note.save
-      render :partial => 'reviews/notes', :locals => {:notes => @review.notes}
+      render :partial => 'reviews/notes', :locals => {:notes => @review.get_notes(current_user)}
     else
       render notice: 'Unsuccessful !'
     end
@@ -41,8 +41,9 @@ class NotesController < ApplicationController
 
   def destroy
     @note = Note.find(params[:id])
+    @review = Review.find(params[:review_id])
+    @restaurant = Restaurant.find(params[:restaurant_id])
     @note.destroy
-
-    redirect_to restaurant_review_path(params[:restaurant_id],params[:review_id]), notice: 'Successfully deleted the note.'
+    render :partial => 'reviews/notes', :locals => {:notes => @review.get_notes(current_user)}
   end
 end

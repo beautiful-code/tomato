@@ -10,8 +10,6 @@ class ReviewsController < ApplicationController
   def zomato
     @restaurant = Restaurant.find(params[:restaurant_id])
     @reviews = @restaurant.reviews.where(source:'Zomato').order('review_created_at DESC')
-    #@reviews.sort_by! {|review| review.review_created_at }
-    @note = Note.new(review_id: params[:review_id])
     @reviews = Kaminari.paginate_array(@reviews).page(params[:page]).per(4)
 
     render 'source_reviews'
@@ -20,8 +18,6 @@ class ReviewsController < ApplicationController
   def burrp
     @restaurant = Restaurant.find(params[:restaurant_id])
     @reviews = @restaurant.reviews.where(source:'Burrp').order('review_created_at DESC')
-    #@reviews.sort_by! {|review| review.review_created_at }
-    @note = Note.new(review_id: params[:review_id])
     @reviews = Kaminari.paginate_array(@reviews).page(params[:page]).per(4)
 
     render 'source_reviews'
@@ -30,9 +26,6 @@ class ReviewsController < ApplicationController
   def yelp
     @restaurant = Restaurant.find(params[:restaurant_id])
     @reviews = @restaurant.reviews.where(source:'Yelp').order('review_created_at DESC')
-    #@reviews.sort_by! {|review| review.review_created_at }
-    # @notes = @reviews.note
-    @note = Note.new(review_id: params[:review_id])
     @reviews = Kaminari.paginate_array(@reviews).page(params[:page]).per(4)
 
     render 'source_reviews'

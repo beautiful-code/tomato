@@ -151,15 +151,28 @@ $(document).ready(function () {
                         data: data
 
                     }).done(function (data) {
+
                         $this.showNotes(data);
+
                         $this.clearForm();
-                        $this.hideForm();
-                        $this.showAddButton();
+
 
                     }).fail(function() {
                       alert('Note creation failed.');
                     });
                 });
+
+                $this.on('click','.delete-note', function(event){
+                    event.preventDefault();
+                    var url = $this.find('.delete-note').attr('href')
+                    $.ajax({
+                      type: 'DELETE',
+                      url: url
+                    }).done(function(data){
+                        $this.showNotes(data);
+                    });
+                });
+
 
 
             });
