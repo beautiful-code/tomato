@@ -28,34 +28,42 @@ namespace :zomato do
 		@restaurants = Restaurant.all
 		@restaurants.each do |restaurant|
 			restaurant.last_fetched_at||= 2.days.ago
-			if restaurant.last_fetched_at < 1.day.ago	
-				doc = Nokogiri::HTML(open(restaurant.zomato_url))
-				restaurant.name = doc.at_css(".res-main-name span").text.strip 
-				restaurant.phone = doc.at_css("#phoneNoString .alpha").text.strip 
-				restaurant.address = doc.at_css(".res-main-address-text").text.strip 
-				
-				puts "Fetching reviews for #{restaurant.name}"
-				doc.css("#my-reviews-container .item-to-hide-parent").each do |a|
-					@review = restaurant.reviews.build
-					@review.title = "No Title for Zomato"
-					@review.source = "Zomato"
-					@review.author = a.at_css(".user-snippet-name").text.strip
-					t =  a.at_css("time").text.split.first.to_i
-					if t == 0
-						time = 1.month.ago
-					else
-						time = t.months.ago
-					end
-					@review.rating = a.at_css(".small-rating").text.strip.to_f
-					@review.review_created_at = time
-					@review.desc = a.at_css("p").text.strip
-					@review.save
-				end
-				restaurant.last_fetched_at = Time.now
-				restaurant.save
-			else
-				puts "Reviews are fetched recently for the restaurant #{restaurant.name} !"
-			end
+      if !restaurant.zomato_url.blank?
+        if restaurant.last_fetched_at < 1.day.ago
+          doc = Nokogiri::HTML(open(restaurant.zomato_url))
+          restaurant.name = doc.at_css(".res-main-name span").text.strip
+          restaurant.phone = doc.at_css("#phoneNoString .alpha").text.strip
+          restaurant.address = doc.at_css(".res-main-address-text").text.strip
+
+          puts "Fetching reviews for #{restaurant.name}"
+          doc.css("#my-reviews-container .item-to-hide-parent").each do |a|
+            begin
+              @review = restaurant.reviews.build
+              @review.title = "No Title for Zomato"
+              @review.source = "Zomato"
+              @review.author = a.at_css(".user-snippet-name").text.strip
+              t =  a.at_css("time").text.split.first.to_i
+              if t == 0
+                time = 1.month.ago
+              else
+                time = t.months.ago
+              end
+              @review.rating = a.at_css(".small-rating").text.strip.to_f
+              @review.review_created_at = time
+              @review.desc = a.at_css("p").text.strip
+              @review.save
+            rescue
+              next
+            end
+          end
+          restaurant.last_fetched_at = Time.now
+          restaurant.save
+        else
+          puts "Reviews are fetched recently for the restaurant #{restaurant.name} !"
+        end
+      else
+        puts "This Restaurant : #{restaurant.name} is not listed on Zomato"
+      end
 		end
 	end
 end
@@ -69,34 +77,46 @@ namespace :burrp do
 		@restaurants = Restaurant.all
 		@restaurants.each do |restaurant|
 			restaurant.last_fetched_at||= 2.days.ago
-			if restaurant.last_fetched_at < 1.day.ago
-				doc = Nokogiri::HTML(open(restaurant.burrp_url))
-				num_reviews = doc.at_css(".count").text[/[0-9]+/].to_i
+      if !restaurant.burrp_url.blank?
+        if restaurant.last_fetched_at < 1.day.ago
+          doc = Nokogiri::HTML(open(restaurant.burrp_url))
+          num_reviews = doc.at_css(".count").text[/[0-9]+/].to_i
 
-				puts "Fetching reviews (#{num_reviews}) for #{restaurant.name}"
-				num_pages = (num_reviews)/10
-			
-				1.upto(num_pages) do |c|
-					url = "#{restaurant.burrp_url}?page=#{c}"
-					doc = Nokogiri::HTML(open(url))
-					doc.css(".estab_review").each do |s|
-						@review = restaurant.reviews.build
-						@review.title = s.at_css(".summary").text.strip	
-						@review.source = "Burrp"
-						@review.author = s.at_css(".reviewer").text.strip
-						time = s.at_css(".float_r.grey").text.strip
-						time = (Date.parse(time)).to_time
-						@review.review_created_at = time
-						@review.rating = s.css(".smallRating span")[0]['title']
-						@review.desc = s.at_css(".float_r+ div , h3+ div span").text.strip
-					    @review.save
-					end
-				end
-				restaurant.last_fetched_at = Time.now
-				restaurant.save
-			else
-				puts "Reviews are fetched recently for the restaurant #{restaurant.name} !"
-			end
+          puts "Fetching reviews (#{num_reviews}) for #{restaurant.name}"
+          num_pages = (num_reviews)/10
+
+          count = 0
+
+          1.upto(num_pages) do |c|
+            url = "#{restaurant.burrp_url}?page=#{c}"
+            doc = Nokogiri::HTML(open(url))
+            doc.css(".estab_review").each do |s|
+              begin
+                @review = restaurant.reviews.build
+                @review.title = s.at_css(".summary").text.strip
+                @review.source = "Burrp"
+                @review.author = s.at_css(".reviewer").text.strip
+                time = s.at_css(".float_r.grey").text.strip
+                time = (Date.parse(time)).to_time
+                @review.review_created_at = time
+                @review.rating = s.css(".smallRating span")[0]['title']
+                @review.desc = s.at_css(".float_r+ div , h3+ div span").text.strip
+                @review.save
+                count +=1
+              rescue
+                next
+              end
+            end
+          end
+          restaurant.last_fetched_at = Time.now
+          restaurant.save
+          puts "#{count} reviews fetched out of #{rcount} !"
+        else
+          puts "Reviews are fetched recently for the restaurant #{restaurant.name} !"
+        end
+      else
+        puts "This Restaurant : #{restaurant.name} is not listed on Burrp"
+      end
 		end
 	end
 end
@@ -113,16 +133,17 @@ namespace :yelp do
 			restaurant.last_fetched_at||= 2.days.ago
 			if !restaurant.yelp_url.blank?
 				if restaurant.last_fetched_at < 1.day.ago
-					# url = "http://www.yelp.com/biz/portos-bakery-glendale"
 					doc = Nokogiri::HTML(open(restaurant.yelp_url, "User-Agent" => "Ruby/ruby-1.9.3-p327"))
 
 					restaurant.address = doc.css("address").text.strip
 					restaurant.phone = doc.css("#bizPhone").text.strip
 
 					rcount = doc.css(".reviews-header").text[/[0-9]+/].to_i
-					puts rcount
+          puts "Fetching (#{rcount}) reviews for #{restaurant.name}"
 
-					(880..rcount).step(40) do |page|
+          count = 0
+
+					(0..rcount).step(40) do |page|
 						url = "#{restaurant.yelp_url}?start=#{page}"
 						doc = Nokogiri::HTML(open(url, "User-Agent" => "Ruby/ruby-1.9.3-p327"))
 						doc.css(".review").each do |r|
@@ -132,11 +153,10 @@ namespace :yelp do
 								@review.source = "Yelp"
 								@review.author = r.css(".user-name a").text.strip
 								@review.review_created_at= r.css(".review-meta .date.smaller").text.strip
-								puts page
-								puts @review.author
 								@review.rating = r.css(".rating-container .rating i")[0]["title"].to_f
 								@review.desc = r.css(".media-story p").text.strip
 								@review.save
+                count +=1
 							rescue
 								next
 							end
@@ -144,6 +164,7 @@ namespace :yelp do
 					end
 					restaurant.last_fetched_at = Time.now
 					restaurant.save
+          puts "#{count} reviews fetched out of #{rcount} !"
 				else
 					puts "Reviews are fetched recently for the restaurant #{restaurant.name} !"
 				end
