@@ -11,13 +11,13 @@ development:
   pool: 5
   timeout: 5000
 
-#development:
-#  adapter: mysql2
-#  host: 54.254.137.190
-#  database: tomato_production
-#  password: password
-#  pool: 5
-#  timeout: 5000
+prod_development:
+  adapter: mysql2
+  host: 54.254.137.190
+  database: tomato_production
+  password: password
+  pool: 5
+  timeout: 5000
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
