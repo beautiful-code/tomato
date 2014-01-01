@@ -27,8 +27,6 @@
       %span
         = @review.rating
       |
-      = link_to 'Edit', edit_admin_restaurant_review_path(@restaurant,@review)
-      |
       = link_to 'Back', admin_restaurant_path(@restaurant)
     %hr
 .row
@@ -53,9 +51,3 @@
                 = note.rating
               %td
                 = link_to 'Destroy', admin_restaurant_review_note_path(@restaurant,@review,note),class: 'delete-note', method: :delete, data: { confirm: 'Are you sure?' }
-
-    -#%div{ style: "float:left;width:300px;"}
-    -#  %center
-    -#    = link_to 'Add a Note', new_restaurant_review_note_path(@restaurant,@review)
-
-

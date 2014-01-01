@@ -1,4 +1,5 @@
 class Admin::RestaurantsController < ApplicationController
+  before_filter :set_admin
   before_filter :authenticate_user!
   before_filter :authenticate_admin!
 
@@ -12,6 +13,8 @@ class Admin::RestaurantsController < ApplicationController
     @restaurant = Restaurant.find(params[:id])
     @reviews = @restaurant.reviews
     @review = Review.new(restaurant_id: @restaurant.id)
+
+    render 'restaurants/show'
   end
 
   def new
@@ -54,5 +57,4 @@ class Admin::RestaurantsController < ApplicationController
     def admin?
       current_user.has_role? :admin
     end
-
 end

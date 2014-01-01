@@ -44,6 +44,7 @@ class Admin::NotesController < ApplicationController
     @review = Review.find(params[:review_id])
     @restaurant = Restaurant.find(params[:restaurant_id])
     @note.destroy
-    render :partial => 'admin/reviews/notes', :locals => {:notes => @review.get_notes(current_user)}
+
+    redirect_to request.referrer
   end
 end

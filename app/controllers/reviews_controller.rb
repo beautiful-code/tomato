@@ -11,6 +11,7 @@ class ReviewsController < ApplicationController
     @reviews = @restaurant.reviews.where(source:'Zomato').order('review_created_at DESC')
     @reviews = Kaminari.paginate_array(@reviews).page(params[:page]).per(4)
 
+    @source = 'zomato'
     render 'source_reviews'
   end
 
@@ -19,6 +20,7 @@ class ReviewsController < ApplicationController
     @reviews = @restaurant.reviews.where(source:'Burrp').order('review_created_at DESC')
     @reviews = Kaminari.paginate_array(@reviews).page(params[:page]).per(4)
 
+    @source = 'burrp'
     render 'source_reviews'
   end
 
@@ -27,6 +29,7 @@ class ReviewsController < ApplicationController
     @reviews = @restaurant.reviews.where(source:'Yelp').order('review_created_at DESC')
     @reviews = Kaminari.paginate_array(@reviews).page(params[:page]).per(4)
 
+    @source = 'yelp'
     render 'source_reviews'
   end
 

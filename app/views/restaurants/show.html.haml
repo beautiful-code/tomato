@@ -27,7 +27,7 @@
         %h6.subheader
           = @restaurant.yelp_url 
       %center
-        = link_to 'Edit', edit_restaurant_path(@restaurant),class: "button radius" 
+        = link_to 'Edit', (@admin ? edit_admin_restaurant_path(@restaurant) : edit_restaurant_path(@restaurant))
         &nbsp;
         = link_to 'Back', restaurants_path,class: "button alert radius"      
     %hr
@@ -39,13 +39,13 @@
       %h4
         Reviews
       -if @restaurant.zomato_url
-        = link_to 'Zomato Reviews',zomato_restaurant_reviews_path(@restaurant),class: "large button radius", style: "width:250px" 
+        = link_to 'Zomato Reviews',(@admin ? zomato_admin_restaurant_reviews_path(@restaurant) : zomato_restaurant_reviews_path(@restaurant)),class: "large button radius", style: "width:250px" 
         %br
       -if @restaurant.burrp_url
-        = link_to 'Burrp Reviews',burrp_restaurant_reviews_path(@restaurant),class: "large button success radius" , style: "width:250px"
+        = link_to 'Burrp Reviews',(@admin ? burrp_admin_restaurant_reviews_path(@restaurant) : burrp_restaurant_reviews_path(@restaurant)),class: "large button success radius" , style: "width:250px"
         %br
       -if @restaurant.yelp_url
-        = link_to 'Yelp Reviews',yelp_restaurant_reviews_path(@restaurant),class: "large button success radius" , style: "width:250px;background-color:#F08715;border-color:#F08715;"
+        = link_to 'Yelp Reviews',(@admin ? yelp_admin_restaurant_reviews_path(@restaurant) : yelp_restaurant_reviews_path(@restaurant)),class: "large button success radius" , style: "width:250px;background-color:#F08715;border-color:#F08715;"
 
   %hr
 

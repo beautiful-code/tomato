@@ -9,6 +9,8 @@ gem 'rolify'
 #CSS Framework
 gem 'zurb-foundation'
 
+gem 'narray'
+
 #Scrapers
 gem 'nokogiri'
 gem 'faraday'

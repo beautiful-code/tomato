@@ -99,6 +99,7 @@ GEM
     multi_json (1.8.2)
     multipart-post (1.2.0)
     mysql2 (0.3.14)
+    narray (0.6.0.8)
     net-scp (1.1.2)
       net-ssh (>= 2.6.5)
     net-sftp (2.1.2)
@@ -186,6 +187,7 @@ DEPENDENCIES
   jquery-rails
   kaminari
   mysql2
+  narray
   nokogiri
   rails (= 3.2.14)
   rolify

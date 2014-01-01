@@ -25,15 +25,10 @@
                 = link_to 'Sign Out', destroy_user_session_path, method: :delete
       %ul.left
         -if user_signed_in?
-          -if current_user.has_role? :admin
-            %li
-              =link_to 'Restaurants',admin_restaurants_path
-          -else
-            %li
-              =link_to 'Restaurants',admin_restaurants_path
-
-        %li
-          = link_to 'User Notes',users_notes_path
+          %li
+            =link_to 'Restaurants',restaurants_path
+          %li
+            = link_to 'User Notes',users_notes_path
   %div.row
     -if flash[:notice]
       %p.notice.data-alert.alert-box.info.radius{style: 'background-color:#5CB250;border-color:#5CB250;'}

@@ -1,5 +1,5 @@
 class Admin::ReviewsController < ApplicationController
-
+  before_filter :set_admin
   before_filter :authenticate_user!
   before_filter :authenticate_admin!
 
@@ -14,7 +14,8 @@ class Admin::ReviewsController < ApplicationController
     @reviews = @restaurant.reviews.where(source:'Zomato').order('review_created_at DESC')
     @reviews = Kaminari.paginate_array(@reviews).page(params[:page]).per(4)
 
-    render 'source_reviews'
+    @source = 'zomato'
+    render 'reviews/source_reviews'
   end
 
   def burrp
@@ -22,7 +23,8 @@ class Admin::ReviewsController < ApplicationController
     @reviews = @restaurant.reviews.where(source:'Burrp').order('review_created_at DESC')
     @reviews = Kaminari.paginate_array(@reviews).page(params[:page]).per(4)
 
-    render 'source_reviews'
+    @source = 'burrp'
+    render 'reviews/source_reviews'
   end
 
   def yelp
@@ -30,7 +32,8 @@ class Admin::ReviewsController < ApplicationController
     @reviews = @restaurant.reviews.where(source:'Yelp').order('review_created_at DESC')
     @reviews = Kaminari.paginate_array(@reviews).page(params[:page]).per(4)
 
-    render 'source_reviews'
+    @source = 'yelp'
+    render 'reviews/source_reviews'
   end
 
   def new

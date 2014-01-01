@@ -1,9 +1,9 @@
 #source_reviews.row
   .large-2.columns
-    = render 'restaurant_info'
+    = render 'reviews/restaurant_info'
   .large-10.columns
     %h4
-      Yelp Reviews
+      = "#{@source.capitalize} Reviews"
     .page-numbers
       = paginate @reviews
 
@@ -20,25 +20,25 @@
               - if review.review_created_at.present?
                 Created Date:
                 = review.review_created_at.to_date
-              = link_to 'Show', restaurant_review_path(@restaurant,review)
+              = link_to 'Show', (@admin ? admin_restaurant_review_path(@restaurant,review) : restaurant_review_path(@restaurant,review))
 
         .large-4.columns
           .notes-container{id: "notes_container_#{review.id}"}
-            .review-notes= render :partial => 'notes', :locals => {:notes => review.get_notes(current_user) }
+            .review-notes= render :partial => 'reviews/notes', :locals => {:notes => review.get_notes(current_user) }
 
-            %center
-              = button_tag 'Add a Note', class: "small button radius add-note"
-              = form_for [@restaurant,review,Note.new], html: { class: 'note-form',id:"note_form_#{review.id}" } do |f|
-                = f.label :item
-                = f.text_field :item
+            - unless @admin
+              %center
+                = button_tag 'Add a Note', class: "small button radius add-note"
+                = form_for [@restaurant,review,Note.new], html: { class: 'note-form',id:"note_form_#{review.id}" } do |f|
+                  = f.label :item
+                  = f.text_field :item
 
-                = f.label :rating
-                = f.text_field :rating
-                %h6.subheader Rate from 1 - 5 scale
+                  = f.label :rating
+                  = f.text_field :rating
+                  %h6.subheader Rate from 1 - 5 scale
 
-
-                = f.submit :SaveNote , class: 'small button success save-button radius'
-                = button_tag 'Cancel', class: "small button radius cancel-button alert"
+                  = f.submit :SaveNote , class: 'small button success save-button radius'
+                  = button_tag 'Cancel', class: "small button radius cancel-button alert"
 
     .page-numbers
       = paginate @reviews

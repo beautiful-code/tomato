@@ -43,7 +43,6 @@
           %td
             = note.rating
           %td
-            = link_to 'Edit', edit_restaurant_review_note_path(@restaurant,@review,note),class: "small button radius"
             = link_to 'Destroy', restaurant_review_note_path(@restaurant,@review,note), method: :delete, data: { confirm: 'Are you sure?' },class: "small button alert radius"
 
     %div{ style: "float:left;width:300px;"}

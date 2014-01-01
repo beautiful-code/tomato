@@ -162,6 +162,7 @@ $(document).ready(function () {
                     });
                 });
 
+/*
                 $this.on('click','.delete-note', function(event){
                     event.preventDefault();
                     var url = $this.find('.delete-note').attr('href')
@@ -172,6 +173,7 @@ $(document).ready(function () {
                         $this.showNotes(data);
                     });
                 });
+*/
 
 
 

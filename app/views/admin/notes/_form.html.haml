@@ -1,9 +1,0 @@
-= form_for [:admin,@restaurant,@review,@note], :html => { :multipart => true } do |f|
-  = f.label :item
-  = f.text_area :item, style: "width:150px;height:50px;"
- 
-  = f.label :rating
-  = f.text_field :rating, style: "width:80px;"
-
-  = f.text_field :user_id, style: "width:80px;display:none;", value: current_user.id
-  = f.submit :Save, class: 'small button success radius'
