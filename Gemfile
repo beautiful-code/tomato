@@ -10,6 +10,7 @@ gem 'rolify'
 gem 'zurb-foundation'
 
 gem 'narray'
+gem 'similar_text'
 
 #Scrapers
 gem 'nokogiri'

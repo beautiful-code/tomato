@@ -94,9 +94,11 @@ class NArray
 end
 
 
+=begin
 
 strings = ['ravi', 'bhim', 'rowdyb']
 strings = []
 strings = ['ravi', 'rowdy', 'rock', 'guava-strudel', 'guava strudel', 'ravi', 'raavi', 'potato balls', 'potato sandwich', 'foo', 'bar']
 # strings = ['ravi', 'rowdy', 'rock']
 puts Util.cluster(strings)
+=end

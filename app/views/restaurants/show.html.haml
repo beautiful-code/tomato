@@ -35,9 +35,8 @@
     %div.large-4.columns
       %h4 New Review
       = render 'reviews/form'
-    %div.large-7.columns
-      %h4
-        Reviews
+
+      %h4 Reviews
       -if @restaurant.zomato_url
         = link_to 'Zomato Reviews',(@admin ? zomato_admin_restaurant_reviews_path(@restaurant) : zomato_restaurant_reviews_path(@restaurant)),class: "large button radius", style: "width:250px" 
         %br
@@ -46,11 +45,14 @@
         %br
       -if @restaurant.yelp_url
         = link_to 'Yelp Reviews',(@admin ? yelp_admin_restaurant_reviews_path(@restaurant) : yelp_restaurant_reviews_path(@restaurant)),class: "large button success radius" , style: "width:250px;background-color:#F08715;border-color:#F08715;"
-
-  %hr
-
-
-
-
-
-
+    - if @admin
+      %div.large-8.columns
+        %h4 Clusters
+        %table
+          %thead
+            %td Label
+            %td Cluster
+          - @restaurant.clusters.each do |cluster|
+            %tr
+              %td= @restaurant.cluster_label(cluster)
+              %td= cluster.join(', ')
