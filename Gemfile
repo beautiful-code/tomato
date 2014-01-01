@@ -37,6 +37,7 @@ group :development do
   gem 'capistrano-utils'
   gem 'capistrano-unicorn', require: false, github: "synctree/capistrano-unicorn", branch: "v0.1.6.1"
   gem 'rvm-capistrano'
-  # To use debugger
-  gem 'debugger'
 end
+
+# To use debugger
+gem 'debugger'
