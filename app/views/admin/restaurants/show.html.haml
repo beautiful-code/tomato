@@ -1,0 +1,56 @@
+%div.row
+  %p#notice
+    = notice
+  %div.row
+    %div.large-5.columns
+      %h4 Restaurant Name
+      %h5.subheader 
+        = @restaurant.name
+      %h4 Address
+      %h5.subheader
+        = @restaurant.address  
+      %h4 Phone
+      %h5.subheader
+        = @restaurant.phone   
+    %div.large-7.columns 
+      %h4 URL's:
+      -if @restaurant.zomato_url?
+        %h6 Zomato URL
+        %h6.subheader
+          = @restaurant.zomato_url
+      -if @restaurant.burrp_url?
+        %h6 Burrp URL
+        %h6.subheader
+          = @restaurant.burrp_url 
+      -if @restaurant.yelp_url?
+        %h6 Yelp URL
+        %h6.subheader
+          = @restaurant.yelp_url 
+      %center
+        = link_to 'Edit', edit_admin_restaurant_path(@restaurant)
+        &nbsp;
+        = link_to 'Back', admin_restaurants_path
+    %hr
+  %div.row  
+    %div.large-4.columns
+      %h4 New Review
+      = render 'admin/reviews/form'
+    %div.large-7.columns
+      %h4
+        Reviews
+      -if @restaurant.zomato_url?
+        = link_to 'Zomato Reviews',zomato_admin_restaurant_reviews_path(@restaurant),class: "button radius", style: "width:200px"
+        %br
+      -if @restaurant.burrp_url?
+        = link_to 'Burrp Reviews',burrp_admin_restaurant_reviews_path(@restaurant),class: "button success radius" , style: "width:200px"
+        %br
+      -if @restaurant.yelp_url?
+        = link_to 'Yelp Reviews',yelp_admin_restaurant_reviews_path(@restaurant),class: "button success radius" , style: "width:200px;background-color:#F08715;border-color:#F08715;"
+
+  %hr
+
+
+
+
+
+

@@ -136,6 +136,7 @@ GEM
     rake (10.1.0)
     rdoc (3.12.2)
       json (~> 1.4)
+    rolify (3.2.0)
     rvm-capistrano (1.5.1)
       capistrano (~> 2.15.4)
     sass (3.2.12)
@@ -187,6 +188,7 @@ DEPENDENCIES
   mysql2
   nokogiri
   rails (= 3.2.14)
+  rolify
   rvm-capistrano
   sass-rails (~> 3.2.3)
   uglifier (>= 1.0.3)

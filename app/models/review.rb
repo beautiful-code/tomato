@@ -7,4 +7,6 @@ class Review < ActiveRecord::Base
   def get_notes(current_user)
     notes.where(:user_id => current_user.id)
   end
+
+
 end

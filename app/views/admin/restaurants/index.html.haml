@@ -1,0 +1,40 @@
+%div.row
+  %div.large-12.columns
+    %h3
+      Restaurants
+    %div
+      %table
+        %tr
+          %th{width:'200'}
+            %h4 Name
+          %th{width:'400'}
+            %h4 Address
+          %th{width:'200'}
+            %h4 Phone
+          %th
+          %th
+          %th
+
+        -@restaurants.each do |restaurant|
+          %tr
+            %td
+              %h4.subheader
+                = link_to restaurant.name,admin_restaurant_path(restaurant)
+            %td
+              %h4.subheader
+                = restaurant.address
+            %td
+              %h4.subheader
+                = restaurant.phone
+            %td
+              = link_to 'Show', admin_restaurant_path(restaurant)
+            %td
+              = link_to 'Edit', edit_admin_restaurant_path(restaurant)
+            %td
+              = link_to 'Destroy', admin_restaurant_path(restaurant), method: :delete, data: { confirm: 'Are you sure?' }
+
+      %br
+      = link_to 'Add a New Restaurant', new_admin_restaurant_path
+      %div{style: "float:right"}
+        = paginate @restaurants
+        %br

@@ -1,9 +1,12 @@
-class ReviewsController < ApplicationController
+class Admin::ReviewsController < ApplicationController
+
   before_filter :authenticate_user!
+  before_filter :authenticate_admin!
+
   def show
     @restaurant = Restaurant.find(params[:restaurant_id])
     @review = @restaurant.reviews.find(params[:id])
-    @notes = @review.get_notes(current_user)
+    @users = @review.notes.select('distinct(user_id)').collect {|user_entry| User.find(user_entry.user_id) }
   end
 
   def zomato
@@ -46,7 +49,7 @@ class ReviewsController < ApplicationController
     @review = @restaurant.reviews.build(params[:review])
 
     if @review.save
-      redirect_to([@restaurant,@review], notice: 'Review was successfully created.') 
+      redirect_to(admin_restaurant_review_path(@restaurant,@review), notice: 'Review was successfully created.')
     else
       render action: 'new'
     end
@@ -57,7 +60,7 @@ class ReviewsController < ApplicationController
     @review = @restaurant.reviews.find(params[:id])
 
     if @review.update_attributes(params[:review])
-      redirect_to([@restaurant,@review], notice: 'Review was successfully updated.') 
+      redirect_to(admin_restaurant_review_path(@restaurant,@review), notice: 'Review was successfully updated.')
     else
       render action: 'edit'
     end
@@ -73,6 +76,17 @@ class ReviewsController < ApplicationController
     @review.destroy
 
     flash[:notice] = 'Successfully deleted the review.'
-    redirect_to restaurant_path(@review.restaurant_id)
+    redirect_to admin_restaurant_path(@review.restaurant_id)
   end
+
+
+  private
+    def authenticate_admin!
+      redirect_to root_path, alert: "Admin area restricted !"  unless admin?
+    end
+
+    def admin?
+      current_user.has_role? :admin
+    end
+
 end

@@ -1,0 +1,14 @@
+%h5.name
+  = @restaurant.name
+%center
+  = link_to 'Write Review',new_admin_restaurant_review_path, class: "small button success radius"
+%hr
+%center
+  %h4 Other Sources
+  -if @restaurant.zomato_url? || @restaurant.burrp_url?
+    -if @restaurant.zomato_url?
+      = link_to 'Zomato Reviews',zomato_restaurant_reviews_path(@restaurant)
+    -if @restaurant.burrp_url?
+      = link_to 'Burrp Reviews',burrp_restaurant_reviews_path(@restaurant)
+  -else
+    %h6 There are no other review sources for this restaurant.

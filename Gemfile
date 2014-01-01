@@ -5,7 +5,7 @@ gem 'mysql2'
 gem 'haml'
 gem 'kaminari'
 gem 'devise'
-
+gem 'rolify'
 #CSS Framework
 gem 'zurb-foundation'
 
