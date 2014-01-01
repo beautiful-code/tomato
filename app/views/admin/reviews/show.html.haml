@@ -31,7 +31,19 @@
     %hr
 .row
   .large-12.columns
-    %br
+    %h4 Consolidated Notes
+    %table
+      %thead
+        %th Item
+        %th Rating
+      - @review.consolidated_notes.each do |k,v|
+        %tr
+          %td= k
+          %td= v
+
+
+.row
+  .large-12.columns
     %h4 Curator Notes
     - @users.each do |user|
       .large-4.columns
@@ -45,9 +57,6 @@
           -notes = @review.get_notes(user)
           -notes.each do |note|
             %tr
-              %td
-                = note.item
-              %td
-                = note.rating
-              %td
-                = link_to 'Destroy', admin_restaurant_review_note_path(@restaurant,@review,note),class: 'delete-note', method: :delete, data: { confirm: 'Are you sure?' }
+              %td= note.item
+              %td= note.rating
+              %td= link_to 'Destroy', admin_restaurant_review_note_path(@restaurant,@review,note),class: 'delete-note', method: :delete, data: { confirm: 'Are you sure?' }

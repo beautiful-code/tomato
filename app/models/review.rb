@@ -8,5 +8,21 @@ class Review < ActiveRecord::Base
     notes.where(:user_id => current_user.id)
   end
 
+  # Consolidates all the users notes
+  def consolidated_notes
+    ret = {}
+
+    notes.each do |note|
+      ret[note.item] ||=[]
+      ret[note.item] << note.rating
+    end
+
+    ret.each do |k, v|
+      ret[k] = v.inject(:+)/v.size
+    end
+    
+    ret
+  end
+
 
 end
