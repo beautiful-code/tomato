@@ -1,7 +1,9 @@
+=begin
 require 'rubygems'
 require 'narray'
 require 'similar_text'
 require 'debugger'
+=end
 
 class Util
   SimilarityThreshold = 80
