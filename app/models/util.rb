@@ -19,7 +19,7 @@ class Util
       end
     end
 
-    matrix.print_matrix
+    #matrix.print_matrix
 
     for x in 0..dim-1
       for y in x+1..dim-1
