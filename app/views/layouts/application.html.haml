@@ -37,13 +37,13 @@
                 %li
                   = link_to 'Restaurants', admin_restaurants_path
 
-  %div.row
+  .row
     -if flash[:notice]
-      %p.notice.data-alert.alert-box.info.radius{style: 'background-color:#5CB250;border-color:#5CB250;'}
+      %p.notice.data-alert.alert-box.info.radius
         = flash[:notice]
         = link_to raw('&times;'),"#", class: "close"
     -if flash[:alert]
-      %p.alert.data-alert.alert-box.error.radius{style: 'background-color: #FF5C60;border-color:#FF5C60;'}
+      %p.alert.data-alert.alert-box.error.radius
         = flash[:alert]
         = link_to raw('&times;'),"#", class: "close"
   = yield 

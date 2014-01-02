@@ -4,8 +4,7 @@ class Admin::RestaurantsController < ApplicationController
   before_filter :authenticate_admin!
 
   def index
-    @restaurants = Restaurant.all
-    @restaurants = Kaminari.paginate_array(@restaurants).page(params[:page]).per(5)
+    @restaurants = Restaurant.page(params[:page]).per(5)
     @review = Review.new
     render 'restaurants/index'
   end
@@ -20,10 +19,12 @@ class Admin::RestaurantsController < ApplicationController
 
   def new
     @restaurant = Restaurant.new
+    render 'restaurants/new'
   end
 
   def edit
     @restaurant = Restaurant.find(params[:id])
+    render 'restaurants/edit'
   end
 
   def create
@@ -38,7 +39,7 @@ class Admin::RestaurantsController < ApplicationController
   def update
     @restaurant = Restaurant.find(params[:id])
     if @restaurant.update_attributes(params[:restaurant])
-      redirect_to admin_restaurant_path(@restaurant), notice: 'Restaurant was successfully updated.'
+      redirect_to request.referer, notice: 'Restaurant was successfully updated.'
     else
       render action: "edit"
     end
@@ -47,7 +48,7 @@ class Admin::RestaurantsController < ApplicationController
   def destroy
     @restaurant = Restaurant.find(params[:id])
     @restaurant.destroy
-    redirect_to admin_restaurants_path
+    redirect_to request.referer
   end
 
   private

@@ -1,4 +1,4 @@
-#restaurant_index {
+#restaurant {
   .paginate {
     margin:5px;
     float:right;
@@ -13,8 +13,13 @@
     display: block;
   }
   .other {
-    width:250px;
     background-color:#F08715 !important;
     border-color:#F08715 !important;
+  }
+  .name {
+    width:200px;
+  }
+  .address {
+    width: 400px;
   }
 }

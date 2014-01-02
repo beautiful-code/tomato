@@ -1,5 +1,5 @@
-%div.row
-  %div.large-12.columns
+.row
+  .large-12.columns
     %br
     %h4
       = link_to @restaurant.name, admin_restaurant_path(@restaurant)
@@ -48,4 +48,4 @@
         %table
           %h5
             = user.email
-          = render :partial => 'reviews/notes', :locals => {:notes => @review.get_notes(user)}
+          = render :partial => 'reviews/notes', :locals => {:notes => @review.get_notes(user), :restaurant => @restaurant}

@@ -3,8 +3,8 @@
     %h3
       Editing restaurant
 
-    = render 'form'
-    = link_to '< Back', request.referer
+    = render 'restaurants/form'
+    = link_to '< Back', (@admin ? admin_restaurants_path : restaurants_path)
     |
-    = link_to 'Show', @restaurant
+    = link_to 'Show', (@admin ? admin_restaurant_path(@restaurant) : restaurant_path(@restaurant))
    

@@ -1,0 +1,26 @@
+.row
+  %h3
+    User Notes
+  .row
+    .large-12.columns
+      %table
+        %thead
+          %th
+            %h4 Review
+          %th
+            %h4 Notes
+        -if !@reviews.blank?
+          -@reviews.each do |review|
+            %tr
+              %td
+                %h6
+                  = link_to review.restaurant.name, restaurant_path(review.restaurant_id)
+                %h6 Title:
+                = review.title
+                %h6 Description:
+                = review.desc
+                %h6 Source:
+                = review.source
+
+              %td
+                = render :partial => 'reviews/notes', :locals => {:notes => review.get_notes(current_user), :restaurant =>review.restaurant }

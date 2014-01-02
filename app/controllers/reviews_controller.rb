@@ -7,27 +7,21 @@ class ReviewsController < ApplicationController
 
   def zomato
     @restaurant = Restaurant.find(params[:restaurant_id])
-    @reviews = @restaurant.reviews.where(source:'Zomato').order('review_created_at DESC')
-    @reviews = Kaminari.paginate_array(@reviews).page(params[:page]).per(4)
-
+    @reviews = @restaurant.reviews.where(source:'Zomato').order('review_created_at DESC').page(params[:page]).per(4)
     @source = 'zomato'
     render 'source_reviews'
   end
 
   def burrp
     @restaurant = Restaurant.find(params[:restaurant_id])
-    @reviews = @restaurant.reviews.where(source:'Burrp').order('review_created_at DESC')
-    @reviews = Kaminari.paginate_array(@reviews).page(params[:page]).per(4)
-
+    @reviews = @restaurant.reviews.where(source:'Burrp').order('review_created_at DESC').page(params[:page]).per(4)
     @source = 'burrp'
     render 'source_reviews'
   end
 
   def yelp
     @restaurant = Restaurant.find(params[:restaurant_id])
-    @reviews = @restaurant.reviews.where(source:'Yelp').order('review_created_at DESC')
-    @reviews = Kaminari.paginate_array(@reviews).page(params[:page]).per(4)
-
+    @reviews = @restaurant.reviews.where(source:'Yelp').order('review_created_at DESC').page(params[:page]).per(4)
     @source = 'yelp'
     render 'source_reviews'
   end
@@ -66,7 +60,7 @@ class ReviewsController < ApplicationController
 
   end
 
-  def reviews
+  def user_notes
     @reviews = current_user.reviews;
   end
 

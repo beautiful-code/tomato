@@ -1,32 +1,33 @@
 #source_reviews.row
-  .large-6.columns
-    %h4
-      = link_to @restaurant.name, restaurant_path(@restaurant)
-    %h5.subheader
-      = @restaurant.address
-    %h5 Title:
-    %h5.subheader  
-      = @review.title 
-    %h5 Description
-    %h5.subheader 
-      = @review.desc
-    %h5.subheader
-      Source :
-      = @review.source
-      |
-      Created at :
-      = @review.created_at
-    %h5.subheader
-      Author :
-      = @review.author
-      |
-      Rating :
-      .rating
-        = @review.rating
+  .large-12.columns
+    .large-8.columns
+      %h4
+        = link_to @restaurant.name, restaurant_path(@restaurant)
+      %h5 Title:
+      %h5.subheader
+        = @review.title
+      %h5 Description
+      %h5.subheader
+        = @review.desc
+      %h5.subheader
+        Source :
+        = @review.source
+        |
+        Created at :
+        = @review.created_at
+      %h5.subheader
+        Author :
+        = @review.author
+        |
+        Rating :
+        .rating
+          = @review.rating
 
-    = link_to 'Edit', edit_restaurant_review_path(@restaurant,@review),class: "small button radius"
-    = link_to 'Back', restaurant_path(@restaurant),class: "small button alert radius"
-  %div.large-6.columns
-    %h4 Curator Notes
-    = render partial: 'reviews/notes', locals: {:notes => @review.get_notes(current_user)}
-    = link_to 'Add a Note', new_restaurant_review_note_path(@restaurant,@review), class: "small button radius"
+      = link_to 'Edit', edit_restaurant_review_path(@restaurant,@review)
+      |
+      = link_to 'Back', restaurant_path(@restaurant)
+    .large-4.columns
+      %h4 Curator Notes
+      = render partial: 'reviews/notes', locals: {:notes => @review.get_notes(current_user)}
+      .add-note
+        = link_to 'Add Note', new_restaurant_review_note_path(@restaurant,@review), class: "small button radius"

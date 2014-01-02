@@ -17,15 +17,19 @@
               Author:
               = review.author
               |
-              - if review.review_created_at.present?
-                Created At:
-                = review.review_created_at.to_date
+              Rating :
+              .rating
+                = review.rating
               |
-              = link_to 'Show', (@admin ? admin_restaurant_review_path(@restaurant,review) : restaurant_review_path(@restaurant,review))
+              - if review.review_created_at.present?
+                Date :
+                = review.review_created_at.to_date
+                |
+                = link_to 'Show', (@admin ? admin_restaurant_review_path(@restaurant,review) : restaurant_review_path(@restaurant,review))
 
         .large-4.columns
           .notes-container{id: "notes_container_#{review.id}"}
-            .review-notes= render :partial => 'reviews/notes', :locals => {:notes => review.get_notes(current_user) }
+            .review-notes= render :partial => 'reviews/notes', :locals => {:notes => review.get_notes(current_user), :restaurant => @restaurant }
 
             - unless @admin
               %center

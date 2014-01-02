@@ -11,33 +11,27 @@ class Admin::ReviewsController < ApplicationController
 
   def zomato
     @restaurant = Restaurant.find(params[:restaurant_id])
-    @reviews = @restaurant.reviews.where(source:'Zomato').order('review_created_at DESC')
-    @reviews = Kaminari.paginate_array(@reviews).page(params[:page]).per(4)
-
+    @reviews = @restaurant.reviews.where(source:'Zomato').order('review_created_at DESC').page(params[:page]).per(4)
     @source = 'zomato'
     render 'reviews/source_reviews'
   end
 
   def burrp
     @restaurant = Restaurant.find(params[:restaurant_id])
-    @reviews = @restaurant.reviews.where(source:'Burrp').order('review_created_at DESC')
-    @reviews = Kaminari.paginate_array(@reviews).page(params[:page]).per(4)
-
+    @reviews = @restaurant.reviews.where(source:'Burrp').order('review_created_at DESC').page(params[:page]).per(4)
     @source = 'burrp'
     render 'reviews/source_reviews'
   end
 
   def yelp
     @restaurant = Restaurant.find(params[:restaurant_id])
-    @reviews = @restaurant.reviews.where(source:'Yelp').order('review_created_at DESC')
-    @reviews = Kaminari.paginate_array(@reviews).page(params[:page]).per(4)
-
+    @reviews = @restaurant.reviews.where(source:'Yelp').order('review_created_at DESC').page(params[:page]).per(4)
     @source = 'yelp'
     render 'reviews/source_reviews'
   end
 
-  def reviews
-    @reviews = current_user.reviews
+  def user_notes
+    @reviews = current_user.user_notes
   end
 
   def destroy

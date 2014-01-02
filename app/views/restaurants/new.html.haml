@@ -2,5 +2,5 @@
   .large-10.columns
     %h3
       New restaurant
-    = render 'form'
-    = link_to '< Back to Restaurants list', restaurants_path, class: 'button radius'
+    = render 'restaurants/form'
+    = link_to '< Back to Restaurants list', (@admin ? admin_restaurants_path : restaurants_path)

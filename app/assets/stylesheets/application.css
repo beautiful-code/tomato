@@ -30,3 +30,13 @@ ul {
 @extend .control-group;
 @extend .error;
 }
+
+.notice {
+    background-color:#5CB250;
+    border-color:#5CB250;
+}
+
+.alert {
+    background-color: #FF5C60;
+    border-color:#FF5C60;
+}

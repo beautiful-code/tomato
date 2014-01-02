@@ -24,7 +24,7 @@ Tomato::Application.routes.draw do
   	end
   end
 
-  get '/users/notes', to: 'reviews#reviews'
+  get '/users/notes', to: 'reviews#user_notes'
   root :to => 'restaurants#index'
 
 

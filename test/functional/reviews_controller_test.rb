@@ -2,13 +2,13 @@ require 'test_helper'
 
 class ReviewsControllerTest < ActionController::TestCase
   setup do
-    @review = reviews(:one)
+    @review = user_notes(:one)
   end
 
   test "should get index" do
     get :index
     assert_response :success
-    assert_not_nil assigns(:reviews)
+    assert_not_nil assigns(:user_notes)
   end
 
   test "should get new" do

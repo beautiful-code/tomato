@@ -1,5 +1,5 @@
 - if notes.present?
-  %table{ border: 0, class: 'notes-list'}
+  %table.notes-list
     %tr
       %th Item
       %th Rating
@@ -11,4 +11,4 @@
         %td
           = note.rating
         %td
-          = link_to 'Destroy', (@admin ? admin_restaurant_review_note_path(@restaurant,note.review,note) : restaurant_review_note_path(@restaurant,note.review,note)), data: { confirm: 'Are you sure?' }, method: :delete, class: 'delete-note'
+          = link_to 'Destroy', (@admin ? admin_restaurant_review_note_path(restaurant,note.review,note) : restaurant_review_note_path(restaurant,note.review,note)), data: { confirm: 'Are you sure?' }, method: :delete, class: 'delete-note'
