@@ -12,9 +12,13 @@ gem 'zurb-foundation'
 gem 'narray'
 gem 'similar_text'
 
+gem 'googlecharts'
+
 #Scrapers
 gem 'nokogiri'
 gem 'faraday'
+
+gem 'flot-rails'
 
 # Gems used only for assets and not required
 # in production environments by default.

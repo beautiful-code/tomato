@@ -20,14 +20,29 @@
       %h5.subheader New Review
       = render 'reviews/form'
 
-  .row
-    .large-12.columns
-      %h4 Clusters
-      %table
-        %thead
-          %td Label
-          %td Cluster
-        - @restaurant.clusters.each do |cluster|
-          %tr
-            %td= @restaurant.cluster_label(cluster)
-            %td= cluster.join(', ')
+
+    - if @admin
+      .row
+        .large-12.columns
+          %h4 Cluster Metrics
+          - @clusters.each_with_index do |cluster, index|
+            %h6
+              = @restaurant.cluster_label(cluster)
+              = "( #{cluster.join(', ')} )"
+            .cluster-chart{:id => "cluster_#{index}"}
+              :javascript
+                $.plot(
+                  $("#cluster_#{index}"),
+                  [ { data: #{@restaurant.cluster_metrics(cluster)}}],
+                  {
+                    series: {
+                       lines: { show: true },
+                       points: { show: true }
+                    },
+
+                    grid: { hoverable: true, clickable: true },
+                    xaxis: { mode: "time", minTickSize: [1, "day"],timeformat: "%m/%d/%y"},
+                    yaxis: { min: 1, max: 5},
+                    colors: ["#F90", "#222", "#666", "#BBB"]
+                  }
+                );

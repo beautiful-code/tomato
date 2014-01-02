@@ -15,7 +15,7 @@ class Restaurant < ActiveRecord::Base
   end
 
   def clusters
-    Util.cluster uniq_items_dist.keys
+    @clusters ||= Util.cluster uniq_items_dist.keys
   end
 
   def cluster_label cluster
@@ -28,6 +28,37 @@ class Restaurant < ActiveRecord::Base
       end
     end
     label
+  end
+
+  def date_ordered_reviews
+    reviews.order("review_created_at").group_by {|r| r.review_created_at.to_date}.to_a
+  end
+
+  def cluster_metrics cluster
+    cluster_metrics = []
+
+    date_ordered_reviews.each do |date ,reviews|
+      puts date
+
+      total_score = 0
+      total_mentions = 0
+
+      reviews.each do |review|
+        notes = review.consolidated_notes
+        cluster.each do |item|
+          if notes[item]
+            total_score += notes[item]
+            total_mentions += 1
+          end
+        end
+      end
+
+      cluster_metrics << [date, {:total_score => total_score, :total_mentions => total_mentions}]
+
+    end
+    
+    # cluster_metrics.map {|e| [e.first.to_time.to_i, e.second[:total_score]/e.second[:total_mentions]] }
+    cluster_metrics.select {|e| e.second[:total_mentions] > 0}.map {|e| [e.first.to_time.to_i*1000, e.second[:total_score]/e.second[:total_mentions]] }
   end
 
 =begin

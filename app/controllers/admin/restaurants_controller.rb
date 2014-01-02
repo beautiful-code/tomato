@@ -11,10 +11,15 @@ class Admin::RestaurantsController < ApplicationController
 
   def show
     @restaurant = Restaurant.find(params[:id])
-    @reviews = @restaurant.reviews
     @review = Review.new(restaurant_id: @restaurant.id)
 
+    compute_cluster_metrics
+
     render 'restaurants/show'
+  end
+
+  def compute_cluster_metrics
+    @clusters = @restaurant.clusters
   end
 
   def new

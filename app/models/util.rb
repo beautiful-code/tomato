@@ -6,7 +6,7 @@ require 'debugger'
 =end
 
 class Util
-  SimilarityThreshold = 80
+  SimilarityThreshold = 40
 
   def self.cluster strings
     dim = strings.length

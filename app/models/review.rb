@@ -24,5 +24,4 @@ class Review < ActiveRecord::Base
     ret
   end
 
-
 end
