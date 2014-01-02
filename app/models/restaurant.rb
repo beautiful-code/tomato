@@ -3,7 +3,7 @@ class Restaurant < ActiveRecord::Base
   has_many :reviews
 
   def collected_notes
-    reviews.collect(&:consolidated_notes)
+    @collected_notes ||= reviews.collect(&:consolidated_notes)
   end
 
   def uniq_items

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140101051506) do
+ActiveRecord::Schema.define(:version => 20140102144927) do
 
   create_table "notes", :force => true do |t|
     t.string   "item"
@@ -42,12 +42,17 @@ ActiveRecord::Schema.define(:version => 20140101051506) do
     t.text     "desc"
     t.string   "source"
     t.datetime "review_created_at"
-    t.datetime "created_at",                                       :null => false
+    t.datetime "created_at",                                        :null => false
     t.string   "author"
-    t.decimal  "rating",            :precision => 10, :scale => 0
+    t.decimal  "rating",             :precision => 10, :scale => 0
     t.integer  "restaurant_id"
-    t.datetime "updated_at",                                       :null => false
+    t.datetime "updated_at",                                        :null => false
+    t.text     "consolidated_notes"
+    t.string   "digest"
   end
+
+  add_index "reviews", ["id", "digest"], :name => "index_reviews_on_id_and_digest"
+  add_index "reviews", ["id", "restaurant_id"], :name => "index_reviews_on_id_and_restaurant_id"
 
   create_table "roles", :force => true do |t|
     t.string   "name"

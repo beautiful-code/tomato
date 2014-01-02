@@ -6,7 +6,7 @@ require 'debugger'
 =end
 
 class Util
-  SimilarityThreshold = 40
+  SimilarityThreshold = 80
 
   def self.cluster strings
     dim = strings.length
@@ -19,7 +19,7 @@ class Util
       end
     end
 
-    #matrix.print_matrix
+    matrix.print_matrix
 
     for x in 0..dim-1
       for y in x+1..dim-1
@@ -49,11 +49,6 @@ class Util
   end
 
   def self.add_to_cluster one, two, clusters
-    cluster = clusters.select
-
-    one_cluster = clusters.select {|c| c.include?(one)}.first
-    two_cluster = clusters.select {|c| c.include?(two)}.first
-
     one_cluster = member_of one, clusters
     two_cluster = member_of two, clusters
 
@@ -62,9 +57,12 @@ class Util
 
     if one_present && two_present
       if one_cluster != two_cluster
+        one_cluster.push(two_cluster).flatten!
+        clusters.delete(two_cluster)
+
         # Theoritically you should come here
         # merge the two clusters if they are different
-        raise 'merge'
+        #raise 'merge'
       end
     else
       if one_present
@@ -88,7 +86,7 @@ class NArray
     len = (Math.sqrt(self.size) - 1).to_i
     for x in 0..len
       for y in 0..len
-        printf "%4s", self[x,y]
+        printf "%3s", self[x,y]
       end
       puts ""
     end
@@ -104,3 +102,65 @@ strings = ['ravi', 'rowdy', 'rock', 'guava-strudel', 'guava strudel', 'ravi', 'r
 # strings = ['ravi', 'rowdy', 'rock']
 puts Util.cluster(strings)
 =end
+
+strings = [
+"Medianoche Preparada",
+"Potato Balls",
+"Fruit Strudels",
+"Sandwiches",
+"Cuban Sandwich",
+"Fruit Tarts",
+"Cheese Rolls",
+"Service",
+"Guava And Cheese Pastries",
+"Guava Pastries",
+"Cheese Pastries",
+"Empanadas",
+"Cheese Sticks",
+"Dulce De Leche Kisses",
+"Tres Leches Cake",
+"Guava Cheese Strudel",
+"Chicken Croquettes",
+"Guava Streudels",
+"Parking",
+"Guava Streudel",
+"Cakes",
+"Chocolate Croissant",
+"Muffins",
+"Sandwich",
+"Pastries",
+"Food",
+"Turkey Croissant Sandwich",
+"Steak Torta",
+"Cubano Sandwich",
+"Medianoche Sandwich",
+"Pastrami Sandwich",
+"Medianoche",
+"Kisses",
+"Chicken Empanadas",
+"Staff",
+"Wait Time",
+"Coffee",
+"Guava Cheese Rolls",
+"Coffee Drinks",
+"Cuban Fast Food",
+"Cuban Snack",
+"Guava & Cream Cheese",
+"Almond Danish",
+"Guava Cheese",
+"Cream Cheese",
+"Almond Dish",
+"Guava/cheese Strudel",
+"Cubano",
+"Plantain Chips",
+"Chicken Empanada",
+"Mango Mousse",
+"Pina Colada Dessert",
+"Apple Empanada",
+"Mango Empanada",
+"Guava Empanada",
+"Tuna Salad Croissant",
+"Pan Con Bistec"
+]
+
+puts Util.cluster(strings).size
