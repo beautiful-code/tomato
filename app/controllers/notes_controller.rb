@@ -28,7 +28,7 @@ class NotesController < ApplicationController
     params[:note][:user_id] = current_user.id
     @note = @review.notes.build(params[:note])
     if @note.save
-      render :partial => 'reviews/notes', :locals => {:notes => @review.get_notes(current_user)}
+      render :partial => 'reviews/notes', :locals => {:notes => @review.get_notes(current_user), :restaurant => @restaurant}
     else
       render notice: 'Unsuccessful !'
     end
