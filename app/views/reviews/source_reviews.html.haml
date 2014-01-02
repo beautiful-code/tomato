@@ -25,7 +25,7 @@
                 Date :
                 = review.review_created_at.to_date
                 |
-                = link_to 'Show', (@admin ? admin_restaurant_review_path(@restaurant,review) : restaurant_review_path(@restaurant,review))
+              = link_to 'Show', (@admin ? admin_restaurant_review_path(@restaurant,review) : restaurant_review_path(@restaurant,review))
 
         .large-4.columns
           .notes-container{id: "notes_container_#{review.id}"}
