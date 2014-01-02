@@ -37,7 +37,7 @@ ActiveRecord::Schema.define(:version => 20140101051506) do
     t.string   "yelp_url"
   end
 
-  create_table "user_notes", :force => true do |t|
+  create_table "reviews", :force => true do |t|
     t.string   "title"
     t.text     "desc"
     t.string   "source"

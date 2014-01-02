@@ -21,7 +21,7 @@ namespace :zomato do
 	end
 
 	desc "Scrape Reviews for each restaurant from Zomato"
-	task :user_notes => :environment do
+	task :reviews => :environment do
 		require 'nokogiri'
 		require 'open-uri'
 
@@ -35,8 +35,8 @@ namespace :zomato do
           restaurant.phone = doc.at_css("#phoneNoString .alpha").text.strip
           restaurant.address = doc.at_css(".res-main-address-text").text.strip
 
-          puts "Fetching user_notes for #{restaurant.name}"
-          doc.css("#my-user_notes-container .item-to-hide-parent").each do |a|
+          puts "Fetching reviews for #{restaurant.name}"
+          doc.css("#my-reviews-container .item-to-hide-parent").each do |a|
             begin
               @review = restaurant.reviews.build
               @review.title = "No Title for Zomato"
@@ -70,8 +70,8 @@ end
 
 desc "Scrape Reviews from Burrp"
 namespace :burrp do
-	desc "Scrape Restaurant user_notes from Burrp"
-	task :user_notes => :environment do
+	desc "Scrape Restaurant reviews from Burrp"
+	task :reviews => :environment do
 		require 'nokogiri'
 		require 'open-uri'
 		@restaurants = Restaurant.all
@@ -82,7 +82,7 @@ namespace :burrp do
           doc = Nokogiri::HTML(open(restaurant.burrp_url))
           num_reviews = doc.at_css(".count").text[/[0-9]+/].to_i
 
-          puts "Fetching user_notes (#{num_reviews}) for #{restaurant.name}"
+          puts "Fetching reviews (#{num_reviews}) for #{restaurant.name}"
           num_pages = (num_reviews)/10
 
           count = 0
@@ -124,8 +124,8 @@ end
 
 desc "Scrape Reviews from Yelp"
 namespace :yelp do
-	desc "Scrape Restaurant user_notes from Burrp"
-	task :user_notes => :environment do
+	desc "Scrape Restaurant reviews from Burrp"
+	task :reviews => :environment do
 		require 'nokogiri'
 		require 'open-uri'
 		@restaurants = Restaurant.all
@@ -138,8 +138,8 @@ namespace :yelp do
 					restaurant.address = doc.css("address").text.strip
 					restaurant.phone = doc.css("#bizPhone").text.strip
 
-					rcount = doc.css(".user_notes-header").text[/[0-9]+/].to_i
-          puts "Fetching (#{rcount}) user_notes for #{restaurant.name}"
+					rcount = doc.css(".reviews-header").text[/[0-9]+/].to_i
+          puts "Fetching (#{rcount}) reviews for #{restaurant.name}"
 
           count = 0
 
@@ -164,7 +164,7 @@ namespace :yelp do
 					end
 					restaurant.last_fetched_at = Time.now
 					restaurant.save
-          puts "#{count} user_notes fetched out of #{rcount} !"
+          puts "#{count} reviews fetched out of #{rcount} !"
 				else
 					puts "Reviews are fetched recently for the restaurant #{restaurant.name} !"
 				end
@@ -186,13 +186,13 @@ end
 # count = (doc.at_css(".selected .grey-text").text.strip.to_i)/5
 # count = count - 1		
 
-# review_url = " curl -d 'entity_id=90038&profile_action=user_notes-top&limit=#{count}' http://www.zomato.com/php/social_load_more.php"
+# review_url = " curl -d 'entity_id=90038&profile_action=reviews-top&limit=#{count}' http://www.zomato.com/php/social_load_more.php"
 # uri = URI("http://www.zomato.com/php/social_load_more.php")
 # http = Net::HTTP.new(uri.host, uri.port)
 # request = Net::HTTP::Post.new(uri.path)
 
 # request["entity_id"] = '90038'
-# request["profile_action"] = 'user_notes-top'
+# request["profile_action"] = 'reviews-top'
 # request["limit"] = "#{count}"
 
 # response = http.request(request)
