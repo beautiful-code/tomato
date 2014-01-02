@@ -28,6 +28,6 @@
       = link_to 'Back', restaurant_path(@restaurant)
     .large-4.columns
       %h4 Curator Notes
-      = render partial: 'reviews/notes', locals: {:notes => @review.get_notes(current_user)}
+      = render partial: 'reviews/notes', locals: {:notes => @review.get_notes(current_user), :restaurant => @restaurant}
       .add-note
         = link_to 'Add Note', new_restaurant_review_note_path(@restaurant,@review), class: "small button radius"
