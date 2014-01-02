@@ -5,4 +5,9 @@ class ApplicationController < ActionController::Base
   def set_admin
     @admin = true
   end
+
+  def add_breadcrumb(name, url={})
+    @breadcrumbs ||= []
+    @breadcrumbs << [name,url]
+  end
 end

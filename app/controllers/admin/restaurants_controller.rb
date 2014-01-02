@@ -2,6 +2,7 @@ class Admin::RestaurantsController < ApplicationController
   before_filter :set_admin
   before_filter :authenticate_user!
   before_filter :authenticate_admin!
+  before_filter :init_breadcrumb
 
   def index
     @restaurants = Restaurant.page(params[:page]).per(5)
@@ -11,8 +12,9 @@ class Admin::RestaurantsController < ApplicationController
 
   def show
     @restaurant = Restaurant.find(params[:id])
+    add_breadcrumb @restaurant.name,admin_restaurant_path(@restaurant)
+    @reviews = @restaurant.reviews
     @review = Review.new(restaurant_id: @restaurant.id)
-
     compute_cluster_metrics
 
     render 'restaurants/show'
@@ -24,11 +26,15 @@ class Admin::RestaurantsController < ApplicationController
 
   def new
     @restaurant = Restaurant.new
+    add_breadcrumb 'New Restaurant',new_admin_restaurant_path
+
     render 'restaurants/new'
   end
 
   def edit
     @restaurant = Restaurant.find(params[:id])
+    add_breadcrumb @restaurant.name,admin_restaurant_path(@restaurant)
+    add_breadcrumb 'Edit Restaurant',edit_admin_restaurant_path(@restaurant)
     render 'restaurants/edit'
   end
 
@@ -63,5 +69,9 @@ class Admin::RestaurantsController < ApplicationController
 
     def admin?
       current_user.has_role? :admin
+    end
+
+    def init_breadcrumb
+      add_breadcrumb 'All Restaurants', admin_restaurants_path
     end
 end

@@ -40,3 +40,9 @@ ul {
     background-color: #FF5C60;
     border-color:#FF5C60;
 }
+
+.breadcrumb {
+    margin-left: 15px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}

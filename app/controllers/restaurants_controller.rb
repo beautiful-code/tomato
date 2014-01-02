@@ -1,5 +1,7 @@
 class RestaurantsController < ApplicationController
   before_filter :authenticate_user!
+  before_filter :init_breadcrumb
+
   def index
     @restaurants = Restaurant.page(params[:page]).per(5)
     @review = Review.new
@@ -7,15 +9,20 @@ class RestaurantsController < ApplicationController
 
   def show
     @restaurant = Restaurant.find(params[:id])
+    add_breadcrumb @restaurant.name,restaurant_path(@restaurant)
+    @reviews = @restaurant.reviews
     @review = Review.new(restaurant_id: @restaurant.id)
   end
 
   def new
     @restaurant = Restaurant.new
+    add_breadcrumb 'New Restaurant',new_restaurant_path
   end
 
   def edit
     @restaurant = Restaurant.find(params[:id])
+    add_breadcrumb @restaurant.name,restaurant_path(@restaurant)
+    add_breadcrumb 'Edit Restaurant',new_restaurant_path(@restaurant)
   end
 
   def create
@@ -41,4 +48,9 @@ class RestaurantsController < ApplicationController
     @restaurant.destroy
     redirect_to restaurants_url 
   end
+
+  private
+    def init_breadcrumb
+      add_breadcrumb 'All Restaurants', restaurants_path
+    end
 end

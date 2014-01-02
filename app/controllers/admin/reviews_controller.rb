@@ -2,22 +2,39 @@ class Admin::ReviewsController < ApplicationController
   before_filter :set_admin
   before_filter :authenticate_user!
   before_filter :authenticate_admin!
+  before_filter :init_breadcrumb
+
 
   def show
     @restaurant = Restaurant.find(params[:restaurant_id])
     @review = @restaurant.reviews.find(params[:id])
     @users = @review.notes.select('distinct(user_id)').collect {|user_entry| User.find(user_entry.user_id) }
+    add_breadcrumb @restaurant.name,admin_restaurant_path(@restaurant)
+    if @review.source == 'Zomato'
+      add_breadcrumb 'Reviews',zomato_admin_restaurant_reviews_path
+    end
+    if @review.source == 'Yelp'
+      add_breadcrumb 'Reviews',yelp_admin_restaurant_reviews_path
+    end
+    if @review.source == 'Burrp'
+      add_breadcrumb 'Reviews',burrp_admin_restaurant_reviews_path
+    end
+    add_breadcrumb "#{@review.id}",admin_restaurant_review_path(@restaurant,@review)
   end
 
   def zomato
     @restaurant = Restaurant.find(params[:restaurant_id])
     @reviews = @restaurant.reviews.where(source:'Zomato').order('review_created_at DESC').page(params[:page]).per(4)
+    add_breadcrumb @restaurant.name,admin_restaurant_path(@restaurant)
+    add_breadcrumb 'Zomato',zomato_admin_restaurant_reviews_path
     @source = 'zomato'
     render 'reviews/source_reviews'
   end
 
   def burrp
     @restaurant = Restaurant.find(params[:restaurant_id])
+    add_breadcrumb @restaurant.name,admin_restaurant_path(@restaurant)
+    add_breadcrumb 'Burrp',burrp_admin_restaurant_reviews_path
     @reviews = @restaurant.reviews.where(source:'Burrp').order('review_created_at DESC').page(params[:page]).per(4)
     @source = 'burrp'
     render 'reviews/source_reviews'
@@ -25,13 +42,11 @@ class Admin::ReviewsController < ApplicationController
 
   def yelp
     @restaurant = Restaurant.find(params[:restaurant_id])
+    add_breadcrumb @restaurant.name,admin_restaurant_path(@restaurant)
+    add_breadcrumb 'Yelp',yelp_admin_restaurant_reviews_path
     @reviews = @restaurant.reviews.where(source:'Yelp').order('review_created_at DESC').page(params[:page]).per(4)
     @source = 'yelp'
     render 'reviews/source_reviews'
-  end
-
-  def user_notes
-    @reviews = current_user.user_notes
   end
 
   def destroy
@@ -52,4 +67,7 @@ class Admin::ReviewsController < ApplicationController
       current_user.has_role? :admin
     end
 
+    def init_breadcrumb
+      add_breadcrumb 'All Restaurants', admin_restaurants_path
+    end
 end
