@@ -48,13 +48,4 @@
         %table
           %h5
             = user.email
-          %thead
-            %th Item
-            %th Rating
-            %th
-          -notes = @review.get_notes(user)
-          -notes.each do |note|
-            %tr
-              %td= note.item
-              %td= note.rating
-              %td= link_to 'Destroy', admin_restaurant_review_note_path(@restaurant,@review,note),class: 'delete-note', method: :delete, data: { confirm: 'Are you sure?' }
+          = render :partial => 'reviews/notes', :locals => {:notes => @review.get_notes(user)}

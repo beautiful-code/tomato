@@ -3,7 +3,6 @@ class ReviewsController < ApplicationController
   def show
     @restaurant = Restaurant.find(params[:restaurant_id])
     @review = @restaurant.reviews.find(params[:id])
-    @notes = @review.get_notes(current_user)
   end
 
   def zomato

@@ -7,6 +7,7 @@ class Admin::RestaurantsController < ApplicationController
     @restaurants = Restaurant.all
     @restaurants = Kaminari.paginate_array(@restaurants).page(params[:page]).per(5)
     @review = Review.new
+    render 'restaurants/index'
   end
 
   def show

@@ -4,7 +4,7 @@
   .large-10.columns
     %h4
       = "#{@source.capitalize} Reviews"
-    .page-numbers
+    .paginate
       = paginate @reviews
 
 
@@ -18,8 +18,9 @@
               = review.author
               |
               - if review.review_created_at.present?
-                Created Date:
+                Created At:
                 = review.review_created_at.to_date
+              |
               = link_to 'Show', (@admin ? admin_restaurant_review_path(@restaurant,review) : restaurant_review_path(@restaurant,review))
 
         .large-4.columns
@@ -28,7 +29,7 @@
 
             - unless @admin
               %center
-                = button_tag 'Add a Note', class: "small button radius add-note"
+                = button_tag 'Add a Note', class: "tiny button radius add-note"
                 = form_for [@restaurant,review,Note.new], html: { class: 'note-form',id:"note_form_#{review.id}" } do |f|
                   = f.label :item
                   = f.text_field :item
@@ -40,6 +41,6 @@
                   = f.submit :SaveNote , class: 'small button success save-button radius'
                   = button_tag 'Cancel', class: "small button radius cancel-button alert"
 
-    .page-numbers
+    .paginate
       = paginate @reviews
 

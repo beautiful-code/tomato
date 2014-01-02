@@ -8,8 +8,8 @@
   %h4 Other Sources
   -if @restaurant.zomato_url || @restaurant.burrp_url
     -if @restaurant.zomato_url
-      = link_to 'Zomato Reviews',(@admin ? zomato_admin_restaurant_reviews_path(@restaurant) : zomato_restaurant_reviews_path(@restaurant)), class: "button radius"
+      = link_to 'Zomato Reviews',(@admin ? zomato_admin_restaurant_reviews_path(@restaurant) : zomato_restaurant_reviews_path(@restaurant)), class: "small size-tiny button radius"
     -if @restaurant.burrp_url
-      = link_to 'Burrp Reviews',(@admin ? burrp_admin_restaurant_reviews_path(@restaurant) : burrp_restaurant_reviews_path(@restaurant)), class: "button radius"
+      = link_to 'Burrp Reviews',(@admin ? burrp_admin_restaurant_reviews_path(@restaurant) : burrp_restaurant_reviews_path(@restaurant)), class: "small size-tiny button radius"
   -else
     %h6 There are no other review sources for this restaurant.

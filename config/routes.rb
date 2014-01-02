@@ -2,7 +2,6 @@ Tomato::Application.routes.draw do
   
   devise_for :users
   namespace :admin do
-    get '/', to: 'restaurants#index'
     resources :restaurants do
       resources :reviews do
         resources :notes ,only: [:edit,:create,:update,:new,:destroy]

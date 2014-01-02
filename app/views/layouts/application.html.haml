@@ -29,6 +29,14 @@
             =link_to 'Restaurants',restaurants_path
           %li
             = link_to 'User Notes',users_notes_path
+
+          - if current_user.has_role? :admin
+            %li.has-dropdown
+              = link_to 'Admin',''
+              %ul.dropdown
+                %li
+                  = link_to 'Restaurants', admin_restaurants_path
+
   %div.row
     -if flash[:notice]
       %p.notice.data-alert.alert-box.info.radius{style: 'background-color:#5CB250;border-color:#5CB250;'}

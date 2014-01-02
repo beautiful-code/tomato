@@ -1,38 +1,38 @@
-%div.row
-  %div.large-12.columns
-    %h3
-      Restaurants
-    %div{ style: "float:right"}
-      = paginate @restaurants
-    %table
-      %tr
-        %th{width:'200'}
-          %h4 Name
-        %th{width:'400'}
-          %h4 Address
-        %th{width:'200'}
-          %h4 Phone  
-        %th
-        %th
-        %th
-      
-      -@restaurants.each do |restaurant|
+#restaurant_index
+  %div.row
+    %div.large-12.columns
+      %h3
+        Restaurants
+      %table
         %tr
-          %td 
-            %h4.subheader
-              = link_to restaurant.name,restaurant_path(restaurant)
-          %td
-            %h4.subheader 
-              = restaurant.address
-          %td
-            %h4.subheader 
-              = restaurant.phone              
-          %td 
-            = link_to 'Show', restaurant, class: "small button success radius", style: "margin:10px;"
-          %td 
-            = link_to 'Edit', edit_restaurant_path(restaurant), class: "small button radius", style: "margin:10px;"
-          %td 
-            = link_to 'Destroy', restaurant, method: :delete, data: { confirm: 'Are you sure?' }, class: "small button alert radius", style: "margin:10px;"
-      
-    %br
-    = link_to 'New Restaurant', new_restaurant_path, class: "button radius" 
+          %th{width:'200'}
+            %h4 Name
+          %th{width:'400'}
+            %h4 Address
+          %th{width:'200'}
+            %h4 Phone
+          %th
+          %th
+          %th
+
+        -@restaurants.each do |restaurant|
+          %tr
+            %td
+              %h4.subheader
+                = link_to restaurant.name,(@admin ? admin_restaurant_path(restaurant) : restaurant_path(restaurant))
+            %td
+              %h4.subheader
+                = restaurant.address
+            %td
+              %h4.subheader
+                = restaurant.phone
+            %td
+              = link_to 'Show', (@admin ? admin_restaurant_path(restaurant) : restaurant_path(restaurant))
+            %td
+              = link_to 'Edit', (@admin ? edit_admin_restaurant_path(restaurant) : edit_restaurant_path(restaurant))
+            %td
+              = link_to 'Destroy', (@admin ? admin_restaurant_path(restaurant) : restaurant_path(restaurant)), method: :delete, data: { confirm: 'Are you sure?' }
+      = link_to 'New Restaurant', (@admin ? new_admin_restaurant_path : new_restaurant_path)
+      .paginate
+        = paginate @restaurants
+

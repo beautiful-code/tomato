@@ -8,29 +8,29 @@
         -@restaurant.errors.full_messages.each do |msg| 
           %li
             = msg
-  %div.row  
-    %div.small-8
-      %div.row
-        %div.small-3.columns
+  .row
+    .small-8
+      .row
+        .small-3.columns
           = f.label :name, class: 'right inline'
-        %div.small-9.columns
+        .small-9.columns
           = f.text_field :name
-        %div.small-3.columns
+        .small-3.columns
           = f.label :address, class: 'right inline'
-        %div.small-9.columns
+        .small-9.columns
           = f.text_area :address, rows: "30"
-        %div.small-3.columns
+        .small-3.columns
           = f.label :phone, class: 'right inline'
-        %div.small-9.columns
+        .small-9.columns
           = f.text_field :phone
-        %div.small-3.columns
+        .small-3.columns
           = f.label :zomato_url, class: 'right inline'
-        %div.small-9.columns
+        .small-9.columns
           = f.text_field :zomato_url
-        %div.small-3.columns
+        .small-3.columns
           = f.label :burrp_url, class: 'right inline'
-        %div.small-9.columns
+        .small-9.columns
           = f.text_field :burrp_url
-        %div.small-9.columns
-          = f.submit :Save, class: 'button success radius'
+        .small-9.columns
+          = f.submit :Save, class: 'small button success radius'
   

@@ -36,42 +36,8 @@ class Admin::ReviewsController < ApplicationController
     render 'reviews/source_reviews'
   end
 
-  def new
-    @restaurant = Restaurant.find(params[:restaurant_id])
-    @review = @restaurant.reviews.build
-  end
-
-  def edit
-    @restaurant = Restaurant.find(params[:restaurant_id])
-    @review = @restaurant.reviews.find(params[:id])
-  end
-
-
-  def create
-    @restaurant = Restaurant.find(params[:restaurant_id])
-    @review = @restaurant.reviews.build(params[:review])
-
-    if @review.save
-      redirect_to(admin_restaurant_review_path(@restaurant,@review), notice: 'Review was successfully created.')
-    else
-      render action: 'new'
-    end
-  end
-
-  def update
-    @restaurant = Restaurant.find(params[:restaurant_id])
-    @review = @restaurant.reviews.find(params[:id])
-
-    if @review.update_attributes(params[:review])
-      redirect_to(admin_restaurant_review_path(@restaurant,@review), notice: 'Review was successfully updated.')
-    else
-      render action: 'edit'
-    end
-
-  end
-
   def reviews
-    @reviews = current_user.reviews;
+    @reviews = current_user.reviews
   end
 
   def destroy
@@ -79,7 +45,7 @@ class Admin::ReviewsController < ApplicationController
     @review.destroy
 
     flash[:notice] = 'Successfully deleted the review.'
-    redirect_to admin_restaurant_path(@review.restaurant_id)
+    redirect_to request.referer
   end
 
 

@@ -23,4 +23,30 @@
     button.cancel-button {
     }
   }
+  .paginate {
+    margin:10px;
+    float:right;
+    display: block;
+    word-spacing:2px
+  }
+  .rating{
+    display: inline-block;
+    padding-left: 8px;
+    padding-right: 8px;
+    color:#ffffff ;
+    background-color: #1587BB;
+  }
+
+  .size-tiny{
+    width:135px;
+  }
+  .size {
+    width: 250px;
+  }
+  .add-note {
+    margin: 10px;
+    width:90px;
+    height:32px;
+    display: block;
+  }
 }
