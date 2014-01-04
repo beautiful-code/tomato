@@ -1,14 +1,11 @@
 #source_reviews.row
   .large-12.columns
-    .large-8.columns
-      %h4
-        = link_to @restaurant.name, restaurant_path(@restaurant)
-      %h5 Title:
-      %h5.subheader
+    .large-9.columns
+      %h5
         = @review.title
-      %h5 Description
-      %h5.subheader
-        = @review.desc
+        .rating
+          = @review.rating
+      %p= @review.desc
       %h5.subheader
         Source :
         = @review.source
@@ -18,16 +15,8 @@
       %h5.subheader
         Author :
         = @review.author
-        |
-        Rating :
-        .rating
-          = @review.rating
 
-      = link_to 'Edit', edit_restaurant_review_path(@restaurant,@review)
-      |
-      = link_to 'Back', restaurant_path(@restaurant)
-    .large-4.columns
-      %h4 Curator Notes
+    .large-3.columns
       .notes-container
         .review-notes
           %center

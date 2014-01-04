@@ -1,12 +1,9 @@
 #source_reviews.row
-  .large-2.columns
-    = render 'reviews/restaurant_info'
-  .large-10.columns
+  .large-12.columns
     %h4
       = "#{@source.capitalize} Reviews"
     .paginate
       = paginate @reviews
-
 
     - @reviews.each do |review|
       .row.review{:class => cycle('odd', 'even')}
