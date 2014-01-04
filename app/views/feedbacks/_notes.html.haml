@@ -11,3 +11,4 @@
           = note.rating
         %td
           = link_to 'X', (@admin ? admin_restaurant_review_note_path(restaurant,note.review,note) : restaurant_review_note_path(restaurant,note.review,note)), data: { confirm: 'Are you sure?' }, method: :delete, class: 'delete-note'
+          /= link_to 'X', (@admin ? admin_restaurant_review_note_path(restaurant,note.review,note) : restaurant_review_note_path(restaurant,note.review,note)), data: { confirm: 'Are you sure?' }, method: :delete, class: 'delete-note'

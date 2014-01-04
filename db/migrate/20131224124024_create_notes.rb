@@ -3,10 +3,10 @@ class CreateNotes < ActiveRecord::Migration
     create_table :notes do |t|
       t.string :item
       t.float :rating
-      t.references :review
+      t.references :feedback
 
       t.timestamps
     end
-    add_index :notes, :review_id
+    add_index :notes, :feedback_id
   end
 end

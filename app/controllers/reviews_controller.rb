@@ -2,22 +2,6 @@ class ReviewsController < ApplicationController
   before_filter :authenticate_user!
   before_filter :init_breadcrumb
 
-  def show
-    @restaurant = Restaurant.find(params[:restaurant_id])
-    @review = @restaurant.reviews.find(params[:id])
-    add_breadcrumb @restaurant.name,restaurant_path(@restaurant)
-    if @review.source == 'Zomato'
-      add_breadcrumb 'Reviews',zomato_restaurant_reviews_path
-    end
-    if @review.source == 'Yelp'
-      add_breadcrumb 'Reviews',yelp_restaurant_reviews_path
-    end
-    if @review.source == 'Burrp'
-      add_breadcrumb 'Reviews',burrp_restaurant_reviews_path
-    end
-    add_breadcrumb "#{@review.id}",restaurant_review_path(@restaurant,@review)
-  end
-
   def zomato
     @restaurant = Restaurant.find(params[:restaurant_id])
     add_breadcrumb @restaurant.name,restaurant_path(@restaurant)
@@ -45,11 +29,37 @@ class ReviewsController < ApplicationController
     render 'source_reviews'
   end
 
+  def give_feedback
+    @restaurant = Restaurant.find(params[:restaurant_id])
+    @review = @restaurant.reviews.find(params[:id])
+    Feedback.create!(:review_id => @review.id, :user_id => current_user.id)
+
+    redirect_to restaurant_review_path(@restaurant, @review)
+  end
+
   def new
     @restaurant = Restaurant.find(params[:restaurant_id])
     add_breadcrumb @restaurant.name,restaurant_path(@restaurant)
     add_breadcrumb 'New Review','#'
     @review = @restaurant.reviews.build
+  end
+
+  def show
+    @restaurant = Restaurant.find(params[:restaurant_id])
+    @review = @restaurant.reviews.find(params[:id])
+    @feedback = @review.get_feedback(current_user)
+
+    add_breadcrumb @restaurant.name,restaurant_path(@restaurant)
+    if @review.source == 'Zomato'
+      add_breadcrumb 'Reviews',zomato_restaurant_reviews_path
+    end
+    if @review.source == 'Yelp'
+      add_breadcrumb 'Reviews',yelp_restaurant_reviews_path
+    end
+    if @review.source == 'Burrp'
+      add_breadcrumb 'Reviews',burrp_restaurant_reviews_path
+    end
+    add_breadcrumb "#{@review.id}",restaurant_review_path(@restaurant,@review)
   end
 
   def edit

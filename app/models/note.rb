@@ -1,10 +1,13 @@
 class Note < ActiveRecord::Base
-  belongs_to :review
-  belongs_to :user
-  attr_accessible :item, :rating, :review_id, :user_id
+  attr_accessible :item, :rating
 
-  validates_presence_of :user_id
+  belongs_to :feedback
+
   before_save :normalize_item!
+
+  def review
+    feedback.review
+  end
 
   def normalize_item!
     self.item = normalized_item

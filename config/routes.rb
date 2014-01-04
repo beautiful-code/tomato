@@ -15,6 +15,11 @@ Tomato::Application.routes.draw do
   end
   resources :restaurants do 
   	resources :reviews do 
+
+      member do
+        get 'give_feedback'
+      end
+
       resources :notes ,only: [:edit,:create,:update,:new,:destroy]
   		collection do
   			get 'zomato'

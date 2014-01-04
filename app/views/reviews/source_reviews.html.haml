@@ -5,42 +5,23 @@
     .paginate
       = paginate @reviews
 
-    - @reviews.each do |review|
-      .row.review{:class => cycle('odd', 'even')}
-        .large-8.columns
-          %p= review.desc
-          %div
-            %span.subheader
-              Author:
-              = review.author
-              |
-              Rating :
-              .rating
-                = review.rating
-              |
-              - if review.review_created_at.present?
-                Date :
-                = review.review_created_at.to_date
-                |
-              = link_to 'Show', (@admin ? admin_restaurant_review_path(@restaurant,review) : restaurant_review_path(@restaurant,review))
-
-        .large-4.columns
-          .notes-container{id: "notes_container_#{review.id}"}
-            .review-notes= render :partial => 'reviews/notes', :locals => {:notes => review.get_notes(current_user), :restaurant => @restaurant }
-
-            - unless @admin
-              %center
-                = button_tag 'Add a Note', class: "tiny button radius add-note"
-                = form_for [@restaurant,review,Note.new], html: { class: 'note-form',id:"note_form_#{review.id}" } do |f|
-                  = f.label :item
-                  = f.text_field :item
-
-                  = f.label :rating
-                  = f.text_field :rating
-                  %h6.subheader Rate from 1 - 5 scale
-
-                  = f.submit :SaveNote , class: 'small button success save-button radius'
-                  = button_tag 'Cancel', class: "small button radius cancel-button alert"
+    
+    %table
+      %tr
+        %th ID
+        %th Feedback
+        %th Actions
+      - @reviews.each do |review|
+        %tr
+          %td= review.id
+          %td
+            - if @admin
+            - else
+              - if review.get_feedback(current_user).present?
+                = "#{review.get_feedback(current_user).notes.count} notes"
+              - else
+                = link_to 'Give Feedback', give_feedback_restaurant_review_path(@restaurant, review)
+          %td= link_to 'Show', (@admin ? admin_restaurant_review_path(@restaurant,review) : restaurant_review_path(@restaurant,review))
 
     .paginate
       = paginate @reviews

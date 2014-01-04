@@ -17,19 +17,22 @@
         = @review.author
 
     .large-3.columns
-      .notes-container
-        .review-notes
+      - if @feedback.present?
+        .notes-container
+          .review-notes
+            %center
+              = render partial: 'feedbacks/notes', locals: {:notes => @feedback.notes, :restaurant => @restaurant}
           %center
-            = render partial: 'reviews/notes', locals: {:notes => @review.get_notes(current_user), :restaurant => @restaurant}
-        %center
-          = button_tag 'Add a Note', class: "tiny button radius add-note"
-          = form_for [@restaurant,@review,Note.new], html: { class: 'note-form' } do |f|
-            = f.label :item
-            = f.text_field :item
+            = button_tag 'Add a Note', class: "tiny button radius add-note"
+            = form_for [@restaurant,@review,Note.new], html: { class: 'note-form' } do |f|
+              = f.label :item
+              = f.text_field :item
 
-            = f.label :rating
-            = f.text_field :rating
-            %h6.subheader Rate from 1 - 5 scale
+              = f.label :rating
+              = f.text_field :rating
+              %h6.subheader Rate from 1 - 5 scale
 
-            = f.submit :SaveNote , class: 'small button success save-button radius'
-            = button_tag 'Cancel', class: "small button radius cancel-button alert"
+              = f.submit :SaveNote , class: 'small button success save-button radius'
+              = button_tag 'Cancel', class: "small button radius cancel-button alert"
+      - else
+        = link_to 'Give Feedback', give_feedback_restaurant_review_path(@restaurant, @review)

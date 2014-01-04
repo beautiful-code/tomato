@@ -11,19 +11,27 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140102144927) do
+ActiveRecord::Schema.define(:version => 20140104131708) do
+
+  create_table "feedbacks", :force => true do |t|
+    t.integer  "review_id"
+    t.integer  "user_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "feedbacks", ["review_id"], :name => "index_feedbacks_on_review_id"
+  add_index "feedbacks", ["user_id"], :name => "index_feedbacks_on_user_id"
 
   create_table "notes", :force => true do |t|
     t.string   "item"
     t.float    "rating"
-    t.integer  "review_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-    t.integer  "user_id"
+    t.integer  "feedback_id"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
   end
 
-  add_index "notes", ["review_id"], :name => "index_notes_on_review_id"
-  add_index "notes", ["user_id"], :name => "index_notes_on_user_id"
+  add_index "notes", ["feedback_id"], :name => "index_notes_on_feedback_id"
 
   create_table "restaurants", :force => true do |t|
     t.string   "name"
@@ -31,10 +39,11 @@ ActiveRecord::Schema.define(:version => 20140102144927) do
     t.string   "phone"
     t.string   "zomato_url"
     t.string   "burrp_url"
+    t.string   "yelp_url"
+    t.string   "opentable_url"
     t.datetime "last_fetched_at"
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
-    t.string   "yelp_url"
   end
 
   create_table "reviews", :force => true do |t|
@@ -42,13 +51,13 @@ ActiveRecord::Schema.define(:version => 20140102144927) do
     t.text     "desc"
     t.string   "source"
     t.datetime "review_created_at"
-    t.datetime "created_at",                                        :null => false
     t.string   "author"
     t.decimal  "rating",             :precision => 10, :scale => 0
-    t.integer  "restaurant_id"
-    t.datetime "updated_at",                                        :null => false
-    t.text     "consolidated_notes"
     t.string   "digest"
+    t.integer  "restaurant_id"
+    t.text     "consolidated_notes"
+    t.datetime "created_at",                                        :null => false
+    t.datetime "updated_at",                                        :null => false
   end
 
   add_index "reviews", ["id", "digest"], :name => "index_reviews_on_id_and_digest"

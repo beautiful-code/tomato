@@ -6,6 +6,10 @@ class CreateRestaurants < ActiveRecord::Migration
       t.string :phone
       t.string :zomato_url
       t.string :burrp_url
+
+      t.string :yelp_url
+      t.string :opentable_url
+
       t.datetime :last_fetched_at
       t.timestamps
     end

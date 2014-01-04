@@ -9,7 +9,7 @@ class NotesController < ApplicationController
   
   def edit
     @restaurant = Restaurant.find(params[:restaurant_id])
-    @review =@restaurant.reviews.find(params[:review_id])
+    @review = @restaurant.reviews.find(params[:review_id])
     @note = Note.find(params[:id])
   end
 
@@ -25,19 +25,21 @@ class NotesController < ApplicationController
   def create
     @restaurant = Restaurant.find(params[:restaurant_id])
     @review = @restaurant.reviews.find(params[:review_id])
-    params[:note][:user_id] = current_user.id
-    @note = @review.notes.build(params[:note])
+
+    @feedback = @review.get_feedback(current_user)
+    @note = @feedback.notes.build(params[:note])
     if @note.save
-      render :partial => 'reviews/notes', :locals => {:notes => @review.get_notes(current_user), :restaurant => @restaurant}
+      render :partial => 'feedbacks/notes', :locals => {:notes => @feedback.notes, :restaurant => @restaurant}
     else
       render notice: 'Unsuccessful !'
     end
   end
 
   def destroy
-    @note = Note.find(params[:id])
-    @review = Review.find(params[:review_id])
     @restaurant = Restaurant.find(params[:restaurant_id])
+    @review = @restaurant.reviews.find(params[:review_id])
+    @feedback = @review.get_feedback(current_user)
+    @note = @feedback.notes.find(params[:id])
     @note.destroy
 
     redirect_to request.referrer
