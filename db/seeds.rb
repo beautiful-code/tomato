@@ -15,3 +15,5 @@ Restaurant.create(name: "Skaf's Lebanese Cuisine", yelp_url: "http://www.yelp.co
 Restaurant.create(name: "Mario's Italian Deli & Market", yelp_url: "http://www.yelp.com/biz/marios-italian-deli-and-market-glendale") if !Restaurant.find_by_name("Mario's Italian Deli & Market").present?
 Restaurant.create(name: "Eden Burger Bar", yelp_url: "http://www.yelp.com/biz/eden-burger-bar-glendale") if !Restaurant.find_by_name("Eden Burger Bar").present?
 Restaurant.create(name: "Foxy's Restaurant", yelp_url: "http://www.yelp.com/biz/foxys-restaurant-glendale-3") if !Restaurant.find_by_name("Foxy's Restaurant").present?
+
+# Test comment - delete this link
