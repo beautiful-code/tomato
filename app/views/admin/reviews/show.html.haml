@@ -1,37 +1,34 @@
-.row
-  .large-12.columns
-    %h5
-      = @review.title
-      .review-rating
-        = @review.rating
-    %p= @review.desc
+.large-12.columns
+  %h5
+    = @review.title
+    .review-rating
+      = @review.rating
+  %p= @review.desc
 
 - if false
-  .row
-    .large-12.columns
-      %h4 Consolidated Notes
+  .large-12.columns
+    %h4 Consolidated Notes
+    %table
+      %thead
+        %th Item
+        %th Rating
+      - @review.consolidated_notes.each do |k,v|
+        %tr
+          %td= k
+          %td= v
+
+.large-12.columns
+  %h4 User Feedbacks
+  - @feedbacks.each do |feedback|
+    .large-4.columns
+      %h5= feedback.user.email
+      = render :partial => 'notes/list', :locals => {:notes => feedback.notes, :restaurant => @review.restaurant}
+
       %table
-        %thead
-          %th Item
-          %th Rating
-        - @review.consolidated_notes.each do |k,v|
+        %tr
+          %th Parameter
+          %th Value
+        - feedback.parameter.content.each do |k,v|
           %tr
             %td= k
             %td= v
-
-.row
-  .large-12.columns
-    %h4 User Feedbacks
-    - @feedbacks.each do |feedback|
-      .large-4.columns
-        %h5= feedback.user.email
-        = render :partial => 'notes/list', :locals => {:notes => feedback.notes, :restaurant => @review.restaurant}
-
-        %table
-          %tr
-            %th Parameter
-            %th Value
-          - feedback.parameter.content.each do |k,v|
-            %tr
-              %td= k
-              %td= v

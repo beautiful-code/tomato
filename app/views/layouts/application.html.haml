@@ -15,7 +15,8 @@
       %li.toggle-topbar.menu-icon
     %section.top-bar-section
       %ul.right
-        %li= link_to 'User Feedback',user_feedbacks_path
+        - if user_signed_in?
+          %li= link_to 'User Feedback',user_feedbacks_path
         %li.has-dropdown
           - if user_signed_in?
             = link_to current_user.email,''
