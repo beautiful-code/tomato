@@ -1,7 +1,5 @@
 Tomato::Application.routes.draw do
   
-  resources :parameters
-
 
   devise_for :users
   namespace :admin do
@@ -30,6 +28,10 @@ Tomato::Application.routes.draw do
   			get 'yelp'
   		end
   	end
+  end
+
+  resources :feedbacks do
+    resource :parameter, :only => :update
   end
 
   get '/users/notes', to: 'reviews#user_notes'
