@@ -1,5 +1,8 @@
 Tomato::Application.routes.draw do
   
+  resources :parameters
+
+
   devise_for :users
   namespace :admin do
     resources :restaurants do

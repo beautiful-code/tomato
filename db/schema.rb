@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140104131708) do
+ActiveRecord::Schema.define(:version => 20140104153600) do
 
   create_table "feedbacks", :force => true do |t|
     t.integer  "review_id"
@@ -32,6 +32,15 @@ ActiveRecord::Schema.define(:version => 20140104131708) do
   end
 
   add_index "notes", ["feedback_id"], :name => "index_notes_on_feedback_id"
+
+  create_table "parameters", :force => true do |t|
+    t.text     "content"
+    t.integer  "feedback_id"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  add_index "parameters", ["feedback_id"], :name => "index_parameters_on_feedback_id"
 
   create_table "restaurants", :force => true do |t|
     t.string   "name"

@@ -6,15 +6,6 @@
         .rating
           = @review.rating
       %p= @review.desc
-      %h5.subheader
-        Source :
-        = @review.source
-        |
-        Created at :
-        = @review.created_at
-      %h5.subheader
-        Author :
-        = @review.author
 
     .large-3.columns
       - if @feedback.present?
@@ -36,3 +27,18 @@
               = button_tag 'Cancel', class: "small button radius cancel-button alert"
       - else
         = link_to 'Give Feedback', give_feedback_restaurant_review_path(@restaurant, @review)
+.row
+  -# debugger
+  - # TODO: CONTINUE HERE
+  - if true
+    #parameters.large-12.columns
+      = form_for(@feedback.parameter) do |f|
+        - Parameter::FEATURES.each do |key, info|
+          .parameter
+            = f.label info["label"], :class => 'key-label'
+            - info["values"].each do |val|
+              = f.radio_button key, val
+              = f.label val
+        = f.submit 'Update'
+      
+
