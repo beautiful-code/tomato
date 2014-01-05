@@ -2,6 +2,8 @@ Tomato::Application.routes.draw do
   
 
   devise_for :users
+  get "user/feedbacks"
+
   namespace :admin do
     resources :restaurants do
       resources :reviews do
@@ -14,6 +16,7 @@ Tomato::Application.routes.draw do
       end
     end
   end
+
   resources :restaurants do 
   	resources :reviews do 
 
@@ -34,7 +37,6 @@ Tomato::Application.routes.draw do
     resource :parameter, :only => :update
   end
 
-  get '/users/notes', to: 'reviews#user_notes'
   root :to => 'restaurants#index'
 
 

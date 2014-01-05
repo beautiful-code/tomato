@@ -5,23 +5,7 @@
     .paginate
       = paginate @reviews
 
-    
-    %table
-      %tr
-        %th ID
-        %th Feedback
-        %th Actions
-      - @reviews.each do |review|
-        %tr
-          %td= review.id
-          %td
-            - if @admin
-            - else
-              - if review.get_feedback(current_user).present?
-                = "#{review.get_feedback(current_user).notes.count} notes"
-              - else
-                = link_to 'Give Feedback', give_feedback_restaurant_review_path(@restaurant, review)
-          %td= link_to 'Show', (@admin ? admin_restaurant_review_path(@restaurant,review) : restaurant_review_path(@restaurant,review))
+    = render :partial => 'table', :locals => {:reviews => @reviews}
 
     .paginate
       = paginate @reviews

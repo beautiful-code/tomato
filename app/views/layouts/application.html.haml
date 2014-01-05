@@ -28,7 +28,7 @@
           %li
             =link_to 'Restaurants',restaurants_path
           %li
-            = link_to 'User Notes',users_notes_path
+            = link_to 'User Feedback',user_feedbacks_path
 
           - if current_user.has_role? :admin
             %li.has-dropdown
