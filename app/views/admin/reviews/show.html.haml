@@ -24,7 +24,14 @@
     %h4 User Feedbacks
     - @feedbacks.each do |feedback|
       .large-4.columns
+        %h5= feedback.user.email
+        = render :partial => 'notes/list', :locals => {:notes => feedback.notes, :restaurant => @review.restaurant}
+
         %table
-          %h5
-            = feedback.user.email
-          = render :partial => 'notes/list', :locals => {:notes => feedback.notes, :restaurant => @review.restaurant}
+          %tr
+            %th Parameter
+            %th Value
+          - feedback.parameter.content.each do |k,v|
+            %tr
+              %td= k
+              %td= v
