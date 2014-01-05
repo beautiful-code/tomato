@@ -1,0 +1,8 @@
+%h6= category.capitalize
+- features = Parameter.send("#{category}_features")
+- features.each do |key, info|
+  .parameter
+    = f.label info["label"], :class => 'key-label'
+    - info["values"].each do |val|
+      = f.radio_button key, val
+      = f.label val
