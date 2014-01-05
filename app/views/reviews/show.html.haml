@@ -1,13 +1,13 @@
 #source_reviews.row
   .large-12.columns
-    .large-9.columns
+    .large-10.columns
       %h5
         = @review.title
         .rating
           = @review.rating
       %p= @review.desc
 
-    .large-3.columns
+    .large-2.columns
       - if @feedback.present?
         .notes-container
           .review-notes
