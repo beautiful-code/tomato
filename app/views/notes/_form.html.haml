@@ -1,9 +1,11 @@
-= form_for [@restaurant,@review,@note], :html => { :multipart => true } do |f|
+= button_tag 'Add a Note', class: "tiny button radius add-note"
+= form_for [@feedback,Note.new], html: { class: 'note-form' } do |f|
   = f.label :item
-  = f.text_area :item, style: "width:150px;height:50px;"
- 
-  = f.label :rating
-  = f.text_field :rating, style: "width:80px;"
+  = f.text_field :item
 
-  = f.text_field :user_id, style: "width:80px;display:none;", value: current_user.id
-  = f.submit :Save, class: 'small button success radius'
+  = f.label :rating
+  = f.text_field :rating
+  %h6.subheader Rate from 1 - 5 scale
+
+  = f.submit :SaveNote , class: 'small button success save-button radius'
+  = button_tag 'Cancel', class: "small button radius cancel-button alert"

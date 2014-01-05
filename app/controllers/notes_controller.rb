@@ -1,18 +1,6 @@
 class NotesController < ApplicationController
   before_filter :authenticate_user!
 
-  def new
-    @restaurant = Restaurant.find(params[:restaurant_id])
-    @review =@restaurant.reviews.find(params[:review_id])
-    @note = @review.notes.build
-  end
-  
-  def edit
-    @restaurant = Restaurant.find(params[:restaurant_id])
-    @review = @restaurant.reviews.find(params[:review_id])
-    @note = Note.find(params[:id])
-  end
-
   def update
     @note = Note.find(params[:id])
     if @note.update_attributes(params[:note])
@@ -23,22 +11,18 @@ class NotesController < ApplicationController
   end
 
   def create
-    @restaurant = Restaurant.find(params[:restaurant_id])
-    @review = @restaurant.reviews.find(params[:review_id])
+    @feedback = current_user.feedbacks.find(params[:feedback_id])
 
-    @feedback = @review.get_feedback(current_user)
     @note = @feedback.notes.build(params[:note])
     if @note.save
-      render :partial => 'feedbacks/notes', :locals => {:notes => @feedback.notes, :restaurant => @restaurant}
+      render :partial => 'notes/list', :locals => {:notes => @feedback.notes, :restaurant => @restaurant}
     else
       render notice: 'Unsuccessful !'
     end
   end
 
   def destroy
-    @restaurant = Restaurant.find(params[:restaurant_id])
-    @review = @restaurant.reviews.find(params[:review_id])
-    @feedback = @review.get_feedback(current_user)
+    @feedback = current_user.feedbacks.find(params[:feedback_id])
     @note = @feedback.notes.find(params[:id])
     @note.destroy
 

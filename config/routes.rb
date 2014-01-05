@@ -21,7 +21,6 @@ Tomato::Application.routes.draw do
         get 'give_feedback'
       end
 
-      resources :notes ,only: [:edit,:create,:update,:new,:destroy]
   		collection do
   			get 'zomato'
   			get 'burrp'
@@ -31,6 +30,7 @@ Tomato::Application.routes.draw do
   end
 
   resources :feedbacks do
+    resources :notes ,only: [:create,:destroy]
     resource :parameter, :only => :update
   end
 

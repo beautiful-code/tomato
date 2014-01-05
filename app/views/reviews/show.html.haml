@@ -12,19 +12,9 @@
         .notes-container
           .review-notes
             %center
-              = render partial: 'feedbacks/notes', locals: {:notes => @feedback.notes, :restaurant => @restaurant}
+              = render partial: 'notes/list', locals: {:notes => @feedback.notes, :restaurant => @restaurant}
           %center
-            = button_tag 'Add a Note', class: "tiny button radius add-note"
-            = form_for [@restaurant,@review,Note.new], html: { class: 'note-form' } do |f|
-              = f.label :item
-              = f.text_field :item
-
-              = f.label :rating
-              = f.text_field :rating
-              %h6.subheader Rate from 1 - 5 scale
-
-              = f.submit :SaveNote , class: 'small button success save-button radius'
-              = button_tag 'Cancel', class: "small button radius cancel-button alert"
+            = render 'notes/form'
       - else
         = link_to 'Give Feedback', give_feedback_restaurant_review_path(@restaurant, @review)
 .row
