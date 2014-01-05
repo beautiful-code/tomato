@@ -4,8 +4,6 @@ class Admin::NotesController < ApplicationController
 
   def destroy
     @note = Note.find(params[:id])
-    @review = Review.find(params[:review_id])
-    @restaurant = Restaurant.find(params[:restaurant_id])
     @note.destroy
 
     redirect_to request.referrer

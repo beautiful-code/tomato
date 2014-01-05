@@ -5,7 +5,7 @@
     .paginate
       = paginate @reviews
 
-    = render :partial => 'table', :locals => {:reviews => @reviews}
+    = render :partial => 'reviews/table', :locals => {:reviews => @reviews}
 
     .paginate
       = paginate @reviews

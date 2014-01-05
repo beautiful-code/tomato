@@ -8,7 +8,10 @@ class Admin::ReviewsController < ApplicationController
   def show
     @restaurant = Restaurant.find(params[:restaurant_id])
     @review = @restaurant.reviews.find(params[:id])
-    @users = @review.notes.select('distinct(user_id)').collect {|user_entry| User.find(user_entry.user_id) }
+    @feedbacks = @review.feedbacks
+
+    # @users = @review.notes.select('distinct(user_id)').collect {|user_entry| User.find(user_entry.user_id) }
+
     add_breadcrumb @restaurant.name,admin_restaurant_path(@restaurant)
     if @review.source == 'Zomato'
       add_breadcrumb 'Reviews',zomato_admin_restaurant_reviews_path
@@ -24,7 +27,7 @@ class Admin::ReviewsController < ApplicationController
 
   def zomato
     @restaurant = Restaurant.find(params[:restaurant_id])
-    @reviews = @restaurant.reviews.where(source:'Zomato').order('review_created_at DESC').page(params[:page]).per(4)
+    @reviews = @restaurant.reviews.where(source:'Zomato').order('review_created_at DESC').page(params[:page]).per(10)
     add_breadcrumb @restaurant.name,admin_restaurant_path(@restaurant)
     add_breadcrumb 'Zomato',zomato_admin_restaurant_reviews_path
     @source = 'zomato'
@@ -35,7 +38,7 @@ class Admin::ReviewsController < ApplicationController
     @restaurant = Restaurant.find(params[:restaurant_id])
     add_breadcrumb @restaurant.name,admin_restaurant_path(@restaurant)
     add_breadcrumb 'Burrp',burrp_admin_restaurant_reviews_path
-    @reviews = @restaurant.reviews.where(source:'Burrp').order('review_created_at DESC').page(params[:page]).per(4)
+    @reviews = @restaurant.reviews.where(source:'Burrp').order('review_created_at DESC').page(params[:page]).per(10)
     @source = 'burrp'
     render 'reviews/source_reviews'
   end
@@ -44,7 +47,7 @@ class Admin::ReviewsController < ApplicationController
     @restaurant = Restaurant.find(params[:restaurant_id])
     add_breadcrumb @restaurant.name,admin_restaurant_path(@restaurant)
     add_breadcrumb 'Yelp',yelp_admin_restaurant_reviews_path
-    @reviews = @restaurant.reviews.where(source:'Yelp').order('review_created_at DESC').page(params[:page]).per(4)
+    @reviews = @restaurant.reviews.where(source:'Yelp').order('review_created_at DESC').page(params[:page]).per(10)
     @source = 'yelp'
     render 'reviews/source_reviews'
   end

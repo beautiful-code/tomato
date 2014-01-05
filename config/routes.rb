@@ -7,7 +7,7 @@ Tomato::Application.routes.draw do
   namespace :admin do
     resources :restaurants do
       resources :reviews do
-        resources :notes ,only: [:edit,:create,:update,:new,:destroy]
+        resources :notes ,only: [:destroy]
         collection do
           get 'zomato'
           get 'burrp'

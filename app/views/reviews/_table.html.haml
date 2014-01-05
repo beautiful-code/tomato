@@ -8,6 +8,7 @@
       %td= review.id
       %td
         - if @admin
+          = "#{review.feedbacks.count} feedbacks"
         - else
           - if review.get_feedback(current_user).present?
             = "#{review.get_feedback(current_user).notes.count} notes"
