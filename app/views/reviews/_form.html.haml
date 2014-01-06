@@ -1,29 +1,29 @@
 = form_for (@admin ? [:admin, @restaurant ,@review] : [@restaurant, @review]), :html => { :multipart => true } do |f|
   -if @review.errors.any?
     #error_explanation
-      %h2 = pluralize(@review.errors.count, "error") prohibited this review from being saved:
+      %h2
+        = pluralize(@review.errors.count, "error")
+        prohibited this review from being saved
       %ul
         -@review.errors.full_messages.each do |msg|
           %li
             = msg
-  %div.row  
-    %div.small-12
-      %div.row
-        %div.small-3.columns
-          = f.label :title, class: 'right inline'
-        %div.small-9.columns
-          = f.text_field :title
-        %div.small-3.columns
-          = f.label :desc, class: 'right inline'
-        %div.small-9.columns
-          = f.text_area :desc, rows: "30"
-        %div.small-3.columns
-          = f.label :source, class: 'right inline'
-        %div.small-9.columns
-          = f.text_field :source
-        %div.small-3.columns
-          = f.label :author, class: 'right inline'
-        %div.small-9.columns
-          = f.text_field :author
-        %div.small-9.columns
-          = f.submit :Save, class: 'small button success radius'
+  #new_review.small-12
+    .small-3.columns
+      = f.label :title, class: 'right inline'
+    .small-9.columns
+      = f.text_field :title
+    .small-3.columns
+      = f.label :desc, class: 'right inline'
+    .small-9.columns
+      = f.text_area :desc, rows: "30"
+    .small-3.columns
+      = f.label :source, class: 'right inline'
+    .small-9.columns
+      = f.text_field :source
+    .small-3.columns
+      = f.label :author, class: 'right inline'
+    .small-9.columns
+      = f.text_field :author
+    .small-9.columns
+      = f.submit :Save, class: 'small button success radius'
