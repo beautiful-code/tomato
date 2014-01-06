@@ -5,7 +5,7 @@
         = @review.title
         .review-rating
           = @review.rating
-      %p= @review.desc
+      %p= raw(@review.desc)
 
     .large-2.columns
       - if @feedback.present?

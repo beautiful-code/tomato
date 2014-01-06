@@ -1,35 +1,36 @@
 desc "Scrape the Restaurant info & Reviews from Zomato"
 namespace :zomato do
-	desc "Scrape Restaurants information from Zomato"
-	task :restaurants => :environment do
-	require 'nokogiri'
-  	require 'open-uri'
-        # url = "http://www.zomato.com/hyderabad/restaurants"
-		# doc = Nokogiri::HTML(open(url))
-		# # Get the total number of pages listed with restaurant names
-		# pages = doc.at_css(".pagination-meta").text.split(' ').last.to_i 
+  desc "Scrape Restaurants information from Zomato"
+  task :restaurants => :environment do
+    require 'nokogiri'
+    require 'open-uri'
+    # url = "http://www.zomato.com/hyderabad/restaurants"
+    # doc = Nokogiri::HTML(open(url))
+    # # Get the total number of pages listed with restaurant names
+    # pages = doc.at_css(".pagination-meta").text.split(' ').last.to_i
 
-		# 1.upto(pages) do |i|
-		# 	url = "http://www.zomato.com/hyderabad/restaurants?page=#{i}"
-		# 	doc = Nokogiri::HTML(open(url))
-		# 	doc.css(".ln24.left a").each do |d|
-		# 	   puts doc.at_css(".ln24.left a").text.strip
-		# 	   puts doc.at_css("div.ln24 a").text.strip
-		# 	   puts doc.at_css(".search-result-address").text.strip
-		# 	end
-		# end
-	end
+    # 1.upto(pages) do |i|
+    # 	url = "http://www.zomato.com/hyderabad/restaurants?page=#{i}"
+    # 	doc = Nokogiri::HTML(open(url))
+    # 	doc.css(".ln24.left a").each do |d|
+    # 	   puts doc.at_css(".ln24.left a").text.strip
+    # 	   puts doc.at_css("div.ln24 a").text.strip
+    # 	   puts doc.at_css(".search-result-address").text.strip
+    # 	end
+    # end
+  end
 
-	desc "Scrape Reviews for each restaurant from Zomato"
-	task :reviews => :environment do
-		require 'nokogiri'
-		require 'open-uri'
+  desc "Scrape Reviews for each restaurant from Zomato"
+  task :reviews => :environment do
+    require 'nokogiri'
+    require 'open-uri'
 
-		@restaurants = Restaurant.all
-		@restaurants.each do |restaurant|
-			restaurant.last_fetched_at||= 2.days.ago
+    @restaurants = Restaurant.all
+    @restaurants.each do |restaurant|
+      restaurant.last_fetched_at||= 2.days.ago
       if !restaurant.zomato_url.blank?
-        if restaurant.last_fetched_at < 1.day.ago
+        #if restaurant.last_fetched_at < 1.day.ago
+        if true
           doc = Nokogiri::HTML(open(restaurant.zomato_url))
           restaurant.name = doc.at_css(".res-main-name span").text.strip
           restaurant.phone = doc.at_css("#phoneNoString .alpha").text.strip
@@ -50,7 +51,7 @@ namespace :zomato do
               end
               @review.rating = a.at_css(".small-rating").text.strip.to_f
               @review.review_created_at = time
-              @review.desc = a.at_css("p").text.strip
+              @review.desc = a.at_css("p").to_s
               @review.save
             rescue
               next
@@ -64,19 +65,19 @@ namespace :zomato do
       else
         puts "This Restaurant : #{restaurant.name} is not listed on Zomato"
       end
-		end
-	end
+    end
+  end
 end
 
 desc "Scrape Reviews from Burrp"
 namespace :burrp do
-	desc "Scrape Restaurant reviews from Burrp"
-	task :reviews => :environment do
-		require 'nokogiri'
-		require 'open-uri'
-		@restaurants = Restaurant.all
-		@restaurants.each do |restaurant|
-			restaurant.last_fetched_at||= 2.days.ago
+  desc "Scrape Restaurant reviews from Burrp"
+  task :reviews => :environment do
+    require 'nokogiri'
+    require 'open-uri'
+    @restaurants = Restaurant.all
+    @restaurants.each do |restaurant|
+      restaurant.last_fetched_at||= 2.days.ago
       if !restaurant.burrp_url.blank?
         if restaurant.last_fetched_at < 1.day.ago
           doc = Nokogiri::HTML(open(restaurant.burrp_url))
@@ -100,7 +101,7 @@ namespace :burrp do
                 time = (Date.parse(time)).to_time
                 @review.review_created_at = time
                 @review.rating = s.css(".smallRating span")[0]['title']
-                @review.desc = s.at_css(".float_r+ div , h3+ div span").text.strip
+                @review.desc = s.at_css(".float_r+ div , h3+ div span").to_s
                 @review.save
                 count +=1
               rescue
@@ -110,69 +111,78 @@ namespace :burrp do
           end
           restaurant.last_fetched_at = Time.now
           restaurant.save
-          puts "#{count} user_notes fetched out of #{rcount} !"
+          puts "#{count} reviews fetched out of #{num_reviews} !"
         else
           puts "Reviews are fetched recently for the restaurant #{restaurant.name} !"
         end
       else
         puts "This Restaurant : #{restaurant.name} is not listed on Burrp"
       end
-		end
-	end
+    end
+  end
 end
-
 
 desc "Scrape Reviews from Yelp"
 namespace :yelp do
-	desc "Scrape Restaurant reviews from Burrp"
-	task :reviews => :environment do
-		require 'nokogiri'
-		require 'open-uri'
-		@restaurants = Restaurant.all
-		@restaurants.each do |restaurant|
-			restaurant.last_fetched_at||= 2.days.ago
-			if !restaurant.yelp_url.blank?
-				if restaurant.last_fetched_at < 1.day.ago
-					doc = Nokogiri::HTML(open(restaurant.yelp_url, "User-Agent" => "Ruby/ruby-1.9.3-p327"))
+  desc "Scrape Restaurant reviews from Burrp"
+  task :reviews => :environment do
+    require 'nokogiri'
+    require 'open-uri'
 
-					restaurant.address = doc.css("address").text.strip
-					restaurant.phone = doc.css("#bizPhone").text.strip
+    Rails.logger.info
 
-					rcount = doc.css(".reviews-header").text[/[0-9]+/].to_i
+    @restaurants = Restaurant.all
+    @restaurants.each do |restaurant|
+      restaurant.last_fetched_at||= 2.days.ago
+      if !restaurant.yelp_url.blank?
+        if restaurant.last_fetched_at < 1.day.ago
+          doc = Nokogiri::HTML(open(restaurant.yelp_url, "User-Agent" => "Ruby/ruby-1.9.3-p327"))
+
+          restaurant.address = doc.css("address").text.strip
+          restaurant.phone = doc.css("#bizPhone").text.strip
+
+          rcount = doc.css(".reviews-header").text[/[0-9]+/].to_i
           puts "Fetching (#{rcount}) reviews for #{restaurant.name}"
 
           count = 0
 
-					(0..rcount).step(40) do |page|
-						url = "#{restaurant.yelp_url}?start=#{page}"
-						doc = Nokogiri::HTML(open(url, "User-Agent" => "Ruby/ruby-1.9.3-p327"))
-						doc.css(".review").each do |r|
-							begin
-								@review = restaurant.reviews.build
-								@review.title = "Not available"
-								@review.source = "Yelp"
-								@review.author = r.css(".user-name a").text.strip
-								@review.review_created_at= r.css(".review-meta .date.smaller").text.strip
-								@review.rating = r.css(".rating-container .rating i")[0]["title"].to_f
-								@review.desc = r.css(".media-story p").text.strip
-								@review.save
-                count +=1
-							rescue
-								next
-							end
-						end
-					end
-					restaurant.last_fetched_at = Time.now
-					restaurant.save
+          (0..rcount).step(40) do |page|
+            url = "#{restaurant.yelp_url}?start=#{page}"
+            doc = Nokogiri::HTML(open(url, "User-Agent" => "Ruby/ruby-1.9.3-p327"))
+            doc.css(".review").each do |r|
+              @review = restaurant.reviews.build
+              @review.title = "Not available"
+              @review.source = "Yelp"
+              @review.author = r.css(".user-name a").text.strip
+              @review.review_created_at= r.css(".review-meta .date.smaller").text.strip
+              begin
+                @review.rating = r.css(".rating meta")[0]["content"].to_f
+              rescue
+                @review.rating = -1
+              ensure
+                @review.desc = r.css(".media-story p.review_comment").to_s
+                if (@review.desc).blank?
+                  break
+                else
+                  if Review.find_by_desc(@review.desc).nil?
+                    @review.save
+                    count +=1
+                  end
+                end
+              end
+            end
+          end
+          restaurant.last_fetched_at = Time.now
+          restaurant.save
           puts "#{count} reviews fetched out of #{rcount} !"
-				else
-					puts "Reviews are fetched recently for the restaurant #{restaurant.name} !"
-				end
-			else
-				puts "This Restaurant : #{restaurant.name} is not listed on Yelp"
-			end
-		end
-	end
+        else
+        	puts "Reviews are fetched recently for the restaurant #{restaurant.name} !"
+        end
+      else
+        puts "This Restaurant : #{restaurant.name} is not listed on Yelp"
+      end
+    end
+  end
 end
 
 
