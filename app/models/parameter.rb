@@ -23,7 +23,7 @@ class Parameter < ActiveRecord::Base
     },
     "price" => {
       "label" => "Price",
-      "values" => ["Value for money", "Slightly Expensive", "Very Expensive"],
+      "values" => ["Value", "Slightly Expensive", "Very Expensive"],
       "category" => 'food'
     },
     "ambience" => {
