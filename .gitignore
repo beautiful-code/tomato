@@ -15,4 +15,4 @@ vendor
 /tmp
 *.swp
 *.swo
-.sass-cache
+.sass-cache/
