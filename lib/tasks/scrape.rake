@@ -1,24 +1,5 @@
 desc "Scrape the Restaurant info & Reviews from Zomato"
 namespace :zomato do
-  desc "Scrape Restaurants information from Zomato"
-  task :restaurants => :environment do
-    require 'nokogiri'
-    require 'open-uri'
-    # url = "http://www.zomato.com/hyderabad/restaurants"
-    # doc = Nokogiri::HTML(open(url))
-    # # Get the total number of pages listed with restaurant names
-    # pages = doc.at_css(".pagination-meta").text.split(' ').last.to_i
-
-    # 1.upto(pages) do |i|
-    # 	url = "http://www.zomato.com/hyderabad/restaurants?page=#{i}"
-    # 	doc = Nokogiri::HTML(open(url))
-    # 	doc.css(".ln24.left a").each do |d|
-    # 	   puts doc.at_css(".ln24.left a").text.strip
-    # 	   puts doc.at_css("div.ln24 a").text.strip
-    # 	   puts doc.at_css(".search-result-address").text.strip
-    # 	end
-    # end
-  end
 
   desc "Scrape Reviews for each restaurant from Zomato"
   task :reviews => :environment do

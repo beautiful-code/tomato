@@ -3,7 +3,7 @@ class RestaurantsController < ApplicationController
   before_filter :init_breadcrumb
 
   def index
-    @restaurants = Restaurant.page(params[:page]).per(5)
+    @restaurants = Restaurant.page(params[:page]).per(10)
     @review = Review.new
   end
 
