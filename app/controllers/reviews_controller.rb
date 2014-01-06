@@ -6,7 +6,7 @@ class ReviewsController < ApplicationController
     @restaurant = Restaurant.find(params[:restaurant_id])
     add_breadcrumb @restaurant.name,restaurant_path(@restaurant)
     add_breadcrumb 'Zomato',zomato_restaurant_reviews_path
-    @reviews = @restaurant.reviews.where(source:'Zomato').order('review_created_at DESC').page(params[:page]).per(4)
+    @reviews = @restaurant.reviews.where(source:'Zomato').order('review_created_at DESC').page(params[:page]).per(10)
     @source = 'zomato'
     render 'source_reviews'
   end
@@ -15,7 +15,7 @@ class ReviewsController < ApplicationController
     @restaurant = Restaurant.find(params[:restaurant_id])
     add_breadcrumb @restaurant.name,restaurant_path(@restaurant)
     add_breadcrumb 'Burrp',burrp_restaurant_reviews_path
-    @reviews = @restaurant.reviews.where(source:'Burrp').order('review_created_at DESC').page(params[:page]).per(4)
+    @reviews = @restaurant.reviews.where(source:'Burrp').order('review_created_at DESC').page(params[:page]).per(10)
     @source = 'burrp'
     render 'source_reviews'
   end
@@ -24,7 +24,7 @@ class ReviewsController < ApplicationController
     @restaurant = Restaurant.find(params[:restaurant_id])
     add_breadcrumb @restaurant.name,restaurant_path(@restaurant)
     add_breadcrumb 'Yelp',yelp_restaurant_reviews_path
-    @reviews = @restaurant.reviews.where(source:'Yelp').order('review_created_at DESC').page(params[:page]).per(4)
+    @reviews = @restaurant.reviews.where(source:'Yelp').order('review_created_at DESC').page(params[:page]).per(10)
     @source = 'yelp'
     render 'source_reviews'
   end
