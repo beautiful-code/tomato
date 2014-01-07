@@ -3,7 +3,7 @@
     = @review.title
     .review-rating
       = @review.rating
-  %p= @review.desc
+  %p= raw(@review.desc)
 
 - if false
   .large-12.columns
