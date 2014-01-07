@@ -45,11 +45,11 @@
 
   #review_notes {
     .desc {
-      max-height: 220px;
+      max-height: 320px;
       overflow-y: scroll;
     }
     #notes {
-      max-height: 240px;
+      max-height: 340px;
       overflow-y: scroll;
     }
   }
@@ -67,8 +67,8 @@
 }
 
 #parameters {
-  font-size: 90%;
-  line-height: 15px;
+  font-size:90%;
+  line-height: 16px;
   input {
     margin: 0;
   }
@@ -80,8 +80,9 @@
     display: inline;
   }
   .parameter {
+    padding: 2px;
     &:hover {
-      background-color: #eee;
+      background-color: #ddd;
     }
     .left{
       float:left;
