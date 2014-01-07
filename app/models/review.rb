@@ -12,6 +12,14 @@ class Review < ActiveRecord::Base
 
   serialize :consolidated_notes, Hash
 
+  def next
+    restaurant.reviews.where("id < ? AND source = ?", id, source).first
+  end
+
+  def prev
+    restaurant.reviews.where("id > ? AND source = ?", id, source).last
+  end
+
   def get_feedback user 
     feedbacks.where(:user_id => user.id).first
   end

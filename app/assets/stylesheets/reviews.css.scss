@@ -29,6 +29,7 @@
     width: 250px;
   }
 
+
   form.note-form {
     display:none;
     button.cancel-button {
@@ -40,6 +41,17 @@
     height:32px;
     display: block;
   }
+}
+
+.prev-next {
+  a {
+    padding: 10px;
+    color: #FFA500; 
+    font-weight: bold;
+    &:visited {
+      color: #FFA500; 
+    }
+  } 
 }
 
 #parameters {

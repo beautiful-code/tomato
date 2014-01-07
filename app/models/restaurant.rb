@@ -1,6 +1,6 @@
 class Restaurant < ActiveRecord::Base
   attr_accessible :address, :name, :phone, :zomato_url, :burrp_url, :yelp_url
-  has_many :reviews
+  has_many :reviews, :order => "id DESC"
 
   def collected_notes
     @collected_notes ||= reviews.collect(&:consolidated_notes)

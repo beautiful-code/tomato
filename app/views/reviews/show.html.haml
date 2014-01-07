@@ -31,6 +31,10 @@
 
 
   .large-2.columns
+    %center
+      %p.prev-next
+        = link_to "Prev", restaurant_review_path(@restaurant, @review.prev) if @review.prev.present?
+        = link_to "Next", restaurant_review_path(@restaurant, @review.next) if @review.next.present?
     - if @feedback.present?
       .notes-container
         .review-notes
