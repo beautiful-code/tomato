@@ -41,6 +41,17 @@
     height:32px;
     display: block;
   }
+
+  #review_notes {
+    #review {
+      max-height: 200px;
+      overflow-y: scroll;
+    }
+    #notes {
+      max-height: 200px;
+      overflow-y: scroll;
+    }
+  }
 }
 
 .prev-next {

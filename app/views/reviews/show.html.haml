@@ -1,11 +1,28 @@
 #source_reviews
-  .large-10.columns
-    %h5
-      = @review.title
-      .review-rating
-        = @review.rating
-    %p= raw(@review.desc)
+  #review_notes.large-12.columns
+    #review.large-10.columns
+      %h5
+        = @review.title
+        .review-rating
+          = @review.rating
+      %p= raw(@review.desc)
+    #notes.large-2.columns
+      %center
+        %p.prev-next
+          = link_to "Prev", restaurant_review_path(@restaurant, @review.prev) if @review.prev.present?
+          = link_to "Next", restaurant_review_path(@restaurant, @review.next) if @review.next.present?
+      - if @feedback.present?
+        .notes-container
+          .review-notes
+            %center
+              = render partial: 'notes/list', locals: {:notes => @feedback.notes, :restaurant => @restaurant}
+          %center
+            = render 'notes/form'
+      - else
+        = link_to 'Give Feedback', give_feedback_restaurant_review_path(@restaurant, @review)
 
+
+  .large-12.columns
     #parameters
       %hr
       - if @feedback.present?
@@ -28,23 +45,3 @@
           .large-12.columns
             %center
               = f.submit 'Update',class: 'small button success save-button radius'
-
-
-  .large-2.columns
-    %center
-      %p.prev-next
-        = link_to "Prev", restaurant_review_path(@restaurant, @review.prev) if @review.prev.present?
-        = link_to "Next", restaurant_review_path(@restaurant, @review.next) if @review.next.present?
-    - if @feedback.present?
-      .notes-container
-        .review-notes
-          %center
-            = render partial: 'notes/list', locals: {:notes => @feedback.notes, :restaurant => @restaurant}
-        %center
-          = render 'notes/form'
-    - else
-      = link_to 'Give Feedback', give_feedback_restaurant_review_path(@restaurant, @review)
-
-
-      
-
