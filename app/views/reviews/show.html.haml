@@ -1,15 +1,16 @@
 #source_reviews
   #review_notes.large-12.columns
     #review.large-10.columns
-      %h5
+      %h5.title
         = @review.title
         .review-rating
           = @review.rating
-      %p= raw(@review.desc)
+      .desc= raw(@review.desc)
     #notes.large-2.columns
       %center
         %p.prev-next
           = link_to "Prev", restaurant_review_path(@restaurant, @review.prev) if @review.prev.present?
+          = link_to "Back", @back_path
           = link_to "Next", restaurant_review_path(@restaurant, @review.next) if @review.next.present?
       - if @feedback.present?
         .notes-container
@@ -28,20 +29,16 @@
       - if @feedback.present?
         = form_for(@feedback.parameter, :url => feedback_parameter_path(:feedback_id => @feedback.id)) do |f|
           .large-12.columns
-            .large-6.columns
+            %center
+              = f.submit 'Update',class: 'small button success save-button radius'
+          .large-12.columns
+            .large-4.columns
               = render :partial => 'category_features', :locals => {:category => 'restaurant', :f => f}
-
-            .large-6.columns
+            .large-4.columns
               = render :partial => 'category_features', :locals => {:category => 'service', :f => f}
 
               = render :partial => 'category_features', :locals => {:category => 'food', :f => f}
-
-          .large-12.columns
-            .large-6.columns
+            .large-4.columns
               = render :partial => 'category_features', :locals => {:category => 'context', :f => f}
-            .large-6.columns
               = render :partial => 'category_features', :locals => {:category => 'extrensic', :f => f}
 
-          .large-12.columns
-            %center
-              = f.submit 'Update',class: 'small button success save-button radius'

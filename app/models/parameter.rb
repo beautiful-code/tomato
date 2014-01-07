@@ -38,7 +38,7 @@ class Parameter < ActiveRecord::Base
     },
     "menu_options" => {
       "label" => "Menu Options",
-      "values" => ["Disliked it", "Liked id", "Loved it"],
+      "values" => ["Disliked it", "Liked it", "Loved it"],
       "category" => "restaurant"
     },
     "meals" => {
@@ -53,7 +53,7 @@ class Parameter < ActiveRecord::Base
     },
     "noise" => {
       "label" => "Noise",
-      "values" => ["Disliked it", "Liked id", "Loved it"],
+      "values" => ["Disliked it", "Liked it", "Loved it"],
       "category" => "restaurant"
     },
     "user" => {
@@ -68,7 +68,12 @@ class Parameter < ActiveRecord::Base
     },
     "healthy" => {
       "label" => "Healthy",
-      "values" => ["Unhealthy", "Healthy"],
+      "values" => ["No", "Yes"],
+      "category" => "food"
+    },
+    "served_hot" => {
+      "label" => "Served Hot",
+      "values" => ["No", "Yes"],
       "category" => "food"
     },
     "attentiveness_of_staff" => {
@@ -77,7 +82,7 @@ class Parameter < ActiveRecord::Base
       "category" => "service"
     },
     "time_to_drive" => {
-      "label" => "Time taken to drive to restaurant",
+      "label" => "Drive Time",
       "values" => ["Short", "Long"],
       "category" => "extrensic"
     },
@@ -92,7 +97,7 @@ class Parameter < ActiveRecord::Base
       "category" => "restaurant"
     },
     "complementary_available" => {
-      "label" => "Availability of complementary products",
+      "label" => "Complementary products",
       "values" => ["No", "Yes"],
       "category" => "extrensic"
     },
@@ -101,6 +106,11 @@ class Parameter < ActiveRecord::Base
       "values" => ["No", "Yes"],
       "category" => "extrensic"
     },
+    "found_us_through" => {
+      "label" => "Found through",
+      "values" => ["Yelp", "Google", "Family & Friends", "Other"],
+      "category" => "context"
+    }
 
   }
 

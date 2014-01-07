@@ -49,6 +49,9 @@ class ReviewsController < ApplicationController
     @review = @restaurant.reviews.find(params[:id])
     @feedback = @review.get_feedback(current_user)
 
+    @breadcrumbs = nil
+    @back_path = self.send("#{@review.source.downcase}_restaurant_reviews_path")
+=begin
     add_breadcrumb @restaurant.name,restaurant_path(@restaurant)
     if @review.source == 'Zomato'
       add_breadcrumb "#{@review.source} Reviews",zomato_restaurant_reviews_path
@@ -60,6 +63,7 @@ class ReviewsController < ApplicationController
       add_breadcrumb "#{@review.source} Reviews",burrp_restaurant_reviews_path
     end
     add_breadcrumb "#{@review.id}",restaurant_review_path(@restaurant,@review)
+=end
   end
 
   def edit
