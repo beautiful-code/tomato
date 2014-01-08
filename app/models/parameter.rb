@@ -8,7 +8,7 @@ class Parameter < ActiveRecord::Base
   FEATURES = {
     "courtesy" => {
       "label" => "Courtesy of Staff",
-      "values" => ["Rude", "Neutral", "Courteous/Friendly"],
+      "values" => ["Rude", "Courteous/Friendly"],
       "category" => "service"
     },
     "queue_at_counter" => {
@@ -28,7 +28,7 @@ class Parameter < ActiveRecord::Base
     },
     "ambience" => {
       "label" => "Ambience",
-      "values" => ["Disliked it", "Liked it", "Loved it"],
+      "values" => ["Disliked it", "Liked it"],
       "category" => 'restaurant'
     },
     "parking" => {
@@ -38,11 +38,11 @@ class Parameter < ActiveRecord::Base
     },
     "menu_options" => {
       "label" => "Menu Options",
-      "values" => ["Disliked it", "Liked it", "Loved it"],
+      "values" => ["Disliked it", "Liked it"],
       "category" => "restaurant"
     },
     "meals" => {
-      "label" => "Menu Options",
+      "label" => "Meals",
       "values" => ["Brunch", "Breakfast", "Lunch", "Snack", "Dinner"],
       "category" => "context"
     },
@@ -56,9 +56,9 @@ class Parameter < ActiveRecord::Base
       "values" => ["First time", "Casual repeat", "Regular"],
       "category" => "context"
     },
-    "occasion" => {
-      "label" => "Occasion",
-      "values" => ["Date", "Family", "Friends", "Alone", "Unplanned"],
+    "Company" => {
+      "label" => "Company",
+      "values" => ["Date", "Family", "Friends", "Alone"],
       "category" => "context"
     },
     "healthy" => {
@@ -76,34 +76,24 @@ class Parameter < ActiveRecord::Base
       "values" => ["Not attentive", "Attentive"],
       "category" => "service"
     },
-    "time_to_drive" => {
-      "label" => "Drive Time",
-      "values" => ["Short", "Long"],
-      "category" => "extrensic"
-    },
     "hygene" => {
       "label" => "Hygene",
       "values" => ["Unhygenic", "Hygenic"],
       "category" => "restaurant"
     },
-    "free_items" => {
-      "label" => "Free Items",
-      "values" => ["No", "Yes"],
-      "category" => "restaurant"
-    },
-    "complementary_available" => {
-      "label" => "Complementary products",
-      "values" => ["No", "Yes"],
-      "category" => "extrensic"
-    },
-    "nearby_places_influence" => {
-      "label" => "Nearby places influence",
-      "values" => ["No", "Yes"],
-      "category" => "extrensic"
-    },
     "found_us_through" => {
       "label" => "Found through",
       "values" => ["Yelp", "Google", "Family & Friends", "Other"],
+      "category" => "context"
+    }
+    "efficiency_of_staff" => {
+      "label" => "Efficiency of Staff",
+      "values" => ["Slow", "Efficient"],
+      "category" => "service"
+    }
+    "occasion" => {
+      "label" => "Occasion",
+      "values" => ["Birthday", "Anniversary", "Treat", "Get-together"],
       "category" => "context"
     }
 
