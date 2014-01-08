@@ -9,27 +9,10 @@
  * compiled file, but it's generally better to create a new file per style scope.
  *
  *= require_self
- *= require foundation_and_overrides
  *= require_tree .
  */
 
 
-.notice {
-    background-color:#5CB250;
-    border-color:#5CB250;
-    width: 82%;
-    margin: 10px 10px 10px 10%;
-}
-
-.alert {
-    background-color: #FF5C60;
-    border-color:#FF5C60;
-    width: 82%;
-    margin: 10px 10px 10px 10%;
-}
-
-.breadcrumb {
-    margin-left: 20px;
-    margin-top: 20px;
-    margin-bottom: 20px;
+.push {
+    margin: 30px !important;
 }

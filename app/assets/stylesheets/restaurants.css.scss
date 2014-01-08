@@ -22,4 +22,17 @@
   .address {
     width: 400px;
   }
+
+  #new_review {
+    textarea{
+      height: 50px !important;
+    }
+  }
+
+}
+
+#new_restaurant_form {
+  textarea{
+    height: 50px !important;
+  }
 }
