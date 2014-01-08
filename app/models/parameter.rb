@@ -51,11 +51,6 @@ class Parameter < ActiveRecord::Base
       "values" => ["Too large", "too small", "just enough"],
       "category" => "food"
     },
-    "noise" => {
-      "label" => "Noise",
-      "values" => ["Disliked it", "Liked it", "Loved it"],
-      "category" => "restaurant"
-    },
     "user" => {
       "label" => "User",
       "values" => ["First time", "Casual repeat", "Regular"],
