@@ -31,10 +31,13 @@
   }
 
 
-  form.note-form {
+  #new_note_form {
     display:none;
-    button.cancel-button {
-    }
+  }
+  form.note-form {
+      label, input {
+        display:inline;
+      }
   }
   .add-note {
     margin: 10px;

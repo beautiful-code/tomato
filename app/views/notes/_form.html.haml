@@ -1,11 +1,12 @@
-= button_tag 'Add a Note', class: "tiny button radius add-note"
-= form_for [@feedback,Note.new], html: { class: 'note-form' } do |f|
-  = f.label :item
-  = f.text_field :item
+/= button_tag 'Add a Note', class: "tiny button radius add-note"
+#new_note_form
+  .new-note-form
+    = form_for [@feedback,Note.new], html: { class: 'note-form' } do |f|
+      = f.text_field :item
 
-  = f.label :rating
-  = f.text_field :rating
-  %h6.subheader Rate from 1 - 5 scale
+      = f.label :rating
+      = f.text_field :rating
+      %h6.subheader Rate from 1 - 5 scale
 
-  = f.submit :SaveNote , class: 'btn btn-success save-button'
-  = button_tag 'Cancel', class: "btn btn-danger cancel-button"
+      = f.submit :SaveNote , class: 'btn btn-success save-button'
+      = button_tag 'Cancel', class: "btn btn-danger cancel-button"
