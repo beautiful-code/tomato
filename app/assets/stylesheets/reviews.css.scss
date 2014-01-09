@@ -30,6 +30,12 @@
     width: 250px;
   }
 
+  .wide {
+    width: 100px;
+  }
+  td {
+    text-align: center;
+  }
 
   #new_note_form {
     display:none;
@@ -46,14 +52,27 @@
     display: block;
   }
 
+  #notes_list {
+    margin: 0px;
+    .item {
+      width: 200px;
+    }
+    .rating {
+      width: 50px;
+    }
+    .delete {
+      width:40px;
+    }
+  }
+
   #review_notes {
     height: 250px;
     .desc {
       max-height: 220px;
       overflow-y: scroll;
     }
-    #notes {
-      margin-top: 10px;
+    .review-notes {
+      margin-top: 20px;
       max-height: 260px;
       overflow-y: scroll;
     }
@@ -120,3 +139,4 @@
     clear: both;
   }
 }
+
