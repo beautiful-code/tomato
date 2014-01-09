@@ -72,6 +72,7 @@ class Admin::RestaurantsController < ApplicationController
     end
 
     def init_breadcrumb
+      add_breadcrumb 'Admin', admin_restaurants_path
       add_breadcrumb 'All Restaurants', admin_restaurants_path
     end
 end

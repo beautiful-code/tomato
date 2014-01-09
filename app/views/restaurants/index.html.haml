@@ -1,5 +1,5 @@
 #restaurant
-  .span11.offset1
+  .span10.offset1
     %h4
       Restaurants
     %table
@@ -21,10 +21,10 @@
           %td= link_to 'Show', (@admin ? admin_restaurant_path(restaurant) : restaurant_path(restaurant))
           %td= link_to 'Edit', (@admin ? edit_admin_restaurant_path(restaurant) : edit_restaurant_path(restaurant))
           %td= link_to 'Destroy', (@admin ? admin_restaurant_path(restaurant) : restaurant_path(restaurant)), method: :delete, data: { confirm: 'Are you sure?' }
-  .span12.push
-    = link_to (@admin ? new_admin_restaurant_path : new_restaurant_path) do
-      %i.icon-plus
-      New Restaurant
+  .span11
+    %h3
+    %i.icon-add
+    = link_to 'New Restaurant',(@admin ? new_admin_restaurant_path : new_restaurant_path), class: 'new-restaurant'
     .paginate
       = paginate @restaurants
 

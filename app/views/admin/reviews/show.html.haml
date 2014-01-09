@@ -1,17 +1,18 @@
-.large-12.columns
-  %center
-    %p.prev-next
-      = link_to "Prev", admin_restaurant_review_path(@restaurant, @review.prev) if @review.prev.present?
-      = link_to "Next", admin_restaurant_review_path(@restaurant, @review.next) if @review.next.present?
+.row-fluid
+  .span10.offset1
+    %center
+      %p.prev-next
+        = link_to "Prev", admin_restaurant_review_path(@restaurant, @review.prev) if @review.prev.present?
+        = link_to "Next", admin_restaurant_review_path(@restaurant, @review.next) if @review.next.present?
 
-  %h5
-    = @review.title
-    .review-rating
-      = @review.rating
-  %p= raw(@review.desc)
+    %h5
+      = @review.title
+      .review-rating
+        = @review.rating
+    %p= raw(@review.desc)
 
 - if false
-  .large-12.columns
+  .span12
     %h4 Consolidated Notes
     %table
       %thead
@@ -22,10 +23,10 @@
           %td= k
           %td= v
 
-.large-12.columns
+.span12
   %h4= "User Feedbacks (#{@feedbacks.count})"
   - @feedbacks.each do |feedback|
-    .large-4.columns
+    .span4
       %h5= feedback.user.email
       = render :partial => 'notes/list', :locals => {:notes => feedback.notes, :restaurant => @review.restaurant}
 

@@ -1,9 +1,6 @@
 #source_reviews.row-fluid
   .span10.offset2
-    %h4
-      = "#{@source.capitalize} Reviews"
-    .paginate
-      = paginate @reviews
+    %h4= "#{@source.capitalize} Reviews"
 
     = render :partial => 'reviews/table', :locals => {:reviews => @reviews}
 

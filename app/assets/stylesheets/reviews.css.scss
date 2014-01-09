@@ -1,5 +1,5 @@
 #source_reviews {
-  margin-top: 50px;
+  margin-top: 10px;
   h4 {
     display:inline-block;
     margin-bottom: 10px;
@@ -44,12 +44,13 @@
   }
 
   #review_notes {
+    height: 250px;
     .desc {
-      max-height: 275px;
+      max-height: 220px;
       overflow-y: scroll;
     }
     #notes {
-      margin-top: 40px;
+      margin-top: 10px;
       max-height: 260px;
       overflow-y: scroll;
     }

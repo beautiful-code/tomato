@@ -5,17 +5,7 @@
     display: block;
     word-spacing:2px
   }
-  .size-tiny{
-    width:100px;
-  }
-  .size {
-    width: 180px;
-    display: block;
-  }
-  .other {
-    background-color:#F08715 !important;
-    border-color:#F08715 !important;
-  }
+
   .name {
     width:200px;
   }
@@ -23,16 +13,44 @@
     width: 400px;
   }
 
+  .new-restaurant {
+    margin-top:10px !important;
+  }
+
   #new_review {
     textarea{
       height: 50px !important;
     }
   }
-
+  .tiny {
+    width:120px;
+  }
+  .block {
+    display: block;
+    margin: 5px;
+  }
+  label {
+    width: 80px !important;
+  }
+  .right {
+    float: right;
+  }
+  .left {
+    float: left;
+  }
 }
 
 #new_restaurant_form {
   textarea{
     height: 50px !important;
+  }
+}
+
+#source_reviews {
+  th {
+    width: 100px;
+  }
+  td {
+    text-align: center;
   }
 }

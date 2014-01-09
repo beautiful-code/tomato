@@ -1,0 +1,19 @@
+.row-fluid
+  .span4.offset1
+    %h2 Sign in
+
+    = form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f|
+      .field
+        = f.label :email, class:"right inline"
+        = f.email_field :email, :autofocus => true
+      .field
+        = f.label :password, class:"right inline"
+        = f.password_field :password
+      - if devise_mapping.rememberable?
+        .field.inline
+          = f.label :remember_me
+          = f.check_box :remember_me
+      .field
+        = f.submit "Sign in", class:"btn btn-success"
+
+      = render "devise/shared/links"

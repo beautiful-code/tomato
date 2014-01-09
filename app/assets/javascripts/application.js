@@ -18,23 +18,3 @@
 //= require jquery.flot.resize
 //= require_tree .
 
-$(function(){ $(document).foundation(); });
-
-$(function(){
-
-    var clearAlert = setTimeout(function(){
-        $(".alert-box.success").fadeOut('slow')
-    }, 1500);
-
-    $(document).on("click", ".alert-box.success a.close", function(event){
-        clearTimeout(clearAlert);
-    });
-
-    $(document).on("click", ".alert-box a.close", function(event) {
-        event.preventDefault();
-        $(this).closest(".alert-box").fadeOut(function(event){
-            $(this).remove();
-        });
-    });
-
-});
