@@ -27,6 +27,8 @@
 
 
           %ul.nav.pull-right
+            - if user_signed_in?
+              %li= link_to 'User Feedback',user_feedbacks_path
             %li.dropdown
               %a{ href: '#',class:"dropdown-toggle", "data-toggle"=>"dropdown"}
                 - if user_signed_in?
