@@ -3,9 +3,10 @@
   .new-note-form
     = form_for [@feedback,Note.new], html: { class: 'note-form' } do |f|
       = f.text_field :item
-
       = f.label :rating
-      = f.text_field :rating
+      - [1,2,3,4,5].each do |rating|
+        = f.radio_button :rating,rating
+
       %h6.subheader Rate from 1 - 5 scale
 
       = f.submit :SaveNote , class: 'btn btn-success save-button'

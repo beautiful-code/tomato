@@ -12,7 +12,7 @@ $(document).ready(function () {
 
     // Uncheckable radio boxes
     $('#parameters input[type="radio"]').uncheckable_radio();
-
+    old_text = ''  //Assign empty string to refer old text for the first time
     function getSelectionText() {
         var text = "";
         if (window.getSelection) {
@@ -20,9 +20,13 @@ $(document).ready(function () {
         } else if (document.selection && document.selection.type != "Control") {
             text = document.selection.createRange().text;
         }
-
         if (text != '') {
-            $('.desc').popover('destroy');
+            // Storing present selected value in variable to prevent popover close on clicking radio buytton
+
+            if (text.toString() != old_text.toString()) {
+                $('.desc').popover('destroy');
+            }
+            old_text = text;
             $('.desc').popover({
                 html: true,
                 content: $('#new_note_form').html(),

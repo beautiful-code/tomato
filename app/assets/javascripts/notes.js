@@ -38,7 +38,7 @@ $(document).ready(function () {
 
                     var data = {
                         'note[item]': $this.find('#note_item').val(),
-                        'note[rating]': $this.find('#note_rating').val()
+                        'note[rating]': $('input[name="note[rating]"]:radio:checked').val()
                     };
 
                     $.ajax({
