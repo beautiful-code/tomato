@@ -27,6 +27,9 @@
   %hr
   - if @feedback.present?
     = form_for(@feedback.parameter, :url => feedback_parameter_path(:feedback_id => @feedback.id)) do |f|
+      .span12
+        %center
+          = f.submit 'Update',class: 'btn btn-info save-button'
       .span11
         .span4
           = render :partial => 'category_features', :locals => {:category => 'restaurant', :f => f}
@@ -37,7 +40,3 @@
         .span4
           = render :partial => 'category_features', :locals => {:category => 'context', :f => f}
           = render :partial => 'category_features', :locals => {:category => 'extrensic', :f => f}
-      .span12
-        %center
-          = f.submit 'Update',class: 'btn btn-info save-button'
-

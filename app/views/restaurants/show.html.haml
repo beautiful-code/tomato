@@ -22,7 +22,7 @@
     = render 'reviews/form'
 
   - if @admin
-    .row-fluid
+    .row-fluid.span6.offset1
       %h4 Cluster Metrics
       - @clusters.each_with_index do |cluster, index|
         %h6

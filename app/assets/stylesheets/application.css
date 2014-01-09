@@ -16,7 +16,7 @@
 body {
     padding-top: 60px;
     padding-bottom: 40px;
-    font-size: 14px !important;
+    font-size: 14px;
 }
 .sidebar-nav {
     padding: 9px 0;
@@ -40,3 +40,14 @@ body {
     margin: auto !important;
     width: 92%;
 }
+
+h5 {
+    color: #FF7534 !important;
+}
+
+
+.brand {
+    color: #CC3300 !important;
+}
+
+
