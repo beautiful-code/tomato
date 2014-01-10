@@ -1,6 +1,6 @@
-.row
-  .large-10.columns
-    %h3
+.row-fluid
+  .span10.offset1
+    %h4
       New restaurant
     = render 'restaurants/form'
     = link_to '< Back to Restaurants list', (@admin ? admin_restaurants_path : restaurants_path)

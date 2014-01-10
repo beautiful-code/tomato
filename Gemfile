@@ -6,8 +6,9 @@ gem 'haml'
 gem 'kaminari'
 gem 'devise'
 gem 'rolify'
+
 #CSS Framework
-gem 'zurb-foundation'
+gem 'twitter-bootstrap-rails', :git => 'git://github.com/seyhunak/twitter-bootstrap-rails.git'
 
 gem 'narray'
 gem 'similar_text'

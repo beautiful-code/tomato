@@ -85,12 +85,12 @@ class Parameter < ActiveRecord::Base
       "label" => "Found through",
       "values" => ["Yelp", "Google", "Family & Friends", "Other"],
       "category" => "context"
-    }
+    },
     "efficiency_of_staff" => {
       "label" => "Efficiency of Staff",
       "values" => ["Slow", "Efficient"],
       "category" => "service"
-    }
+    },
     "occasion" => {
       "label" => "Occasion",
       "values" => ["Birthday", "Anniversary", "Treat", "Get-together"],

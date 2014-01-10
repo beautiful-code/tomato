@@ -1,3 +1,20 @@
-// Place all the styles related to the admin/reviews controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+#admin_reviews_show {
+  .parameter {
+    text-align: center;
+    padding: 5px;
+
+  }
+  .value {
+    text-align: center;
+    padding: 5px;
+  }
+  td {
+    padding: 5px;
+    text-align: center;
+
+  }
+  .small {
+    width: 250px !important;
+  }
+
+}

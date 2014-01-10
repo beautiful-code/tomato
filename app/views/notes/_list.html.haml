@@ -1,13 +1,15 @@
-- if notes.present?
-  %table.notes-list
-    %tr
-      %th Item
-      %th Rating
-    - notes.each do |note|
+#notes_list
+  - if notes.present?
+    %table.table-striped.small
       %tr
-        %td
-          = note.item
-        %td
-          = note.rating
-        %td
-          = link_to 'X', (@admin ? admin_restaurant_review_note_path(restaurant,note.review,note) : feedback_note_path(note.feedback ,note)), data: { confirm: 'Are you sure?' }, method: :delete, class: 'delete-note'
+        %th.item Item
+        %th.rating Rating
+        %th.delete
+      - notes.each do |note|
+        %tr
+          %td
+            = note.item
+          %td
+            = note.rating
+          %td
+            = link_to 'X', (@admin ? admin_restaurant_review_note_path(restaurant,note.review,note) : feedback_note_path(note.feedback ,note)), data: { confirm: 'Are you sure?' }, method: :delete, class: 'delete-note'

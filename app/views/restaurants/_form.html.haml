@@ -1,40 +1,31 @@
-= form_for(@admin ? [:admin, @restaurant] : [@restaurant]) do |f|
-  -if @restaurant.errors.any?
-    %div#error_explanation
-      %h2
-        = pluralize(@restaurant.errors.count, "error")
-        prohibited this restaurant from being saved  
-      %ul
-        -@restaurant.errors.full_messages.each do |msg| 
-          %li
-            = msg
-  .row
-    .small-8
-      .row
-        .small-3.columns
-          = f.label :name, class: 'right inline'
-        .small-9.columns
-          = f.text_field :name
-        .small-3.columns
-          = f.label :address, class: 'right inline'
-        .small-9.columns
-          = f.text_area :address, rows: "30"
-        .small-3.columns
-          = f.label :phone, class: 'right inline'
-        .small-9.columns
-          = f.text_field :phone
-        .small-3.columns
-          = f.label :zomato_url, class: 'right inline'
-        .small-9.columns
-          = f.text_field :zomato_url
-        .small-3.columns
-          = f.label :burrp_url, class: 'right inline'
-        .small-9.columns
-          = f.text_field :burrp_url
-        .small-3.columns
-          = f.label :yelp_url, class: 'right inline'
-        .small-9.columns
-          = f.text_field :yelp_url
-        .small-9.columns
-          = f.submit :Save, class: 'small button success radius'
-  
+#new_restaurant_form
+  = form_for (@admin ? [:admin, @restaurant] : [@restaurant]),class: 'form-horizontal' do |f|
+    -if @restaurant.errors.any?
+      %div#error_explanation
+        %h2
+          = pluralize(@restaurant.errors.count, "error")
+          prohibited this restaurant from being saved
+        %ul
+          -@restaurant.errors.full_messages.each do |msg|
+            %li
+              = msg
+    .field.inline
+      = f.label :name
+      = f.text_field :name, class:"input-xxlarge"
+    .field.inline
+      = f.label :address
+      = f.text_area :address, class:"input-xxlarge"
+    .field
+      = f.label :phone
+      = f.text_field :phone, class:"input-xxlarge"
+    .field
+      = f.label :zomato_url
+      = f.text_field :zomato_url, class:"input-xxlarge"
+    .field
+      = f.label :burrp_url
+      = f.text_field :burrp_url, class:"input-xxlarge"
+    .field
+      = f.label :yelp_url
+      = f.text_field :yelp_url, class:"input-xxlarge"
+    .field
+      = f.submit :Save, class: 'btn'

@@ -1,12 +1,12 @@
-#source_reviews
-  #review_notes.large-12.columns
-    #review.large-10.columns
-      %h5.title
+#source_reviews.row-fluid
+  #review_notes
+    #review.span9
+      %h5
         = @review.title
         .review-rating
           = @review.rating
       .desc= raw(@review.desc)
-    #notes.large-2.columns
+    #notes.span3
       %center
         %p.prev-next
           = link_to "Prev", restaurant_review_path(@restaurant, @review.prev) if @review.prev.present?
@@ -23,22 +23,20 @@
         = link_to 'Give Feedback', give_feedback_restaurant_review_path(@restaurant, @review)
 
 
-  .large-12.columns
-    #parameters
-      %hr
-      - if @feedback.present?
-        = form_for(@feedback.parameter, :url => feedback_parameter_path(:feedback_id => @feedback.id)) do |f|
-          .large-12.columns
-            %center
-              = f.submit 'Update',class: 'small button success save-button radius'
-          .large-12.columns
-            .large-4.columns
-              = render :partial => 'category_features', :locals => {:category => 'restaurant', :f => f}
-            .large-4.columns
-              = render :partial => 'category_features', :locals => {:category => 'service', :f => f}
+#parameters
+  %hr
+  - if @feedback.present?
+    = form_for(@feedback.parameter, :url => feedback_parameter_path(:feedback_id => @feedback.id)) do |f|
+      .span12
+        %center
+          = f.submit 'Update',class: 'btn btn-info save-button'
+      .span11
+        .span4
+          = render :partial => 'category_features', :locals => {:category => 'restaurant', :f => f}
+        .span4
+          = render :partial => 'category_features', :locals => {:category => 'service', :f => f}
 
-              = render :partial => 'category_features', :locals => {:category => 'food', :f => f}
-            .large-4.columns
-              = render :partial => 'category_features', :locals => {:category => 'context', :f => f}
-              = render :partial => 'category_features', :locals => {:category => 'extrensic', :f => f}
-
+          = render :partial => 'category_features', :locals => {:category => 'food', :f => f}
+        .span4
+          = render :partial => 'category_features', :locals => {:category => 'context', :f => f}
+          = render :partial => 'category_features', :locals => {:category => 'extrensic', :f => f}

@@ -1,17 +1,18 @@
-%table
-  %tr
-    %th ID
-    %th Feedback
-    %th Actions
-  - reviews.each do |review|
+#source_reviews
+  %table.table-striped
     %tr
-      %td= review.id
-      %td
-        - if @admin
-          = "#{review.feedbacks.count} feedbacks"
-        - else
-          - if review.get_feedback(current_user).present?
-            = "#{review.get_feedback(current_user).notes.count} notes"
+      %th.wide ID
+      %th.wide Feedback
+      %th.wide Actions
+    - reviews.each do |review|
+      %tr
+        %td= review.id
+        %td
+          - if @admin
+            = "#{review.feedbacks.count} feedbacks"
           - else
-            = link_to 'Give Feedback', give_feedback_restaurant_review_path(review.restaurant, review)
-      %td= link_to 'Show', (@admin ? admin_restaurant_review_path(review.restaurant,review) : restaurant_review_path(review.restaurant,review))
+            - if review.get_feedback(current_user).present?
+              = "#{review.get_feedback(current_user).notes.count} notes"
+            - else
+              = link_to 'Give Feedback', give_feedback_restaurant_review_path(review.restaurant, review)
+        %td= link_to 'Show', (@admin ? admin_restaurant_review_path(review.restaurant,review) : restaurant_review_path(review.restaurant,review))

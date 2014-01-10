@@ -9,27 +9,45 @@
  * compiled file, but it's generally better to create a new file per style scope.
  *
  *= require_self
- *= require foundation_and_overrides
  *= require_tree .
  */
 
 
-.notice {
-    background-color:#5CB250;
-    border-color:#5CB250;
-    width: 82%;
-    margin: 10px 10px 10px 10%;
+body {
+    padding-top: 60px;
+    padding-bottom: 40px;
+    font-size: 14px;
+}
+.sidebar-nav {
+    padding: 9px 0;
 }
 
-.alert {
-    background-color: #FF5C60;
-    border-color:#FF5C60;
-    width: 82%;
-    margin: 10px 10px 10px 10%;
+@media (max-width: 980px) {
+    /* Enable use of floated navbar text */
+    .navbar-text.pull-right {
+        float: none;
+        padding-left: 5px;
+        padding-right: 5px;
+    }
 }
 
 .breadcrumb {
-    margin-left: 20px;
-    margin-top: 20px;
-    margin-bottom: 20px;
+    margin: auto !important;
+    width: 90%;
 }
+
+.flash {
+    margin: auto !important;
+    width: 92%;
+}
+
+h5 {
+    color: #FF7534 !important;
+}
+
+
+.brand {
+    color: #CC3300 !important;
+}
+
+

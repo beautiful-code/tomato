@@ -30,11 +30,22 @@
     width: 250px;
   }
 
+  .wide {
+    width: 150px;
+    padding: 5px 10px 5px 10px;
+  }
+  td {
+    text-align: center;
+    padding: 5px;
+  }
 
-  form.note-form {
+  #new_note_form {
     display:none;
-    button.cancel-button {
-    }
+  }
+  form.note-form {
+      label, input {
+        display:inline;
+      }
   }
   .add-note {
     margin: 10px;
@@ -43,16 +54,34 @@
     display: block;
   }
 
+  #notes_list {
+    margin: 0px;
+    .item {
+      width: 200px;
+    }
+    .rating {
+      width: 50px;
+    }
+    .delete {
+      width:40px;
+    }
+  }
+
   #review_notes {
+    height: 250px;
     .desc {
       max-height: 320px;
       overflow-y: scroll;
     }
     #notes {
       max-height: 340px;
+    }
+    .review-notes {
+      margin-top: 20px;
+      max-height: 260px;
       overflow-y: scroll;
     }
-  }
+ }
 }
 
 .prev-next {
@@ -116,3 +145,4 @@
     clear: both;
   }
 }
+
