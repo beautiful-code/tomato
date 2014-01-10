@@ -14,6 +14,11 @@ class Restaurant < ActiveRecord::Base
     uniq_items.inject(Hash.new(0)) { |total, e| total[e] += 1 ;total}
   end
 
+  def date_ordered_reviews
+    reviews.order("review_created_at").group_by {|r| r.review_created_at.to_date}.to_a
+  end
+
+=begin
   def clusters
     @clusters ||= Util.cluster uniq_items_dist.keys
   end
@@ -28,10 +33,6 @@ class Restaurant < ActiveRecord::Base
       end
     end
     label
-  end
-
-  def date_ordered_reviews
-    reviews.order("review_created_at").group_by {|r| r.review_created_at.to_date}.to_a
   end
 
   def cluster_metrics cluster
@@ -57,21 +58,8 @@ class Restaurant < ActiveRecord::Base
 
     end
     
-    # cluster_metrics.map {|e| [e.first.to_time.to_i, e.second[:total_score]/e.second[:total_mentions]] }
     cluster_metrics.select {|e| e.second[:total_mentions] > 0}.map {|e| [e.first.to_time.to_i*1000, e.second[:total_score]/e.second[:total_mentions]] }
   end
-
-=begin
-  def num_notes
-    notes.count
-  end
-
-  def items
-    notes.collect(&:item)
-  end
-
-  def items_dist
-    items.inject(Hash.new(0)) { |total, e| total[e] += 1 ;total}
-  end
 =end
+
 end

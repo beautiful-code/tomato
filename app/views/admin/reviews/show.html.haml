@@ -12,31 +12,44 @@
           = @review.rating
       %p= raw(@review.desc)
 
-  - if false
-    .span12
-      %h4 Consolidated Notes
-      %table
-        %thead
-          %th Item
-          %th Rating
-        - @review.consolidated_notes.each do |k,v|
-          %tr
-            %td= k
-            %td= v
+      .row-fluid
+        %h4 Consolidated Feedback
 
-  .row-fluid.span12
-    %h4= "User Feedbacks (#{@feedbacks.count})"
-    - @feedbacks.each do |feedback|
-      .span3
-        %center
-          %h5= feedback.user.email
-          = render :partial => 'notes/list', :locals => {:notes => feedback.notes, :restaurant => @review.restaurant}
+        .span12
+          .span6
+            %table.table-striped.small
+              %thead
+                %th Item
+                %th Rating
+              - @review.consolidated_feedback["dishes"].each do |k,v|
+                %tr
+                  %td= k
+                  %td= v
 
-          %table.table-striped.small
-            %tr
-              %th.parameter Parameter
-              %th.value Value
-            - feedback.parameter.content.each do |k,v|
-              %tr
-                %td= k.capitalize
-                %td= v
+          .span6
+            %table.table-striped.small
+              %thead
+                %th Parameter
+                %th Value
+              - @review.consolidated_feedback["parameters"].each do |k,v|
+                %tr
+                  %td= k
+                  %td= v
+
+      .row-fluid
+        .span12
+          %h4= "User Feedbacks (#{@feedbacks.count})"
+          - @feedbacks.each do |feedback|
+            .span3
+              %center
+                %h5= feedback.user.email
+                = render :partial => 'notes/list', :locals => {:notes => feedback.notes, :restaurant => @review.restaurant}
+
+                %table.table-striped.small
+                  %tr
+                    %th.parameter Parameter
+                    %th.value Value
+                  - feedback.parameter.content.each do |k,v|
+                    %tr
+                      %td= k.capitalize
+                      %td= v

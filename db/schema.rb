@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140104153600) do
+ActiveRecord::Schema.define(:version => 20140110093245) do
 
   create_table "feedbacks", :force => true do |t|
     t.integer  "review_id"
@@ -61,12 +61,12 @@ ActiveRecord::Schema.define(:version => 20140104153600) do
     t.string   "source"
     t.datetime "review_created_at"
     t.string   "author"
-    t.decimal  "rating",             :precision => 10, :scale => 0
+    t.decimal  "rating",                :precision => 10, :scale => 0
     t.string   "digest"
     t.integer  "restaurant_id"
-    t.text     "consolidated_notes"
-    t.datetime "created_at",                                        :null => false
-    t.datetime "updated_at",                                        :null => false
+    t.datetime "created_at",                                           :null => false
+    t.datetime "updated_at",                                           :null => false
+    t.text     "consolidated_feedback"
   end
 
   add_index "reviews", ["id", "digest"], :name => "index_reviews_on_id_and_digest"

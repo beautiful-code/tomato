@@ -15,13 +15,9 @@ class Admin::RestaurantsController < ApplicationController
     add_breadcrumb @restaurant.name,admin_restaurant_path(@restaurant)
     @reviews = @restaurant.reviews
     @review = Review.new(restaurant_id: @restaurant.id)
-    compute_cluster_metrics
+    #compute_cluster_metrics
 
     render 'restaurants/show'
-  end
-
-  def compute_cluster_metrics
-    @clusters = @restaurant.clusters
   end
 
   def new
@@ -75,4 +71,9 @@ class Admin::RestaurantsController < ApplicationController
       add_breadcrumb 'Admin', admin_restaurants_path
       add_breadcrumb 'All Restaurants', admin_restaurants_path
     end
+
+    def compute_cluster_metrics
+      @clusters = @restaurant.clusters
+    end
+
 end
