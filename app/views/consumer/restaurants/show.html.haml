@@ -1,0 +1,49 @@
+%h5
+  = @restaurant.name
+:javascript
+  google.load("visualization", "1", {packages:["corechart"]});
+  google.setOnLoadCallback(drawChart);
+
+  function drawChart() {
+      //var data = google.visualization.arrayToDataTable(#{raw @count_array.to_json});
+      var data = new google.visualization.DataTable();
+
+      data.addColumn('date', 'Date');
+      data.addColumn('number', '# of reviews',{role: 'annotation'}  );
+
+       js_data =#{@count_array.to_json};
+
+      for(var i=0; i< js_data.length; i++){
+        js_data[i][0] = new Date(js_data[i][0]*1000);
+      }
+        console.log(js_data);
+      data.addRows(js_data);
+
+      var options = {
+          title: 'Reviews',
+          pointSize: 5,
+          vAxis: {format:'#',
+                    viewWindow:{
+                      max:10,
+                      min:0
+                    }
+                  }
+      };
+
+      var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+      chart.draw(data, options);
+  }
+
+.row-fluid
+  .span2
+    %ul.nav.nav-list
+      %li
+        = link_to 'Reviews', [:review_chart,:consumer,@restaurant]
+  .span4
+    #chart_div{:style => "width: 900px; height: 500px;"}
+    = form_tag [:review_chart,:consumer,@restaurant], method: :get do
+      = label_tag :start_date
+      = date_select("date" , "start_date", :start_year => 2010, :end_year => 2012, :order => [:month, :day, :year], :use_short_month => true )
+      = label_tag :end_date
+      = date_select("date" , "end_date", :start_year => 2010, :end_year => 2015, :order => [:month, :day, :year], :use_short_month => true )
+      = submit_tag  'Show'
