@@ -52,6 +52,16 @@ class Admin::ReviewsController < ApplicationController
     render 'reviews/source_reviews'
   end
 
+  def foursquare
+    @restaurant = Restaurant.find(params[:restaurant_id])
+    add_breadcrumb @restaurant.name,admin_restaurant_path(@restaurant)
+    add_breadcrumb 'Foursquare',foursquare_admin_restaurant_reviews_path
+    @reviews = @restaurant.reviews.where(source:'foursquare').order('review_created_at DESC').page(params[:page]).per(10)
+    @source = 'foursquare'
+    render 'reviews/source_reviews'
+  end
+
+
   def destroy
     @review = Review.find(params[:id])
     @review.destroy

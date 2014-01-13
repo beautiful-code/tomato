@@ -29,6 +29,16 @@ class ReviewsController < ApplicationController
     render 'source_reviews'
   end
 
+  def foursquare
+    @restaurant = Restaurant.find(params[:restaurant_id])
+    add_breadcrumb @restaurant.name,restaurant_path(@restaurant)
+    add_breadcrumb 'Foursquare',yelp_restaurant_reviews_path
+    @reviews = @restaurant.reviews.where(source:'Foursquare').order('review_created_at DESC').page(params[:page]).per(10)
+    @source = 'foursquare'
+    render 'source_reviews'
+  end
+
+
   def give_feedback
     @restaurant = Restaurant.find(params[:restaurant_id])
     @review = @restaurant.reviews.find(params[:id])

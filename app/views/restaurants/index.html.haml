@@ -1,5 +1,5 @@
 #restaurant
-  .span11.offset1
+  .span10.offset1
     %h4
       Restaurants
     %table.table-striped
@@ -19,8 +19,8 @@
           %td= restaurant.address
           %td= restaurant.phone
           %td= link_to 'Show', (@admin ? admin_restaurant_path(restaurant) : restaurant_path(restaurant))
-          %td.edit= link_to 'Edit', (@admin ? edit_admin_restaurant_path(restaurant) : edit_restaurant_path(restaurant))
-          %td.delete= link_to 'Destroy', (@admin ? admin_restaurant_path(restaurant) : restaurant_path(restaurant)), method: :delete, data: { confirm: 'Are you sure?' }
+          %td= link_to 'Edit', (@admin ? edit_admin_restaurant_path(restaurant) : edit_restaurant_path(restaurant))
+          %td= link_to 'Destroy', (@admin ? admin_restaurant_path(restaurant) : restaurant_path(restaurant)), method: :delete, data: { confirm: 'Are you sure?' }
   .span11
     %h3
     %i.icon-add

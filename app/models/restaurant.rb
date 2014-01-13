@@ -1,5 +1,5 @@
 class Restaurant < ActiveRecord::Base
-  attr_accessible :address, :name, :phone, :zomato_url, :burrp_url, :yelp_url
+  attr_accessible :address, :name, :phone, :zomato_url, :burrp_url, :yelp_url, :foursquare_url
   has_many :reviews, :order => "id DESC"
 
   def collected_notes

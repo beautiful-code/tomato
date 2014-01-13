@@ -110,8 +110,6 @@ namespace :yelp do
     require 'nokogiri'
     require 'open-uri'
 
-    Rails.logger.info
-
     @restaurants = Restaurant.all
     @restaurants.each do |restaurant|
       restaurant.last_fetched_at||= 2.days.ago
@@ -166,15 +164,59 @@ namespace :yelp do
   end
 end
 
+desc "Scrape Reviews from Foursquare"
+namespace :foursquare do
+  desc "Scrape Restaurant reviews from Foursquare"
+  task :reviews => :environment do
+    require 'nokogiri'
+    require 'open-uri'
 
+    @restaurants = Restaurant.all
+    @restaurants.each do |restaurant|
+      restaurant.last_fetched_at||= 2.days.ago
+      if !restaurant.foursquare_url.blank?
+        if restaurant.last_fetched_at < 1.day.ago
+          doc = Nokogiri::HTML(open(restaurant.foursquare_url, "User-Agent" => "Ruby/ruby-1.9.3-p327"))
 
+          restaurant.address = doc.css(".adr").text.strip
+          restaurant.phone = doc.css(".tel").text.strip
 
+          rcount = doc.css(".tipCount").text[/[0-9]+/].to_i
+          puts "Fetching (#{rcount}) reviews for #{restaurant.name}"
 
+          count = 0
 
+            doc.css(".tip").each do |r|
+              @review = restaurant.reviews.build
+              @review.title = "Not available"
+              @review.source = "Foursquare"
+              @review.author = r.css(".userName a").text.strip
+              @review.review_created_at= r.css(".tipDate").text.strip
+              # Ratings aren't available in Foursquare
+	      @review.rating = -1
+              @review.desc = r.css(".tipText").to_s
+	      if (@review.desc).blank?
+	        break
+	      else
+		if Review.find_by_desc(@review.desc).nil?
+		  @review.save
+		  count +=1
+		end
+	      end
+            end
+          restaurant.last_fetched_at = Time.now
+          restaurant.save
+          puts "#{count} reviews fetched out of #{rcount} !"
+        else
+        	puts "Reviews are fetched recently for the restaurant #{restaurant.name} !"
+        end
+      else
+        puts "This Restaurant : #{restaurant.name} is not listed on Foursquare"
+      end
+    end
+  end
+end
 
-
-
-# count = (doc.at_css(".selected .grey-text").text.strip.to_i)/5
 # count = count - 1		
 
 # review_url = " curl -d 'entity_id=90038&profile_action=reviews-top&limit=#{count}' http://www.zomato.com/php/social_load_more.php"

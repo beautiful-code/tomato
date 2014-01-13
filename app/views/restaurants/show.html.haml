@@ -16,7 +16,9 @@
     -if @restaurant.yelp_url
       .clearfix
         = link_to 'Yelp Reviews',(@admin ? yelp_admin_restaurant_reviews_path(@restaurant) : yelp_restaurant_reviews_path(@restaurant)),class: "btn tiny block"
-
+    -if @restaurant.foursquare_url
+      .clearfix
+        = link_to "Foursquare Reviews",(@admin ? foursquare_admin_restaurant_reviews_path(@restaurant) : foursquare_restaurant_reviews_path(@restaurant)), class: "btn tiny block"
   .span4.offset1
     %h5 New Review
     = render 'reviews/form'

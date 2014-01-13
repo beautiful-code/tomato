@@ -1,6 +1,5 @@
 Tomato::Application.routes.draw do
   
-
   devise_for :users
   get "user/feedbacks"
 
@@ -12,24 +11,24 @@ Tomato::Application.routes.draw do
           get 'zomato'
           get 'burrp'
           get 'yelp'
+          get 'foursquare'
         end
       end
     end
   end
 
   resources :restaurants do 
-  	resources :reviews do 
-
+    resources :reviews do 
       member do
         get 'give_feedback'
       end
-
-  		collection do
-  			get 'zomato'
-  			get 'burrp'
-  			get 'yelp'
-  		end
-  	end
+      collection do
+        get 'zomato'
+  	get 'burrp'
+  	get 'yelp'
+	get 'foursquare'
+      end
+    end
   end
 
   resources :feedbacks do
@@ -38,7 +37,5 @@ Tomato::Application.routes.draw do
   end
 
   root :to => 'restaurants#index'
-
-
 end
 
