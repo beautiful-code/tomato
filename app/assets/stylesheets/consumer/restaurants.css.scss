@@ -4,18 +4,34 @@
 
 
 .sidebar{
-    border: 1px solid #888;
-    border-radius:3px;
-}
-
-
-.date{
-
-  select{
-    width: 65px;
+  background-color: #ddd;
+  a, a:visited {
+    color: #000;
   }
-
 }
+
+.analytics {
+  .subheading {
+    height: 30px;
+    .title {
+      color: orange;
+      font-size: 2em;
+    }
+
+    .date-range {
+      float:right;
+      form {
+        display: inline;
+        
+      }
+      select{
+        width: 65px;
+        margin-bottom: 0px;
+      }
+    }
+  }
+}
+
 
 #chart_div{
 height: 400px;

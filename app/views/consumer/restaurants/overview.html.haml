@@ -33,23 +33,23 @@
   }
 
 .row-fluid
-  .span2.sidebar
-    .container
-      %ul.nav.nav-list
-        %li
-          = link_to 'Reviews', [:review_chart,:consumer,@restaurant]
-        %li
-          = link_to 'Service', [:review_chart,:consumer,@restaurant]
-        %li
-          = link_to 'Dishes', [:review_chart,:consumer,@restaurant]
+  .span3.sidebar
+    %ul.nav.nav-list
+      %li
+        = link_to 'Overview', [:overview,:consumer,@restaurant]
+      %li
+        = link_to 'Restaurant', [:restaurant,:consumer,@restaurant]
+      %li
+        = link_to 'Service', [:service,:consumer,@restaurant]
 
-  .span7
+  .span9.analytics
+    .subheading
+      %span.title Overview
+      %span.date-range
+        = form_tag [:overview,:consumer,@restaurant], method: :get do
+          = date_select("date" , "start_date", {:default => @start_date, :order => [:month, :day, :year], :use_short_month => true, :end_year => Date.today.year}, {:class => "input-mini"})
+          to
+          = date_select("date" , "end_date", {:default => @end_date, :order => [:month, :day, :year], :use_short_month => true, :end_year => Date.today.year}, {:class => "input-mini"})
+          = submit_tag  'Draw',class: 'btn btn-small btn-info'
     #chart_div
   .span3
-    = form_tag [:review_chart,:consumer,@restaurant], method: :get,class:'date' do
-      = label_tag :start_date
-      = date_select("date" , "start_date", :start_year => 2010, :end_year => 2012, :order => [:month, :day, :year], :use_short_month => true, :html=>{:class => "input-mini"} )
-      = label_tag :end_date
-      = date_select("date" , "end_date", :start_year => 2010, :end_year => 2015, :order => [:month, :day, :year], :use_short_month => true,:html=>{:class => "input-mini"} )
-      %br
-      = submit_tag  'Draw',class: 'btn btn-small btn-info'

@@ -21,7 +21,10 @@ Tomato::Application.routes.draw do
   namespace :consumer do
     resources :restaurants do
       member do
-        get :review_chart
+        get :overview
+        post :overview
+        get :restaurant
+        get :service
       end
     end
   end
