@@ -7,7 +7,6 @@ class Review < ActiveRecord::Base
   validates_uniqueness_of :digest, scope: :restaurant_id
   validates_presence_of :review_created_at
 
-  #before_save :compute_consolidate_notes!
   before_validation :compute_digest!
 
   serialize :consolidated_feedback, Hash
@@ -57,6 +56,16 @@ class Review < ActiveRecord::Base
     result
     self.consolidated_feedback = result
     self.save(:validate => false)
+  end
+
+  def consolidated_scores
+    result = consolidated_feedback
+    if result.present?
+      
+      
+    end
+
+    result
   end
 
 =begin

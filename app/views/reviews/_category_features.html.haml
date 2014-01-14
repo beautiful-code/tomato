@@ -6,6 +6,6 @@
       = f.label info["label"], :class => 'key-label'
     .right
       - info["values"].each do |val|
-        = f.radio_button key, val
-        = f.label val
+        = f.radio_button key, val.first
+        = f.label val.first
     .clear

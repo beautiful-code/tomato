@@ -18,7 +18,6 @@
       data.addRows(js_data);
 
       var options = {
-          title: 'Reviews',
           pointSize: 5,
           vAxis: {format:'#',
                     viewWindow:{
@@ -52,5 +51,6 @@
           = date_select("date" , "end_date", {:default => @end_date, :order => [:month, :day, :year], :use_short_month => true, :end_year => Date.today.year}, {:class => "input-mini"})
           = submit_tag  'Draw',class: 'submit btn btn-small btn-info'
 
+    %h4 Reviews
     #chart_div
   .span3
