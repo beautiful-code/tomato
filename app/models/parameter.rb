@@ -5,6 +5,7 @@ class Parameter < ActiveRecord::Base
   serialize :content, Hash
   validates_presence_of :feedback_id
 
+  CATEGORIES = ['restaurant', 'service', 'food', 'context', 'extrensic']
   FEATURES = {
     "courtesy" => {
       "label" => "Courtesy of Staff",
@@ -99,7 +100,7 @@ class Parameter < ActiveRecord::Base
 
   }
 
-  ['restaurant', 'service', 'food', 'context', 'extrensic'].each do |category|
+  CATEGORIES.each do |category|
     define_singleton_method "#{category}_features" do
       FEATURES.select {|k,v| v["category"] == category }
     end
@@ -112,7 +113,8 @@ class Parameter < ActiveRecord::Base
   end
 
   def self.score_for parameter, value
-    FEATURES[parameter]["values"].select {|e| e.first == value}.first.second
+    option = FEATURES[parameter]["values"].select {|e| e.first == value}.first
+    option ? option.second : -1
   end
 
 end

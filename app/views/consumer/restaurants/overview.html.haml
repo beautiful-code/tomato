@@ -51,6 +51,16 @@
           = date_select("date" , "end_date", {:default => @end_date, :order => [:month, :day, :year], :use_short_month => true, :end_year => Date.today.year}, {:class => "input-mini"})
           = submit_tag  'Draw',class: 'submit btn btn-small btn-info'
 
+    #reviews_score
+    Restaurant
+    = @reviews_score.restaurant_score
+    Service
+    = @reviews_score.service_score
+    /Dishes
+    /= @reviews_score.dishes_score
+    Food
+    = @reviews_score.food_score
+
     %h4 Reviews
     #chart_div
   .span3

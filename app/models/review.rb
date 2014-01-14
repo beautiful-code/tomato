@@ -59,7 +59,10 @@ class Review < ActiveRecord::Base
   end
 
   def consolidated_scores
-    result = consolidated_feedback
+
+    # Deep clone
+    result = Marshal.load( Marshal.dump(consolidated_feedback) )
+
     if result.present?
       result["parameters"].each do |k,v|
         result["parameters"][k] = Parameter.score_for(k,v)
@@ -75,8 +78,11 @@ class Review < ActiveRecord::Base
 
   def category_scores cat
     cat_features = Parameter.send("#{cat}_features").keys
-    consolidated_scores["parameters"].slice(*cat_features)
+    (consolidated_scores["parameters"]||{}).slice(*cat_features)
   end
 
+  def scorable_category_scores cat
+    category_scores(cat).select {|k,v| v > 0}
+  end
 
 end
