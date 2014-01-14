@@ -23,20 +23,19 @@ module Tools
       end
     end
 
-=begin
-    def service_score
-        sum = 0
-        count = 0
-        reviews.each do |review|
-          sum = sum + review.scorable_category_scores("service").values.inject(:+)
-          count = count + review.scorable_category_scores("service").size
+    def dish_score
+      sum = 0
+      count = 0
+
+      reviews.each do |review|
+        review.dish_scores.each do |k, v|
+          count +=1
+          sum += v
         end
+      end
 
-        (count > 0 ) ? sum/count : nil
+      (count > 0 ) ? sum/count : nil
     end
-=end
-
-
 
   end
 

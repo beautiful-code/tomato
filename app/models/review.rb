@@ -73,7 +73,7 @@ class Review < ActiveRecord::Base
   end
 
   def dish_scores
-    consolidated_scores["dishes"]
+    consolidated_scores["dishes"] || {}
   end
 
   def category_scores cat
