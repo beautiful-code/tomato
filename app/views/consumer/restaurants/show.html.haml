@@ -35,15 +35,23 @@
   }
 
 .row-fluid
-  .span2
-    %ul.nav.nav-list
-      %li
-        = link_to 'Reviews', [:review_chart,:consumer,@restaurant]
-  .span4
-    #chart_div{:style => "width: 900px; height: 500px;"}
-    = form_tag [:review_chart,:consumer,@restaurant], method: :get do
+  .span2.sidebar
+    .container
+      %ul.nav.nav-list
+        %li
+          = link_to 'Reviews', [:review_chart,:consumer,@restaurant]
+        %li
+          = link_to 'Service', [:review_chart,:consumer,@restaurant]
+        %li
+          = link_to 'Dishes', [:review_chart,:consumer,@restaurant]
+
+  .span7
+    #chart_div
+  .span3
+    = form_tag [:review_chart,:consumer,@restaurant], method: :get,class:'date' do
       = label_tag :start_date
-      = date_select("date" , "start_date", :start_year => 2010, :end_year => 2012, :order => [:month, :day, :year], :use_short_month => true )
+      = date_select("date" , "start_date", :start_year => 2010, :end_year => 2012, :order => [:month, :day, :year], :use_short_month => true, :html=>{:class => "input-mini"} )
       = label_tag :end_date
-      = date_select("date" , "end_date", :start_year => 2010, :end_year => 2015, :order => [:month, :day, :year], :use_short_month => true )
-      = submit_tag  'Show'
+      = date_select("date" , "end_date", :start_year => 2010, :end_year => 2015, :order => [:month, :day, :year], :use_short_month => true,:html=>{:class => "input-mini"} )
+      %br
+      = submit_tag  'Draw',class: 'btn btn-small btn-info'
