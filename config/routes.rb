@@ -33,9 +33,9 @@ Tomato::Application.routes.draw do
       end
       collection do
         get 'zomato'
-  	get 'burrp'
-  	get 'yelp'
-	get 'foursquare'
+        get 'burrp'
+        get 'yelp'
+        get 'foursquare'
       end
     end
   end
