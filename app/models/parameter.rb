@@ -111,4 +111,8 @@ class Parameter < ActiveRecord::Base
     end
   end
 
+  def self.score_for parameter, value
+    FEATURES[parameter]["values"].select {|e| e.first == value}.first.second
+  end
+
 end

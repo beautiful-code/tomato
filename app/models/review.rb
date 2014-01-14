@@ -61,38 +61,22 @@ class Review < ActiveRecord::Base
   def consolidated_scores
     result = consolidated_feedback
     if result.present?
-      
-      
+      result["parameters"].each do |k,v|
+        result["parameters"][k] = Parameter.score_for(k,v)
+      end
     end
 
     result
   end
 
-=begin
-  def get_notes(current_user)
-    notes.where(:user_id => current_user.id)
+  def dish_scores
+    consolidated_scores["dishes"]
   end
 
-  def compute_consolidate_notes!
-    self.consolidated_notes = compute_consolidated_notes
+  def category_scores cat
+    cat_features = Parameter.send("#{cat}_features").keys
+    consolidated_scores["parameters"].slice(*cat_features)
   end
 
-
-  # Consolidates all the users notes
-  def compute_consolidated_notes
-    ret = {}
-
-    notes.each do |note|
-      ret[note.item] ||=[]
-      ret[note.item] << note.rating
-    end
-
-    ret.each do |k, v|
-      ret[k] = v.inject(:+)/v.size
-    end
-    
-    ret
-  end
-=end
 
 end
