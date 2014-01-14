@@ -22,9 +22,10 @@ class Consumer::RestaurantsController < ApplicationController
   end
 
   def load_start_and_end_dates
-    if (as_params = params[:date])
-      @start_date = DateTime.new as_params['start_date(1i)'].to_i, as_params['start_date(2i)'].to_i, as_params['start_date(3i)'].to_i
-      @end_date = DateTime.new as_params['end_date(1i)'].to_i, as_params['end_date(2i)'].to_i, as_params['end_date(3i)'].to_i
+    # Cookies were set on the browser.
+    if (cookies['start_day'])
+      @start_date = Date.new cookies['start_year'].to_i, cookies['start_month'].to_i, cookies['start_day'].to_i
+      @end_date = Date.new cookies['end_year'].to_i, cookies['end_month'].to_i, cookies['end_day'].to_i
     else
       @start_date = Date.today - 1000.days
       @end_date = Date.today

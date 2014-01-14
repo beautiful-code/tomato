@@ -16,5 +16,7 @@
 //= require jquery.flot
 //= require jquery.flot.time
 //= require jquery.flot.resize
+
 //= require_tree .
+//= require consumer/date_range
 

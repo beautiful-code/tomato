@@ -50,6 +50,7 @@
           = date_select("date" , "start_date", {:default => @start_date, :order => [:month, :day, :year], :use_short_month => true, :end_year => Date.today.year}, {:class => "input-mini"})
           to
           = date_select("date" , "end_date", {:default => @end_date, :order => [:month, :day, :year], :use_short_month => true, :end_year => Date.today.year}, {:class => "input-mini"})
-          = submit_tag  'Draw',class: 'btn btn-small btn-info'
+          = submit_tag  'Draw',class: 'submit btn btn-small btn-info'
+
     #chart_div
   .span3
