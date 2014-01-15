@@ -123,7 +123,7 @@ module Tools
 
       result.each do |day, daily_reviews|
         dr = Tools::ReviewsScore.new(daily_reviews)
-        result[day] = dr.send("#{category}_score")
+        result[day] = dr.category_score category
       end
 
 
