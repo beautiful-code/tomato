@@ -1,0 +1,18 @@
+.row-fluid
+  .span3.sidebar
+    = render :partial => 'sidebar'
+
+  .span9.analytics
+    = render :partial => 'subheading', :locals => {:heading => 'Service'}
+
+    #reviews_score
+    Restaurant
+    = @reviews_score.service_score
+
+    - @reviews_score.service_features_scores.each do |k,v|
+      = k
+      = v
+    
+
+
+    %h4 Restaurant Trend

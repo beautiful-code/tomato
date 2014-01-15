@@ -80,6 +80,10 @@ class Review < ActiveRecord::Base
     consolidated_scores["dishes"] || {}
   end
 
+  def parameters_scores
+    consolidated_scores["parameters"] || {}
+  end
+
   def category_scores cat
     cat_features = Parameter.send("#{cat}_features").keys
     (consolidated_scores["parameters"]||{}).slice(*cat_features)
@@ -89,4 +93,20 @@ class Review < ActiveRecord::Base
     category_scores(cat).select {|k,v| v > 0}
   end
 
+  # TODO: Remove category_score
+  def category_score cat
+    feature_weight = 1.to_f/Parameter.send("#{cat}_features").size
+    scorable_category_scores(cat).values.multiply_by(feature_weight).inject(:+)
+  end
+
+  def dish_score
+    dish_scores.present? ? dish_scores.values.inject(:+).to_f/dish_scores.size : nil
+  end
+
+end
+
+class Array
+  def multiply_by(x)
+    collect { |n| n * x }
+  end
 end

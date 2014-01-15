@@ -5,7 +5,7 @@ class Parameter < ActiveRecord::Base
   serialize :content, Hash
   validates_presence_of :feedback_id
 
-  CATEGORIES = ['restaurant', 'service', 'food', 'context', 'extrensic']
+  CATEGORIES = ['restaurant', 'service', 'food', 'context']
   FEATURES = {
     "courtesy" => {
       "label" => "Courtesy of Staff",

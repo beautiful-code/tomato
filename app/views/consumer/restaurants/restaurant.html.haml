@@ -3,16 +3,16 @@
     = render :partial => 'sidebar'
 
   .span9.analytics
-    = render :partial => 'subheading'
+    = render :partial => 'subheading', :locals => {:heading => 'Restaurant'}
 
     #reviews_score
     Restaurant
     = @reviews_score.restaurant_score
-    Service
-    = @reviews_score.service_score
-    Dishes
-    = @reviews_score.dish_score
-    Food
-    = @reviews_score.food_score
+
+    - @reviews_score.restaurant_features_scores.each do |k,v|
+      = k
+      = v
+    
+
 
     %h4 Restaurant Trend

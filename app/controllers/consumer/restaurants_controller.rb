@@ -3,31 +3,32 @@ class Consumer::RestaurantsController < ApplicationController
   before_filter :authenticate_user!
 
   before_filter :load_restaurant
+  before_filter :load_reviews, :only => [:overview, :restaurant, :service]
 
   layout 'restaurant_owner'
 
   def overview 
-    load_start_and_end_dates
-
-    @reviews = @restaurant.reviews.where(:review_created_at =>(@start_date..@end_date))
     review_hash=@reviews.group("date(review_created_at)").count()
-
-    @reviews_score = Tools::ReviewsScore.new(@reviews)
-
-
     @count_array = review_hash.to_a
     @count_array.sort! { |a, b| a.first <=> b.first}.collect! {|e| [e.first.to_time.to_i,e.second]}
   end
 
   def restaurant
-    load_start_and_end_dates
-    @reviews = @restaurant.reviews.where(:review_created_at =>(@start_date..@end_date))
+  end
 
-    @reviews_score = Tools::ReviewsScore.new(@reviews)
+  def service
   end
 
 
   private
+  def load_reviews
+    load_restaurant
+    load_start_and_end_dates
+
+    @reviews = @restaurant.reviews.where(:review_created_at =>(@start_date..@end_date))
+    @reviews_score = Tools::ReviewsScore.new(@reviews)
+  end
+
   def load_restaurant
     @restaurant = Restaurant.find(params[:id])
   end
