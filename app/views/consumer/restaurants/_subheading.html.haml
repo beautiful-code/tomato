@@ -1,0 +1,8 @@
+.subheading
+  %span.title Overview
+  %span.date-range
+    = form_tag '', method: :get do
+      = date_select("date" , "start_date", {:default => @start_date, :order => [:month, :day, :year], :use_short_month => true, :end_year => Date.today.year}, {:class => "input-mini"})
+      to
+      = date_select("date" , "end_date", {:default => @end_date, :order => [:month, :day, :year], :use_short_month => true, :end_year => Date.today.year}, {:class => "input-mini"})
+      = submit_tag  'Draw',class: 'submit btn btn-small btn-info'

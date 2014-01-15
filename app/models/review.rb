@@ -27,6 +27,10 @@ class Review < ActiveRecord::Base
     self.digest = Digest::MD5.hexdigest(desc)
   end
 
+  def self.compute_consolidated_feedback!
+    Review.all.collect(&:compute_consolidated_feedback!)
+  end
+
   def compute_consolidated_feedback!
     result = {}
     if feedbacks.present?

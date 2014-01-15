@@ -1,0 +1,18 @@
+.row-fluid
+  .span3.sidebar
+    = render :partial => 'sidebar'
+
+  .span9.analytics
+    = render :partial => 'subheading'
+
+    #reviews_score
+    Restaurant
+    = @reviews_score.restaurant_score
+    Service
+    = @reviews_score.service_score
+    Dishes
+    = @reviews_score.dish_score
+    Food
+    = @reviews_score.food_score
+
+    %h4 Restaurant Trend

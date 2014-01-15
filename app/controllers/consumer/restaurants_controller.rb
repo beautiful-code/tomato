@@ -19,6 +19,13 @@ class Consumer::RestaurantsController < ApplicationController
     @count_array.sort! { |a, b| a.first <=> b.first}.collect! {|e| [e.first.to_time.to_i,e.second]}
   end
 
+  def restaurant
+    load_start_and_end_dates
+    @reviews = @restaurant.reviews.where(:review_created_at =>(@start_date..@end_date))
+
+    @reviews_score = Tools::ReviewsScore.new(@reviews)
+  end
+
 
   private
   def load_restaurant

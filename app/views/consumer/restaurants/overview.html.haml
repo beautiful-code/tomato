@@ -33,23 +33,10 @@
 
 .row-fluid
   .span3.sidebar
-    %ul.nav.nav-list
-      %li
-        = link_to 'Overview', [:overview,:consumer,@restaurant]
-      %li
-        = link_to 'Restaurant', [:restaurant,:consumer,@restaurant]
-      %li
-        = link_to 'Service', [:service,:consumer,@restaurant]
+    = render :partial => 'sidebar'
 
   .span9.analytics
-    .subheading
-      %span.title Overview
-      %span.date-range
-        = form_tag [:overview,:consumer,@restaurant], method: :get do
-          = date_select("date" , "start_date", {:default => @start_date, :order => [:month, :day, :year], :use_short_month => true, :end_year => Date.today.year}, {:class => "input-mini"})
-          to
-          = date_select("date" , "end_date", {:default => @end_date, :order => [:month, :day, :year], :use_short_month => true, :end_year => Date.today.year}, {:class => "input-mini"})
-          = submit_tag  'Draw',class: 'submit btn btn-small btn-info'
+    = render :partial => 'subheading'
 
     #reviews_score
     Restaurant
@@ -63,4 +50,3 @@
 
     %h4 Reviews
     #chart_div
-  .span3
