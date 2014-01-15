@@ -40,13 +40,13 @@
 
     #reviews_score
     Restaurant
-    = @reviews_score.restaurant_score
+    = @reviews_score.category_score("restaurant")
     Service
-    = @reviews_score.service_score
+    = @reviews_score.category_score("service")
     Dishes
     = @reviews_score.dish_score
     Food
-    = @reviews_score.food_score
+    = @reviews_score.category_score("food")
 
     %h4 Reviews
     #chart_div

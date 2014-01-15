@@ -7,9 +7,9 @@
 
     #reviews_score
     Restaurant
-    = @reviews_score.restaurant_score
+    = @reviews_score.category_score "restaurant"
 
-    - @reviews_score.restaurant_features_scores.each do |k,v|
+    - @reviews_score.category_features_scores("restaurant").each do |k,v|
       = k
       = v
     

@@ -20,6 +20,17 @@ module Tools
     def overall_score
     end
 
+    def category_score category
+      sum = 0
+      count = 0
+      reviews.each do |review|
+        sum += review.scorable_category_scores(category).values.inject(:+).to_i
+        count += review.scorable_category_scores(category).size
+      end
+
+      (count > 0 ) ? sum.to_f/count : nil
+    end
+
 =begin
     Parameter::CATEGORIES.each do |category|
       define_method "#{category}_score" do
@@ -33,7 +44,6 @@ module Tools
         (count > 0 ) ? sum.to_f/count : nil
       end
     end
-=end
 
     Parameter::CATEGORIES.each do |category|
       define_method "#{category}_score" do
@@ -41,6 +51,7 @@ module Tools
         category_scores.present? ? category_scores.inject(:+)/category_scores.size : nil
       end
     end
+=end
 
 
 
@@ -69,6 +80,22 @@ module Tools
     end
 =end
 
+    def category_features_scores category
+      result = {}
+
+      reviews.each do |review|
+        interested_features_scores = review.scorable_category_scores(category)
+
+        interested_features_scores.each do |k,v|
+          (result[k] ||= []) << v
+        end
+      end
+
+      result.each {|k,v| result[k] = v.inject(:+).to_f/v.size}
+      result
+    end
+
+=begin
     Parameter::CATEGORIES.each do |category|
       define_method "#{category}_features_scores" do
         result = {}
@@ -81,21 +108,28 @@ module Tools
           end
         end
 
-      result.each {|k,v| result[k] = v.inject(:+).to_f/v.size}
-      result
+        result.each {|k,v| result[k] = v.inject(:+).to_f/v.size}
+        result
       end
-
     end
+=end
 
     # TODO: Dont use category_score on a review. Use category_scores on the set of daily reviews.
     def time_vs_category_rating category
       result = {}
       reviews.each do |review|
-        (result[review.review_created_at.to_date] ||= []) << review.category_score(category) if review.category_score(category)
+        (result[review.review_created_at.to_date] ||= []) << review
       end
 
-      puts result.inspect
-      result.each {|k,v| result[k] = v.inject(:+).to_f/v.size}
+      result.each do |day, daily_reviews|
+        dr = Tools::ReviewsScore.new(daily_reviews)
+        result[day] = dr.send("#{category}_score")
+      end
+
+
+      # Remove days with nil score
+      result.delete_if {|k,v| !v.present?}
+
       result
     end
 
