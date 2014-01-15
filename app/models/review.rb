@@ -93,14 +93,6 @@ class Review < ActiveRecord::Base
     category_scores(cat).select {|k,v| v > 0}
   end
 
-=begin
-  # TODO: Remove category_score
-  def category_score cat
-    feature_weight = 1.to_f/Parameter.send("#{cat}_features").size
-    scorable_category_scores(cat).values.multiply_by(feature_weight).inject(:+)
-  end
-=end
-
   def dish_score
     dish_scores.present? ? dish_scores.values.inject(:+).to_f/dish_scores.size : nil
   end
