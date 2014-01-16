@@ -66,6 +66,7 @@ module Tools
       result.each do |day, daily_reviews|
         dr = Tools::ReviewsScore.new(daily_reviews)
         result[day] = dr.category_score category
+
       end
 
 
@@ -74,6 +75,18 @@ module Tools
 
       result
     end
+
+    #returns required rating hashes
+    def category_rating_hashes categories
+      categories.collect!{|category| {category=> time_vs_category_rating(category)}}.inject(:merge)
+    end
+
+    #returns required feature rating hashes
+    def feature_rating_hashes features
+      features.collect!{|feature| {feature=> time_vs_feature_rating(feature)}}.inject(:merge)
+    end
+
+
 
     def time_vs_feature_rating feature
       result = {}

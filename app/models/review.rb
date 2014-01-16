@@ -36,7 +36,6 @@ class Review < ActiveRecord::Base
     if feedbacks.present?
       notes_array = feedbacks.collect(&:notes_as_hash)
       merged_notes = notes_array.reduce({}) {|h,pairs| pairs.each {|k,v| (h[k] ||= []) << v}; h}
-
       merged_notes.reject! {|k,v| v.size != feedbacks.size}
       merged_notes.each do |k, v|
         merged_notes[k] = merged_notes[k].inject(:+)/merged_notes[k].size

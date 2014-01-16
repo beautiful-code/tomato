@@ -7,13 +7,37 @@ class Consumer::RestaurantsController < ApplicationController
 
   layout 'restaurant_owner'
 
-  def overview 
+  def overview
     review_hash=@reviews.group("date(review_created_at)").count()
     @count_array = review_hash.to_a
-    @count_array.sort! { |a, b| a.first <=> b.first}.collect! {|e| [e.first.to_time.to_i,e.second]}
+    @count_array.sort! { |a, b| a.first <=> b.first }.collect! { |e| [e.first.to_time.to_i, e.second] }
   end
 
   def restaurant
+    ob = Tools::ReviewsScore.new(@reviews)
+    orig_rating_hashes = ob.category_rating_hashes(['restaurant','service'])
+    @restaurant_rating_hash,@service_rating_hash = orig_rating_hashes['restaurant'],orig_rating_hashes['service']
+    keys = @restaurant_rating_hash.keys | @service_rating_hash.keys
+    @rating_hash = {}
+    (keys).each {|key| @rating_hash[key]= @restaurant_rating_hash[key],@service_rating_hash[key]}
+    @rating = @rating_hash.to_a.collect{|r| [r[0],r[1][0],r[1][1]]}
+    @rating.sort! { |a, b| a.first <=> b.first }.collect! { |e| [e[0].to_time.to_i, e[1],e[2]] }
+
+  end
+
+
+  def restaurant_features
+    ob = Tools::ReviewsScore.new(@reviews)
+    feature_rating_hashes_orig = ob.feature_rating_hashes(['parking','ambience'])
+    @parking_rating_hash,@ambience_rating_hash = feature_rating_hashes_orig['parking'],feature_rating_hashes_orig['ambience']
+    keys = @parking_rating_hash.try(:keys) | @ambience_rating_hash.try(:keys)
+    if keys
+      @feature_rating_hash = {}
+      (keys).each {|key| @feature_rating_hash[key]= @parking_rating_hash[key],@ambience_rating_hash[key]}
+      @feature_rating = @feature_rating_hash.to_a.collect{|r| [r[0],r[1][0],r[1][1]]}
+      @feature_rating.sort! { |a, b| a.first <=> b.first }.collect! { |e| [e[0].to_time.to_i, e[1],e[2]] }
+      raise @feature_rating.inspect
+    end
   end
 
   def service
@@ -25,7 +49,7 @@ class Consumer::RestaurantsController < ApplicationController
     load_restaurant
     load_start_and_end_dates
 
-    @reviews = @restaurant.reviews.where(:review_created_at =>(@start_date..@end_date))
+    @reviews = @restaurant.reviews.where(:review_created_at => (@start_date..@end_date))
     @reviews_score = Tools::ReviewsScore.new(@reviews)
   end
 
@@ -44,4 +68,8 @@ class Consumer::RestaurantsController < ApplicationController
     end
   end
 
+
+
 end
+
+
