@@ -3,18 +3,29 @@
   google.setOnLoadCallback(drawChart);
 
   function drawChart() {
+
+
+
+       response = $.ajax({
+                               url: "#{"/consumer/restaurants/#{@restaurant.id}/restaurant_features"} ",
+                               dataType:"json",
+                               async: false
+                               }).responseText;
+     jsonData = $.parseJSON(response);
+     columns = jsonData['columns'];
+     rows = jsonData['rows'];
+
       var data = new google.visualization.DataTable();
-
       data.addColumn('date', 'Date');
-      data.addColumn('number', 'Restaurant rating',{role: 'annotation'}  );
-     data.addColumn('number', 'Service rating',{role: 'annotation'}  );
 
-      rating_data =#{@rating.to_json};
-
-      for(var i=0; i< rating_data.length; i++){
-        rating_data[i][0] = new Date(rating_data[i][0]*1000);
+      for (var i = 0; i < columns.length; i++) {
+         data.addColumn('number',columns[i] ,{role: 'annotation'}  );
       }
-      data.addRows(rating_data);
+      console.log("drwaing again yo");
+      for(var i=0; i< rows.length; i++){
+        rows[i][0] = new Date(rows[i][0]*1000);
+      }
+      data.addRows(rows);
 
       var options = {
           pointSize: 5,
