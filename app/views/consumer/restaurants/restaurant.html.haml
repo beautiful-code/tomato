@@ -4,6 +4,7 @@
 
   function drawChart() {
 
+             console.log("drwaing again yo");
 
 
        response = $.ajax({
@@ -21,7 +22,6 @@
       for (var i = 0; i < columns.length; i++) {
          data.addColumn('number',columns[i] ,{role: 'annotation'}  );
       }
-      console.log("drwaing again yo");
       for(var i=0; i< rows.length; i++){
         rows[i][0] = new Date(rows[i][0]*1000);
       }
@@ -47,14 +47,15 @@
   .span9.analytics
     = render :partial => 'subheading', :locals => {:heading => 'Restaurant'}
 
-    #reviews_score
+    #restaurant_score
       .btn-group{"data-toggle" => "buttons-checkbox"}
         = button_tag class: "btn rating-box" do
           .score=@reviews_score.category_score("restaurant").round(1)
           .category Restaurant
-
+    #reviews_score
+      .btn-group{"data-toggle" => "buttons-checkbox"}
         - @reviews_score.category_features_scores("restaurant").each do |k,v|
-          = button_tag class: "btn rating-box" do
+          = button_tag class: "btn rating-box",id: k do
             .score=v.round(1)
             .category= k.humanize
 

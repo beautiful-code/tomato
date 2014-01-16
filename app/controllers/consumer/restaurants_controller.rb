@@ -27,17 +27,17 @@ class Consumer::RestaurantsController < ApplicationController
   def restaurant_features
     ob = Tools::ReviewsScore.new(@reviews)
     feature_rating_hashes_orig = ob.feature_rating_hashes(chart_parameters)
-    @parking_rating_hash,@ambience_rating_hash = feature_rating_hashes_orig['parking'],feature_rating_hashes_orig['ambience']
     #Get date points from all features for use as keys
-    keys = feature_rating_hashes_orig.values.inject {|union,hash| hash.keys | union.keys}
+    keys = []
+     feature_rating_hashes_orig.values.each{|hash| keys.push hash.keys  }        #.inject {|union,hash| hash.keys | union.keys}
+    keys.flatten!().uniq!
     #keys = @parking_rating_hash.try(:keys) | @ambience_rating_hash.try(:keys)
     if keys
       @feature_rating_hash = {}
-      (keys).each {|key| @feature_rating_hash[key]=  feature_rating_hashes_orig.values.collect{|hash| hash[key] } }
+      (keys).each {|key,value| @feature_rating_hash[key]=  feature_rating_hashes_orig.values.collect{|hash| hash[key] } }
       #(keys).each {|key| @feature_rating_hash[key]= @parking_rating_hash[key],@ambience_rating_hash[key]}
-      debugger
-      @feature_rating = @feature_rating_hash.to_a.collect{|r| r[1].unshift(r[0])}
-      @feature_rating.sort! { |a, b| a.first <=> b.first }.collect! { |e| [e[0].to_time.to_i, e[1],e[2]] }
+      @feature_rating = @feature_rating_hash.to_a.collect{|r|  r[1].unshift(r[0].to_time.to_i)}
+      @feature_rating.sort! { |a, b| a.first <=> b.first }
       render json: {'columns'=>chart_parameters,'rows'=> @feature_rating}
       #render 'restaurant'
     end
@@ -72,7 +72,8 @@ class Consumer::RestaurantsController < ApplicationController
   end
 
   def chart_parameters
-   @chart_parameters ||= cookies['chart_parameters'].split(',')
+  #TODO Memoize this shit
+   @chart_parameters = cookies['chart_parameters'].split(',')
   end
 
 
