@@ -3,7 +3,7 @@ class Consumer::RestaurantsController < ApplicationController
   before_filter :authenticate_user!
 
   before_filter :load_restaurant
-  before_filter :load_reviews, :only => [:overview, :restaurant, :service]
+  before_filter :load_reviews
 
   layout 'restaurant_owner'
 
@@ -22,21 +22,24 @@ class Consumer::RestaurantsController < ApplicationController
     (keys).each {|key| @rating_hash[key]= @restaurant_rating_hash[key],@service_rating_hash[key]}
     @rating = @rating_hash.to_a.collect{|r| [r[0],r[1][0],r[1][1]]}
     @rating.sort! { |a, b| a.first <=> b.first }.collect! { |e| [e[0].to_time.to_i, e[1],e[2]] }
-
   end
-
 
   def restaurant_features
     ob = Tools::ReviewsScore.new(@reviews)
-    feature_rating_hashes_orig = ob.feature_rating_hashes(['parking','ambience'])
+    feature_rating_hashes_orig = ob.feature_rating_hashes(chart_parameters)
     @parking_rating_hash,@ambience_rating_hash = feature_rating_hashes_orig['parking'],feature_rating_hashes_orig['ambience']
-    keys = @parking_rating_hash.try(:keys) | @ambience_rating_hash.try(:keys)
+    #Get date points from all features for use as keys
+    keys = feature_rating_hashes_orig.values.inject {|union,hash| hash.keys | union.keys}
+    #keys = @parking_rating_hash.try(:keys) | @ambience_rating_hash.try(:keys)
     if keys
       @feature_rating_hash = {}
-      (keys).each {|key| @feature_rating_hash[key]= @parking_rating_hash[key],@ambience_rating_hash[key]}
-      @feature_rating = @feature_rating_hash.to_a.collect{|r| [r[0],r[1][0],r[1][1]]}
+      (keys).each {|key| @feature_rating_hash[key]=  feature_rating_hashes_orig.values.collect{|hash| hash[key] } }
+      #(keys).each {|key| @feature_rating_hash[key]= @parking_rating_hash[key],@ambience_rating_hash[key]}
+      debugger
+      @feature_rating = @feature_rating_hash.to_a.collect{|r| r[1].unshift(r[0])}
       @feature_rating.sort! { |a, b| a.first <=> b.first }.collect! { |e| [e[0].to_time.to_i, e[1],e[2]] }
-      raise @feature_rating.inspect
+      render json: {'columns'=>chart_parameters,'rows'=> @feature_rating}
+      #render 'restaurant'
     end
   end
 
@@ -66,6 +69,10 @@ class Consumer::RestaurantsController < ApplicationController
       @start_date = Date.today - 1000.days
       @end_date = Date.today
     end
+  end
+
+  def chart_parameters
+   @chart_parameters ||= cookies['chart_parameters'].split(',')
   end
 
 
