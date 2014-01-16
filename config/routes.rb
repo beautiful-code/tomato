@@ -19,7 +19,7 @@ Tomato::Application.routes.draw do
 
 
   namespace :consumer do
-    resources :restaurants do
+    resources :restaurants, only: [] do
       member do
         get :overview
         post :overview
