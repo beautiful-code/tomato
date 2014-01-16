@@ -30,21 +30,22 @@
       chart.draw(data, options);
   }
 .row-fluid
-  .span3.sidebar
+  .span3
     = render :partial => 'sidebar'
 
   .span9.analytics
     = render :partial => 'subheading', :locals => {:heading => 'Restaurant'}
 
     #reviews_score
-    Restaurant
-    = @reviews_score.category_score "restaurant"
+      .btn-group{"data-toggle" => "buttons-checkbox"}
+        = button_tag class: "btn rating-box" do
+          .score=@reviews_score.category_score("restaurant").round(1)
+          .category Restaurant
 
-    - @reviews_score.category_features_scores("restaurant").each do |k,v|
-      = k
-      = v
-    
-
+        - @reviews_score.category_features_scores("restaurant").each do |k,v|
+          = button_tag class: "btn rating-box" do
+            .score=v.round(1)
+            .category= k.humanize
 
     %h4 Restaurant Trend
     #chart_div

@@ -32,21 +32,21 @@
   }
 
 .row-fluid
-  .span3.sidebar
+  .span3
     = render :partial => 'sidebar'
 
   .span9.analytics
     = render :partial => 'subheading', :locals => {:heading => 'Overview'}
 
-    #reviews_score
-    Restaurant
-    = @reviews_score.category_score("restaurant")
-    Service
-    = @reviews_score.category_score("service")
-    Dishes
-    = @reviews_score.dish_score
-    Food
-    = @reviews_score.category_score("food")
+    #reviews_score.row-fluid
+      .btn-group{"data-toggle" => "buttons-checkbox"}
+        - ['restaurant','service','food'].each do |category|
+          = button_tag class: "btn rating-box" do
+            .score=@reviews_score.category_score(category).round(1)
+            .category= category.humanize
+        = button_tag class: "btn rating-box" do
+          .score= @reviews_score.dish_score.round(1)
+          .category Dishes
 
     %h4 Reviews
     #chart_div

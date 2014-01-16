@@ -1,7 +1,5 @@
-%ul.nav.nav-list
-  %li
-    = link_to 'Overview', [:overview,:consumer,@restaurant]
-  %li
-    = link_to 'Restaurant', [:restaurant,:consumer,@restaurant]
-  %li
-    = link_to 'Service', [:service,:consumer,@restaurant]
+.sidebar
+  %ul.nav.nav-list.sidenav
+    %li= link_to 'Overview', [:overview,:consumer,@restaurant]
+    %li= link_to 'Restaurant', [:restaurant,:consumer,@restaurant]
+    %li= link_to 'Service', [:service,:consumer,@restaurant]
