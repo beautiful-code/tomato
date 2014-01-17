@@ -51,8 +51,9 @@
     #chart_div
 
     %h4 Frequently Rated Dishes
-    .span3
-      .dish
-        .name='Four Cheese Pizza'.upcase
-        .rating='4.2'
+    - @trending_dishes.each do |k,v|
+      .span3.dish
+        .name=k.upcase
+        .rating#r{id: v[1].to_i}
+          =v[1]
 
