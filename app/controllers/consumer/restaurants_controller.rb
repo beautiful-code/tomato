@@ -19,7 +19,7 @@ class Consumer::RestaurantsController < ApplicationController
     @category = 'restaurant'
   end
 
-  def restaurant_features
+  def features
     ob = Tools::ReviewsScore.new(@reviews)
     category = cookies['category']
     category_rating_hash = ob.category_rating_hashes([category])

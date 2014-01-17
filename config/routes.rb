@@ -24,7 +24,7 @@ Tomato::Application.routes.draw do
         get :overview
         post :overview
         get :restaurant
-        get :restaurant_features
+        get :features
         get :service
       end
     end
