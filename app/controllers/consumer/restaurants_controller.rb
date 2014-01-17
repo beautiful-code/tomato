@@ -1,7 +1,6 @@
 class Consumer::RestaurantsController < ApplicationController
 
   before_filter :authenticate_user!
-
   before_filter :load_restaurant
   before_filter :load_reviews
 
@@ -11,39 +10,39 @@ class Consumer::RestaurantsController < ApplicationController
     review_hash=@reviews.group("date(review_created_at)").count()
     @count_array = review_hash.to_a
     @count_array.sort! { |a, b| a.first <=> b.first }.collect! { |e| [e.first.to_time.to_i, e.second] }
+    ob = Tools::ReviewsScore.new(@reviews)
+    @trending_dishes = ob.trending_dishes
   end
 
   def restaurant
     ob = Tools::ReviewsScore.new(@reviews)
-    orig_rating_hashes = ob.category_rating_hashes(['restaurant','service'])
-    @restaurant_rating_hash,@service_rating_hash = orig_rating_hashes['restaurant'],orig_rating_hashes['service']
-    keys = @restaurant_rating_hash.keys | @service_rating_hash.keys
-    @rating_hash = {}
-    (keys).each {|key| @rating_hash[key]= @restaurant_rating_hash[key],@service_rating_hash[key]}
-    @rating = @rating_hash.to_a.collect{|r| [r[0],r[1][0],r[1][1]]}
-    @rating.sort! { |a, b| a.first <=> b.first }.collect! { |e| [e[0].to_time.to_i, e[1],e[2]] }
+    @category = 'restaurant'
   end
 
   def restaurant_features
     ob = Tools::ReviewsScore.new(@reviews)
-    feature_rating_hashes_orig = ob.feature_rating_hashes(chart_parameters)
+    category = cookies['category']
+    category_rating_hash = ob.category_rating_hashes([category])
+    feature_rating_hashes_orig = ob.feature_rating_hashes(chart_parameters) if chart_parameters
+    feature_rating_hashes_orig ? (rating_hashes_orig = category_rating_hash.merge feature_rating_hashes_orig) : rating_hashes_orig = category_rating_hash
     #Get date points from all features for use as keys
     keys = []
-     feature_rating_hashes_orig.values.each{|hash| keys.push hash.keys  }        #.inject {|union,hash| hash.keys | union.keys}
+    rating_hashes_orig.values.each{|hash| keys.push hash.keys  }        #.inject {|union,hash| hash.keys | union.keys}
     keys.flatten!().uniq!
-    #keys = @parking_rating_hash.try(:keys) | @ambience_rating_hash.try(:keys)
     if keys
-      @feature_rating_hash = {}
-      (keys).each {|key,value| @feature_rating_hash[key]=  feature_rating_hashes_orig.values.collect{|hash| hash[key] } }
+      @rating_hash = {}
+      (keys).each {|key,value| @rating_hash[key]=  rating_hashes_orig.values.collect{|hash| hash[key] } }
       #(keys).each {|key| @feature_rating_hash[key]= @parking_rating_hash[key],@ambience_rating_hash[key]}
-      @feature_rating = @feature_rating_hash.to_a.collect{|r|  r[1].unshift(r[0].to_time.to_i)}
-      @feature_rating.sort! { |a, b| a.first <=> b.first }
-      render json: {'columns'=>chart_parameters,'rows'=> @feature_rating}
-      #render 'restaurant'
+      @rating = @rating_hash.to_a.collect{|r|  r[1].unshift(r[0].to_time.to_i)}
+      @rating.sort! { |a, b| a.first <=> b.first }
+      render json: {'columns'=>chart_parameters.push(category).collect(&:humanize),'rows'=> @rating}
     end
   end
 
   def service
+    ob = Tools::ReviewsScore.new(@reviews)
+    @category = 'service'
+    render 'restaurant'
   end
 
 
@@ -73,7 +72,11 @@ class Consumer::RestaurantsController < ApplicationController
 
   def chart_parameters
   #TODO Memoize this shit
-   @chart_parameters = cookies['chart_parameters'].split(',')
+    if cookies['chart_parameters']
+      @chart_parameters = cookies['chart_parameters'].split(',')
+    else
+      []
+    end
   end
 
 
