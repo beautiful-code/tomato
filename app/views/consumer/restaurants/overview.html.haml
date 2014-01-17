@@ -31,22 +31,28 @@
       chart.draw(data, options);
   }
 
-.row-fluid
-  .span3
-    = render :partial => 'sidebar'
-
+.sidebar
+  = render :partial => 'sidebar'
+#container.row-fluid
   .span9.analytics
     = render :partial => 'subheading', :locals => {:heading => 'Overview'}
 
     #reviews_score.row-fluid
       .btn-group{"data-toggle" => "buttons-checkbox"}
         - ['restaurant','service','food'].each do |category|
-          = button_tag class: "btn rating-box" do
+          .rating-box
             .score=@reviews_score.category_score(category).round(1)
             .category= category.humanize
-        = button_tag class: "btn rating-box" do
+        .rating-box
           .score= @reviews_score.dish_score.round(1)
           .category Dishes
 
-    %h4 Reviews
+    %h4 Overall Rating Trend
     #chart_div
+
+    %h4 Frequently Rated Dishes
+    .span3
+      .dish
+        .name='Four Cheese Pizza'.upcase
+        .rating='4.2'
+

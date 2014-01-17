@@ -5,21 +5,22 @@
       Tomato
     = stylesheet_link_tag "application", :media => "all"
     = javascript_include_tag "application"
+    = stylesheet_link_tag 'http://fortawesome.github.io/Font-Awesome/assets/font-awesome/css/font-awesome.css'
     %script{:src => "https://www.google.com/jsapi", :type => "text/javascript"}
 
     = csrf_meta_tags
 %body
-  .navbar.navbar-fixed-top
+  .navbar.navbar-fixed-top.absolute
     .navbar-inner
       .container-fluid
+
         .brand= @restaurant.name
 
 
-  .container-fluid
-    = yield
+  = yield
 
-    .footer.span10.offset1
-      %center
-        %hr
-        Tomato &copy;
-        = Time.now.year
+  .footer.span10.offset1
+    %center
+      %hr
+      Tomato &copy;
+      = Time.now.year
