@@ -41,6 +41,19 @@ module Tools
       dish_scores.present? ? dish_scores.inject(:+)/dish_scores.size : nil
     end
 
+    def specific_dish_score dish
+      sum = 0
+      count = 0
+      reviews.each do |review|
+        if review.consolidated_feedback['dishes'].present?
+          if review.consolidated_feedback['dishes'][dish].present?
+            sum += review.consolidated_feedback['dishes'][dish]
+            count += 1
+          end
+        end
+      end
+      (count > 0) ? sum.to_f/count : nil
+    end
 
     def category_features_scores category
       result = {}
@@ -124,6 +137,42 @@ module Tools
         # Sort the hash by count value and convert back to hash and return
         Hash[hash.sort_by {|k,v| -v[0]}.first(5)]
       end
+    end
+
+    def all_dishes
+      dish_hashes =reviews.collect do |r|
+        r.consolidated_feedback['dishes'] if r.consolidated_feedback['dishes'].present?
+      end
+      dish_hashes.compact!.inject({}) do |hash, h|
+        #initialize count of all dish mentions to zero in a hash ...so first value in array is count, 2nd value is score
+
+        h = h.collect { |key, value| {key => [1, value]} }
+        h = h.inject(:merge)
+        h.each_key do |key|
+          if (hash.has_key?(key))
+            hash[key] = [hash[key][0]+1, (hash[key][1] + h[key][1])/2]
+          else
+            hash[key] = h[key]
+          end
+        end
+        # Sort the hash by count value and convert back to hash and return
+        Hash[hash.sort_by {|k,v| -v[0]}]
+      end
+    end
+
+
+    def time_vs_dish_rating category
+      result = {}
+      reviews.each do |review|
+        (result[review.review_created_at.to_date] ||= []) << review
+      end
+      result.each do |day, daily_reviews|
+        dr = Tools::ReviewsScore.new(daily_reviews)
+        result[day] = dr.specific_dish_score category
+      end
+      # Remove days with nil score
+      result.delete_if { |k, v| !v.present? }
+      result
     end
 
   end

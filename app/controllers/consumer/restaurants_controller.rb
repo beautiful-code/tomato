@@ -3,6 +3,7 @@ class Consumer::RestaurantsController < ApplicationController
   before_filter :authenticate_user!
   before_filter :load_restaurant
   before_filter :load_reviews
+  before_filter :load_dish, only: [:dishes]
 
   layout 'restaurant_owner'
 
@@ -46,6 +47,22 @@ class Consumer::RestaurantsController < ApplicationController
   end
 
 
+
+  def dishes
+    ob = Tools::ReviewsScore.new(@reviews)
+    @dishes = ob.all_dishes
+  end
+
+  #Endpoint for returning chart data for a specific dish
+  def dishes_chart
+    ob = Tools::ReviewsScore.new(@reviews)
+    rating_hash = ob.time_vs_dish_rating @dish
+    @rating = rating_hash.to_a.collect{|r|  [r[0].to_time.to_i,r[1]]}
+    render json: {'columns'=>[@dish],'rows'=>@rating}
+  end
+
+
+
   private
   def load_reviews
     load_restaurant
@@ -77,6 +94,10 @@ class Consumer::RestaurantsController < ApplicationController
     else
       []
     end
+  end
+
+  def load_dish
+    @dish = cookies['dish']
   end
 
 

@@ -26,6 +26,8 @@ Tomato::Application.routes.draw do
         get :restaurant
         get :features
         get :service
+        get :dishes
+        get :dishes_chart
       end
     end
   end

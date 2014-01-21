@@ -1,0 +1,23 @@
+%h3
+  Dishes
+
+
+%table
+  %tr
+    %td
+      %th
+        Name
+    %td
+      %th
+        Rating
+    %td
+      %th
+        No. of Ratings
+  - @dishes.each do |k,v|
+    %tr
+      %td
+        = k.upcase
+      %td
+        =v[1]
+      %td
+        = v[0]
