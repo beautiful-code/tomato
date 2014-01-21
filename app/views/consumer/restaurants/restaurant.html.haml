@@ -58,8 +58,9 @@
       Trend
 
     #chart_parameters
-      .btn-group{"data-toggle" => "buttons-checkbox"}
-        - @reviews_score.category_features_scores(@category).each do |k,v|
-          = button_tag class: "btn rating-box",id: k do
+      - @reviews_score.category_features_scores(@category).each do |k,v|
+        .controls
+          %label
             = k.humanize
+            = check_box_tag(k,value = "1", checked = false,options = {class: "chart-params"})
     #chart_div.span8

@@ -12,7 +12,7 @@ $(document).ready(function () {
         setTimeout(function(){
             $('#chart_parameters').find('.rating-box').filter(
                 function () {
-                    return $(this).attr('class') == 'btn rating-box active'
+                    return $(this).attr('class') == 'btn btn-small rating-box active'
                 }).each(function(){
                     chart_parameters.push($(this).attr('id'));
                 });
@@ -23,6 +23,22 @@ $(document).ready(function () {
 
         },1);
     })
+      
+    $("#chart_parameters input[type=checkbox]").click(function(e) {
+      chart_parameters = [];
+      $("#chart_parameters").find('.chart-params').filter( function(){ 
+        return  $(this).is(":checked") 
+      }).each(function(){
+        chart_parameters.push($(this).attr('id'));
+      });
+      $.cookie('chart_parameters', chart_parameters);
+       console.log('params are'+chart_parameters); 
+
+      drawChart();
+      
+    });
+
+
 
     if($.cookie('chart_parameters'))
     {

@@ -31,6 +31,8 @@
       chart.draw(data, options);
   }
 
+
+
 .row-fluid
   .sidebar
     = render :partial => 'sidebar'
@@ -53,7 +55,7 @@
         .controls
           %label
             = category.humanize
-            = check_box_tag category
+            = check_box_tag(category,value = "1", checked = false,options = {class: "chart-params"})
     #chart_div
 
     %h4 Frequently Rated Dishes
