@@ -116,7 +116,6 @@ module Tools
         h = h.inject(:merge)
         h.each_key do |key|
           if (hash.has_key?(key))
-            debugger
             hash[key] = [hash[key][0]+1, (hash[key][1] + h[key][1])/2]
           else
             hash[key] = h[key]
