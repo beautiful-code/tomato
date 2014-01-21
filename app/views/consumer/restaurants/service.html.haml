@@ -1,6 +1,7 @@
-.sidebar
-  = render :partial => 'sidebar'
-#container.row-fluid
+.row-fluid
+  .sidebar
+    = render :partial => 'sidebar'
+#container
   .span9.analytics
     = render :partial => 'subheading', :locals => {:heading => 'Service'}
 

@@ -10,7 +10,7 @@ $(document).ready(function () {
         chart_parameters = [];
         // Setting timeout to allow bootstrap to set active class
         setTimeout(function(){
-            $('#reviews_score').find('.rating-box').filter(
+            $('#chart_parameters').find('.rating-box').filter(
                 function () {
                     return $(this).attr('class') == 'btn rating-box active'
                 }).each(function(){
@@ -35,7 +35,7 @@ $(document).ready(function () {
 
  for(i=0;i<parameters.length;i++){
      console.log('adding active class')
-     $('#reviews_score').find('#'+parameters[i]).first().addClass("active");
+     $('#chart_parameters').find('#'+parameters[i]).first().addClass("active");
      }
 
 

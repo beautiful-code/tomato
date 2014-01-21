@@ -4,17 +4,15 @@
 
   function drawChart() {
 
-             console.log("drwaing again yo");
-
-
        response = $.ajax({
-                               url: "#{"/consumer/restaurants/#{@restaurant.id}/features"} ",
-                               dataType:"json",
-                               async: false
-                               }).responseText;
-     jsonData = $.parseJSON(response);
-     columns = jsonData['columns'];
-     rows = jsonData['rows'];
+                         url: "#{"/consumer/restaurants/#{@restaurant.id}/features"} ",
+                         dataType:"json",
+                         async: false
+                         }).responseText;
+
+      jsonData = $.parseJSON(response);
+      columns = jsonData['columns'];
+      rows = jsonData['rows'];
 
       var data = new google.visualization.DataTable();
       data.addColumn('date', 'Date');
@@ -40,15 +38,17 @@
       var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
       chart.draw(data, options);
   }
-.sidebar
-  = render :partial => 'sidebar'
-#container.row-fluid
-  .span9.analytics
+
+.row-fluid
+  .sidebar
+    = render :partial => 'sidebar'
+#container
+  .span10.analytics
     = render :partial => 'subheading', :locals => {:heading => @category.capitalize}
     #reviews_score
       .restaurant-rating-box
         .score=@reviews_score.category_score(@category).round(1)
-        .category @category.capitalize
+        .category=@category.capitalize
       - @reviews_score.category_features_scores(@category).each do |k,v|
         .rating-box
           .score=v.round(1)
@@ -56,4 +56,10 @@
     %h4.category-name{:data=>{'category'=>@category}}
       = @category.capitalize
       Trend
-    #chart_div
+
+    #chart_parameters
+      .btn-group{"data-toggle" => "buttons-checkbox"}
+        - @reviews_score.category_features_scores(@category).each do |k,v|
+          = button_tag class: "btn rating-box",id: k do
+            = k.humanize
+    #chart_div.span8

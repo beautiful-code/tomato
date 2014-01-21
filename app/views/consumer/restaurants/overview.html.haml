@@ -31,23 +31,29 @@
       chart.draw(data, options);
   }
 
-.sidebar
-  = render :partial => 'sidebar'
-#container.row-fluid
+.row-fluid
+  .sidebar
+    = render :partial => 'sidebar'
+#container
   .span9.analytics
     = render :partial => 'subheading', :locals => {:heading => 'Overview'}
 
-    #reviews_score.row-fluid
-      .btn-group{"data-toggle" => "buttons-checkbox"}
-        - ['restaurant','service','food'].each do |category|
-          .rating-box
-            .score=@reviews_score.category_score(category).round(1)
-            .category= category.humanize
+    #reviews_score
+      - ['restaurant','service','food'].each do |category|
         .rating-box
-          .score= @reviews_score.dish_score.round(1)
-          .category Dishes
+          .score=@reviews_score.category_score(category).round(1)
+          .category= category.humanize
+      .rating-box
+        .score= @reviews_score.dish_score.round(1)
+        .category Dishes
 
     %h4 Overall Rating Trend
+    #chart_parameters
+      - ['restaurant','service','food'].each do |category|
+        .controls
+          %label
+            = category.humanize
+            = check_box_tag category
     #chart_div
 
     %h4 Frequently Rated Dishes
