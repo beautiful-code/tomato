@@ -3,7 +3,7 @@ class Consumer::RestaurantsController < ApplicationController
   before_filter :authenticate_user!
   before_filter :load_restaurant
   before_filter :load_reviews
-  before_filter :load_dish, only: [:dishes]
+  before_filter :load_dish, only: [:dish_chart]
 
   layout 'restaurant_owner'
 
@@ -13,6 +13,10 @@ class Consumer::RestaurantsController < ApplicationController
     @count_array.sort! { |a, b| a.first <=> b.first }.collect! { |e| [e.first.to_time.to_i, e.second] }
     ob = Tools::ReviewsScore.new(@reviews)
     @trending_dishes = ob.trending_dishes
+  end
+
+  def category_chart
+
   end
 
   def restaurant
@@ -51,10 +55,11 @@ class Consumer::RestaurantsController < ApplicationController
   def dishes
     ob = Tools::ReviewsScore.new(@reviews)
     @dishes = ob.all_dishes
+    cookies['dish']='South'
   end
 
   #Endpoint for returning chart data for a specific dish
-  def dishes_chart
+  def dish_chart
     ob = Tools::ReviewsScore.new(@reviews)
     rating_hash = ob.time_vs_dish_rating @dish
     @rating = rating_hash.to_a.collect{|r|  [r[0].to_time.to_i,r[1]]}

@@ -1,23 +1,71 @@
-%h3
-  Dishes
+:javascript
+  google.load("visualization", "1", {packages:["corechart"]});
+  google.setOnLoadCallback(drawChart);
+
+  function drawChart() {
+
+       response = $.ajax({
+                         url: "#{"/consumer/restaurants/#{@restaurant.id}/dish_chart"} ",
+                         dataType:"json",
+                         async: false
+                         }).responseText;
+
+      jsonData = $.parseJSON(response);
+      columns = jsonData['columns'];
+      rows = jsonData['rows'];
+
+      var data = new google.visualization.DataTable();
+      data.addColumn('date', 'Date');
+
+      for (var i = 0; i < columns.length; i++) {
+         data.addColumn('number',columns[i] ,{role: 'annotation'}  );
+      }
+      for(var i=0; i< rows.length; i++){
+        rows[i][0] = new Date(rows[i][0]*1000);
+      }
+      data.addRows(rows);
+
+      var options = {
+          pointSize: 5,
+          vAxis: {format:'#',
+                    viewWindow:{
+                      max:5,
+                      min:0
+                    }
+                  }
+      };
+
+      var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+      chart.draw(data, options);
+  }
 
 
-%table
-  %tr
-    %td
-      %th
-        Name
-    %td
-      %th
-        Rating
-    %td
-      %th
-        No. of Ratings
-  - @dishes.each do |k,v|
-    %tr
-      %td
-        = k.upcase
-      %td
-        =v[1]
-      %td
-        = v[0]
+.row-fluid
+  .sidebar
+    = render :partial => 'sidebar'
+#container
+  .span10.analytics
+    = render :partial => 'subheading', :locals => {:heading => 'Dishes'}
+
+  .row-fluid
+    .span6
+      %table{:id=>'dishes_list',:class=>'table-hover table table-bordered'}
+        %tr
+          %th
+            Name
+          %th
+            Rating
+          %th
+            No. of Ratings
+        - @dishes.each do |k,v|
+          %tr{:id =>k,:class=>'dish-row'}
+            %td
+              = k.upcase
+            %td
+              =v[1]
+            %td
+              = v[0]
+  .row-fluid
+    %h3.dish-title
+
+  #chart_div.span8

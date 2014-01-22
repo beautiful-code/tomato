@@ -18,8 +18,8 @@ $(document).ready(function () {
       $.cookie('end_year', end_year);
 
       e.preventDefault();
-
-      window.location.reload();
+      drawChart();
+//      window.location.reload();
     });
   }
   

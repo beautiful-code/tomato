@@ -208,5 +208,12 @@
   input[type="checkbox"] {
     width: auto;
     margin-top: -1px;
+}
+}
+
+#dishes_list{
+  .active{
+    bgcolor: #008999;
+
   }
 }

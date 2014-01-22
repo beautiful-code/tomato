@@ -6,6 +6,7 @@ $(document).ready(function () {
 
 
 
+
     $('.rating-box').click(function (e) {
         chart_parameters = [];
         // Setting timeout to allow bootstrap to set active class
@@ -37,6 +38,7 @@ $(document).ready(function () {
       drawChart();
       
     });
+
 
 
 
