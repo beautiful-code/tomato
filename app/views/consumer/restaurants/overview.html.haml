@@ -1,61 +1,80 @@
-:javascript
-  google.load("visualization", "1", {packages:["corechart"]});
-  google.setOnLoadCallback(drawChart);
+.col-xs-12
+  = render :partial => 'subheading', :locals => {:heading => 'Overview'}
 
-  function drawChart() {
-      //var data = google.visualization.arrayToDataTable(#{raw @count_array.to_json});
-      var data = new google.visualization.DataTable();
+  .row.box.box-transparent
+    .col-xs-4.col-sm-2
+      .box-quick-link.blue-background
+        %a{:href => "#"}
+        .header
+          .icon-comments
+        .content Comments
+    .col-xs-4.col-sm-2
+      .box-quick-link.green-background
+        %a{:href => "#"}
+        .header
+          .icon-star
+        .content Veeeery long title of this quick link
+    .col-xs-4.col-sm-2
+      .box-quick-link.orange-background
+        %a{:href => "#"}
+        .header
+          .icon-magic
+        .content Magic
+    .col-xs-4.col-sm-2
+      .box-quick-link.purple-background
+        %a{:href => "#"}
+        .header
+          .icon-eye-open
+        .content Show
+    .col-xs-4.col-sm-2
+      .box-quick-link.red-background
+        %a{:href => "orders.html"}
+        .header
+          .icon-inbox
+        .content Orders
+    .col-xs-4.col-sm-2
+      .box-quick-link.muted-background
+        %a{:href => "#"}
+        .header
+          .icon-refresh
+        .content Spinning
 
-      data.addColumn('date', 'Date');
-      data.addColumn('number', '# of reviews',{role: 'annotation'}  );
+  :javascript
+    google.load("visualization", "1", {packages:["corechart"]});
+    google.setOnLoadCallback(drawChart);
 
-       js_data =#{@count_array.to_json};
+    function drawChart() {
+        //var data = google.visualization.arrayToDataTable(#{raw @count_array.to_json});
+        var data = new google.visualization.DataTable();
 
-      for(var i=0; i< js_data.length; i++){
-        js_data[i][0] = new Date(js_data[i][0]*1000);
-      }
-        console.log(js_data);
-      data.addRows(js_data);
+        data.addColumn('date', 'Date');
+        data.addColumn('number', '# of reviews',{role: 'annotation'}  );
 
-      var options = {
-          pointSize: 5,
-          vAxis: {format:'#',
-                    viewWindow:{
-                      max:10,
-                      min:0
+         js_data =#{@count_array.to_json};
+
+        for(var i=0; i< js_data.length; i++){
+          js_data[i][0] = new Date(js_data[i][0]*1000);
+        }
+          console.log(js_data);
+        data.addRows(js_data);
+
+        var options = {
+            pointSize: 5,
+            vAxis: {format:'#',
+                      viewWindow:{
+                        max:10,
+                        min:0
+                      }
                     }
-                  }
-      };
+        };
 
-      var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
-      chart.draw(data, options);
-  }
+        var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+        chart.draw(data, options);
+    }
 
-
-
-.row-fluid
-  .sidebar
-    = render :partial => 'sidebar'
-#container
-  .span9.analytics
-    = render :partial => 'subheading', :locals => {:heading => 'Overview'}
-
-    #reviews_score
-      - ['restaurant','service','food'].each do |category|
-        .rating-box
-          .score=@reviews_score.category_score(category).round(1)
-          .category= category.humanize
-      .rating-box
-        .score= @reviews_score.dish_score.round(1)
-        .category Dishes
-
-    %h4 Overall Rating Trend
-    #chart_parameters
-      - ['restaurant','service','food'].each do |category|
-        .controls
-          %label
-            = category.humanize
-            = check_box_tag(category,value = "1", checked = false,options = {class: "chart-params"})
+    
+  .col-xs-12
+    %h4 Reviews
     #chart_div
 
     %h4 Frequently Rated Dishes
@@ -64,4 +83,3 @@
         .name=k.upcase
         .rating#r{id: v[1].to_i}
           =v[1]
-

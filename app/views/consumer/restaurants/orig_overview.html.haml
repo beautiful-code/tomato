@@ -1,0 +1,52 @@
+:javascript
+  google.load("visualization", "1", {packages:["corechart"]});
+  google.setOnLoadCallback(drawChart);
+
+  function drawChart() {
+      //var data = google.visualization.arrayToDataTable(#{raw @count_array.to_json});
+      var data = new google.visualization.DataTable();
+
+      data.addColumn('date', 'Date');
+      data.addColumn('number', '# of reviews',{role: 'annotation'}  );
+
+       js_data =#{@count_array.to_json};
+
+      for(var i=0; i< js_data.length; i++){
+        js_data[i][0] = new Date(js_data[i][0]*1000);
+      }
+        console.log(js_data);
+      data.addRows(js_data);
+
+      var options = {
+          pointSize: 5,
+          vAxis: {format:'#',
+                    viewWindow:{
+                      max:10,
+                      min:0
+                    }
+                  }
+      };
+
+      var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+      chart.draw(data, options);
+  }
+
+.row-fluid
+  .span3.sidebar
+    = render :partial => 'sidebar'
+
+  .span9.analytics
+    = render :partial => 'subheading', :locals => {:heading => 'Overview'}
+
+    #reviews_score
+    Restaurant
+    = @reviews_score.category_score("restaurant")
+    Service
+    = @reviews_score.category_score("service")
+    Dishes
+    = @reviews_score.dish_score
+    Food
+    = @reviews_score.category_score("food")
+
+    %h4 Reviews
+    #chart_div

@@ -9,15 +9,80 @@
     %script{:src => "https://www.google.com/jsapi", :type => "text/javascript"}
 
     = csrf_meta_tags
-%body
-  .navbar.navbar-fixed-top.absolute
-    .navbar-inner
-      .container-fluid
+%body.contrast-red
+  - if false
+    .navbar.navbar-fixed-top
+      .navbar-inner
+        .container-fluid
+          .brand= @restaurant.name
 
-        .brand= @restaurant.name
+  %header
+    %nav.navbar.navbar-default
+      %a.navbar-brand{:href => "index.html"}
+        %img.logo{:alt => "Flatty", :height => "21", :src => image_path("flatty/logo.svg"), :width => "81"}/
+        %img.logo-xs{:alt => "Flatty", :height => "21", :src => image_path("flatty/logo_xs.svg"), :width => "21"}/
+      %a.toggle-nav.btn.pull-left{:href => "#"}
+        %i.icon-reorder
+      %ul.nav
+        %li.dropdown.dark.user-menu
+          %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
+            %img{:alt => "Mila Kunis", :height => "23", :src => image_path("flatty/avatar.jpg"), :width => "23"}/
+            %span.user-name Mila Kunis
+            %b.caret
+          %ul.dropdown-menu
+            %li
+              %a{:href => "user_profile.html"}
+                %i.icon-user
+                Profile
+            %li
+              %a{:href => "user_profile.html"}
+                %i.icon-cog
+                Settings
+            %li.divider
+            %li
+              %a{:href => "sign_in.html"}
+                %i.icon-signout
+                Sign out
+      %form.navbar-form.navbar-right.hidden-xs{:action => "search_results.html", :method => "get"}
+        %button.btn.btn-link.icon-search{:name => "button", :type => "submit"}
+        .form-group
+          %input#q_header.form-control{:autocomplete => "off", :name => "q", :placeholder => "Search...", :type => "text", :value => ""}/
 
+  #wrapper
+    #main-nav-bg
+    %nav#main-nav
+      .navigation
+        %ul.nav.nav-stacked
+          %li.active
+            = link_to [:overview, :consumer, @restaurant] do
+              %i.icon-dashboard
+              %span Overview
+          %li
+            = link_to [:restaurant, :consumer, @restaurant] do
+              %i.icon-star
+              %span Restaurant
+          %li
+            = link_to [:service, :consumer, @restaurant] do
+              %i.icon-table
+              %span Service
 
-  = yield
+    %section#content
+      .container
+        #content-wrapper.row
+          = yield
+
+        %footer#footer
+          .footer-wrapper
+            .row
+              .col-sm-6.text
+                Copyright © 2013 Your Project Name
+              .col-sm-6.buttons
+                %a.btn.btn-link{:href => "http://www.bublinastudio.com/flatty"} Preview
+                %a.btn.btn-link{:href => "https://wrapbootstrap.com/theme/flatty-flat-administration-template-WB0P6NR1N"} Purchase
+
+  - if false
+    .container-fluid
+      = yield
 
   .footer.span10.offset2
     %center
