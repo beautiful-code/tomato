@@ -53,15 +53,15 @@
     %nav#main-nav
       .navigation
         %ul.nav.nav-stacked
-          %li.active
+          %li{:class => (action_name == 'overview' ? 'active' : nil)}
             = link_to [:overview, :consumer, @restaurant] do
               %i.icon-dashboard
               %span Overview
-          %li
+          %li{:class => (action_name == 'restaurant' ? 'active' : nil)}
             = link_to [:restaurant, :consumer, @restaurant] do
               %i.icon-star
               %span Restaurant
-          %li
+          %li{:class => (action_name == 'service' ? 'active' : nil)}
             = link_to [:service, :consumer, @restaurant] do
               %i.icon-table
               %span Service

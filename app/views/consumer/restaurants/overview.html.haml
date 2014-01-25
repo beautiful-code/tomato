@@ -4,22 +4,26 @@
     .row.box
       .col-xs-6.col-md-2
         .box-content.box-statistic.green-background
-          %h3.title.text-success= @reviews_score.category_score("restaurant").round(1)
+          %h3.title.text-success
+            = (score = @reviews_score.category_score("restaurant")) ? score.round(1) : "N/A"
           %small Restaurant
           .text-success.icon-flag.align-right
       .col-xs-6.col-md-2
         .box-content.box-statistic
-          %h3.title.text-info= @reviews_score.category_score("service").round(1)
+          %h3.title.text-info
+            = (score = @reviews_score.category_score("service")) ? score.round(1) : "N/A"
           %small Service
           .text-info.icon-refresh.align-right
       .col-xs-6.col-md-2
         .box-content.box-statistic
-          %h3.title.text-info= @reviews_score.dish_score
+          %h3.title.text-info
+            = (score = @reviews_score.dish_score) ? score.round(1) : "N/A"
           %small Dishes
           .text-info.icon-time.align-right
       .col-xs-6.col-md-2
         .box-content.box-statistic
-          %h3.title.text-info= @reviews_score.category_score("food").round(1)
+          %h3.title.text-info
+            = (score = @reviews_score.category_score("food")) ? score.round(1) : "N/A"
           %small Food
           .text-info.icon-time.align-right
 
