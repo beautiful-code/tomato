@@ -1,0 +1,148 @@
+#source_reviews {
+  margin-top: 10px;
+  h4 {
+    display:inline-block;
+    margin-bottom: 10px;
+  }
+  .page-numbers {
+    margin: 5px;
+    float:right;
+  }
+
+  .review {
+    padding: 10px;
+  }
+
+  .even {
+    background-color: #ddd;
+  }
+
+  .paginate {
+    margin:10px;
+    float:right;
+    display: block;
+    word-spacing:2px
+  }
+  .size-tiny{
+    width:135px;
+  }
+  .size {
+    width: 250px;
+  }
+
+  .wide {
+    width: 150px;
+    padding: 5px 10px 5px 10px;
+  }
+  td {
+    text-align: center;
+    padding: 5px;
+  }
+
+  #new_note_form {
+    display:none;
+  }
+  form.note-form {
+      label, input {
+        display:inline;
+      }
+  }
+  .add-note {
+    margin: 10px;
+    width:90px;
+    height:32px;
+    display: block;
+  }
+
+  #notes_list {
+    margin: 0px;
+    .item {
+      width: 200px;
+    }
+    .rating {
+      width: 50px;
+    }
+    .delete {
+      width:40px;
+    }
+  }
+
+  #review_notes {
+    height: 250px;
+    .desc {
+      max-height: 320px;
+      overflow-y: scroll;
+    }
+    #notes {
+      max-height: 340px;
+    }
+    .review-notes {
+      margin-top: 20px;
+      max-height: 260px;
+      overflow-y: scroll;
+    }
+ }
+}
+
+.prev-next {
+  a {
+    padding: 3px;
+    color: #FFA500; 
+    font-weight: bold;
+    &:visited {
+      color: #FFA500; 
+    }
+  } 
+}
+
+#parameters {
+  font-size:90%;
+  line-height: 16px;
+  input {
+    margin: 0;
+  }
+  label.key-label {
+    color: #FFA500;
+    color: #CC3300;
+  }
+  label {
+    display: inline;
+  }
+  .parameter {
+    padding: 2px;
+    &:hover {
+      background-color: #ddd;
+    }
+    .left{
+      float:left;
+      width:30%;
+      display: inline;
+    }
+    .right{
+      float:left;
+      width:70%;
+      display: inline;
+      label {
+        margin-right: 3px;
+      }
+    }
+    .clear {
+      clear: both;
+    }
+  }
+}
+
+.review-rating{
+  display: inline-block;
+  padding-left: 8px;
+  padding-right: 8px;
+  color:#ffffff ;
+  background-color: #1587BB;
+}
+
+#new_review {
+  .small-3 {
+    clear: both;
+  }
+}
+
