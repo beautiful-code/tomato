@@ -49,3 +49,5 @@
 //= require flatty/plugins/modernizr/modernizr.min
 //= require flatty/plugins/lightbox/lightbox.min
 //= require flatty/plugins/typeahead/typeahead
+//= require flatty/plugins/jquery_cookie/jquery.cookie
+
