@@ -7,7 +7,8 @@
     = javascript_include_tag "application"
     = csrf_meta_tags
 %body
-  .navbar.navbar-fixed-top
+  - if false 
+    .navbar.navbar-fixed-top
     .navbar-inner
       .container-fluid
         %a.btn.btn-navbar(data-target=".nav-collapse" data-toggle="collapse")
@@ -42,8 +43,6 @@
 
   .container-fluid
     .row-fluid
-      .flash
-        = bootstrap_flash
       - if @breadcrumbs.present?
         .breadcrumb
           - @breadcrumbs[0..-2].each do |txt, path|

@@ -2,10 +2,29 @@
   %h1.pull-left
     %i.icon-dashboard
     %span=heading
-  .pull-right
-    %span.date-range
-      = form_tag '', method: :get do
-        = date_select("date" , "start_date", {:default => @start_date, :order => [:month, :day, :year], :use_short_month => true, :end_year => Date.today.year}, {:class => "input-mini"})
-        to
-        = date_select("date" , "end_date", {:default => @end_date, :order => [:month, :day, :year], :use_short_month => true, :end_year => Date.today.year}, {:class => "input-mini"})
-        = submit_tag  'Draw',class: 'submit btn btn-small btn-info'
+  #date_range.col-md-3
+    .input-group
+      %input.form-control.daterange{:placeholder => "Select daterange", :type => "text", name: 'daterange'}
+        %span#daterange2.input-group-addon
+          %i.icon-calendar
+:javascript
+   $('input[name="daterange"]').daterangepicker(
+   { 
+      format: 'YYYY-MM-DD',
+      startDate: #{Date.today.strftime},
+      endDate: #{Date.today.next_month.strftime}
+   },
+     function(start, end) {
+       // TO DO: Draw chart 
+       //alert('A date range was chosen: ' + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
+     }
+   );
+
+
+- if false     
+  %span.date-range
+  = form_tag '', method: :get do
+    = date_select("date" , "start_date", {:default => @start_date, :order => [:month, :day, :year], :use_short_month => true, :end_year => Date.today.year}, {:class => "input-mini"})
+    to
+    = date_select("date" , "end_date", {:default => @end_date, :order => [:month, :day, :year], :use_short_month => true, :end_year => Date.today.year}, {:class => "input-mini"})
+    = submit_tag  'Draw',class: 'submit btn btn-small btn-info'

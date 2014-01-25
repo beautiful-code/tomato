@@ -1,85 +1,71 @@
-.col-xs-12
-  = render :partial => 'subheading', :locals => {:heading => 'Overview'}
-
-  .row.box.box-transparent
-    .col-xs-4.col-sm-2
-      .box-quick-link.blue-background
-        %a{:href => "#"}
-        .header
-          .icon-comments
-        .content Comments
-    .col-xs-4.col-sm-2
-      .box-quick-link.green-background
-        %a{:href => "#"}
-        .header
-          .icon-star
-        .content Veeeery long title of this quick link
-    .col-xs-4.col-sm-2
-      .box-quick-link.orange-background
-        %a{:href => "#"}
-        .header
-          .icon-magic
-        .content Magic
-    .col-xs-4.col-sm-2
-      .box-quick-link.purple-background
-        %a{:href => "#"}
-        .header
-          .icon-eye-open
-        .content Show
-    .col-xs-4.col-sm-2
-      .box-quick-link.red-background
-        %a{:href => "orders.html"}
-        .header
-          .icon-inbox
-        .content Orders
-    .col-xs-4.col-sm-2
-      .box-quick-link.muted-background
-        %a{:href => "#"}
-        .header
-          .icon-refresh
-        .content Spinning
-
-  :javascript
-    google.load("visualization", "1", {packages:["corechart"]});
-    google.setOnLoadCallback(drawChart);
-
-    function drawChart() {
-        //var data = google.visualization.arrayToDataTable(#{raw @count_array.to_json});
-        var data = new google.visualization.DataTable();
-
-        data.addColumn('date', 'Date');
-        data.addColumn('number', '# of reviews',{role: 'annotation'}  );
-
-         js_data =#{@count_array.to_json};
-
-        for(var i=0; i< js_data.length; i++){
-          js_data[i][0] = new Date(js_data[i][0]*1000);
-        }
-          console.log(js_data);
-        data.addRows(js_data);
-
-        var options = {
-            pointSize: 5,
-            vAxis: {format:'#',
-                      viewWindow:{
-                        max:10,
-                        min:0
-                      }
-                    }
-        };
-
-        var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
-        chart.draw(data, options);
-    }
-
-    
+#consumer_overview
   .col-xs-12
-    %h4 Reviews
-    #chart_div
+    = render :partial => 'subheading', :locals => {:heading => 'Overview'}
+    .row.box
+      .col-xs-6.col-md-2
+        .box-content.box-statistic.green-background
+          %h3.title.text-success= @reviews_score.category_score("restaurant").round(1)
+          %small Restaurant
+          .text-success.icon-flag.align-right
+      .col-xs-6.col-md-2
+        .box-content.box-statistic
+          %h3.title.text-info= @reviews_score.category_score("service").round(1)
+          %small Service
+          .text-info.icon-refresh.align-right
+      .col-xs-6.col-md-2
+        .box-content.box-statistic
+          %h3.title.text-info= @reviews_score.dish_score
+          %small Dishes
+          .text-info.icon-time.align-right
+      .col-xs-6.col-md-2
+        .box-content.box-statistic
+          %h3.title.text-info= @reviews_score.category_score("food").round(1)
+          %small Food
+          .text-info.icon-time.align-right
 
-    %h4 Frequently Rated Dishes
-    - @trending_dishes.each do |k,v|
-      .span3.dish
-        .name=k.upcase
-        .rating#r{id: v[1].to_i}
-          =v[1]
+    :javascript
+      google.load("visualization", "1", {packages:["corechart"]});
+      google.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+          //var data = google.visualization.arrayToDataTable(#{raw @count_array.to_json});
+          var data = new google.visualization.DataTable();
+
+          data.addColumn('date', 'Date');
+          data.addColumn('number', '# of reviews',{role: 'annotation'}  );
+
+           js_data =#{@count_array.to_json};
+
+          for(var i=0; i< js_data.length; i++){
+            js_data[i][0] = new Date(js_data[i][0]*1000);
+          }
+            console.log(js_data);
+          data.addRows(js_data);
+
+          var options = {
+              pointSize: 5,
+              vAxis: {format:'#',
+                        viewWindow:{
+                          max:10,
+                          min:0
+                        }
+                      }
+          };
+
+          var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+          chart.draw(data, options);
+      }
+
+    .col-xs-12
+      %h4 Reviews
+      .box#chart_div
+
+      %h4 Frequently Rated Dishes
+      .row.box
+        - @trending_dishes.each do |k,v|
+          .col-xs-6.col-md-2
+            .box-content.box-statistic
+              %h3.title.text-success= v[1]
+              %small #{ k.humanize} (#{v[0]})
+              .text-success.icon-arrow-up.align-right.percent
+                31%
