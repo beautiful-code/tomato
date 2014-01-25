@@ -5,7 +5,7 @@ class Consumer::RestaurantsController < ApplicationController
   before_filter :load_reviews
   before_filter :load_dish, only: [:dish_chart]
 
-  layout 'restaurant_owner'
+  layout 'consumer'
 
   def overview
     review_hash=@reviews.group("date(review_created_at)").count()
