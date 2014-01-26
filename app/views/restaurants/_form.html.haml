@@ -1,5 +1,5 @@
 #new_restaurant_form
-  = form_for (@admin ? [:admin, @restaurant] : [@restaurant]),class: 'form-horizontal' do |f|
+  = form_for (@admin ? [:admin, @restaurant] : [@restaurant]),html: { class: 'form-horizontal'} do |f|
     -if @restaurant.errors.any?
       %div#error_explanation
         %h2
@@ -9,23 +9,24 @@
           -@restaurant.errors.full_messages.each do |msg|
             %li
               = msg
-    .field.inline
-      = f.label :name
-      = f.text_field :name, class:"input-xxlarge"
-    .field.inline
-      = f.label :address
-      = f.text_area :address, class:"input-xxlarge"
-    .field
-      = f.label :phone
-      = f.text_field :phone, class:"input-xxlarge"
-    .field
-      = f.label :zomato_url
-      = f.text_field :zomato_url, class:"input-xxlarge"
-    .field
-      = f.label :burrp_url
-      = f.text_field :burrp_url, class:"input-xxlarge"
-    .field
-      = f.label :yelp_url
-      = f.text_field :yelp_url, class:"input-xxlarge"
-    .field
-      = f.submit :Save, class: 'btn'
+    .form-group
+      = f.label :name, class: 'col-sm-2 control-label'
+      .col-md-8= f.text_field :name, class: 'form-control'
+    .form-group
+      = f.label :address, class: 'col-sm-2 control-label'
+      .col-md-8= f.text_area :address, class: 'form-control'
+    .form-group
+      = f.label :phone, class: 'col-sm-2 control-label'
+      .col-md-8= f.text_field :phone, class: 'form-control'
+    .form-group
+      = f.label :zomato_url,class: 'col-sm-2 control-label'
+      .col-md-8= f.text_field :zomato_url, class: 'form-control'
+    .form-group
+      = f.label :burrp_url, class: 'col-sm-2 control-label'
+      .col-md-8= f.text_field :burrp_url, class: 'form-control'
+    .form-group
+      = f.label :yelp_url, class: 'col-sm-2 control-label'
+      .col-md-8= f.text_field :yelp_url, class: 'form-control'
+    .form-group
+      = f.label ' ',class: 'col-sm-2 control-label'
+      .col-md-8= f.submit :Save, class: 'btn btn-default'

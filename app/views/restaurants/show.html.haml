@@ -1,7 +1,10 @@
-#restaurant.row-fluid
-  .span6.offset1
-    %h5= @restaurant.name
-    .right= link_to 'Edit', (@admin ? edit_admin_restaurant_path(@restaurant) : edit_restaurant_path(@restaurant))
+#restaurant.container-center
+  .col-md-6.col-xs-6
+    %h3= @restaurant.name
+    .right
+      = link_to (@admin ? edit_admin_restaurant_path(@restaurant) : edit_restaurant_path(@restaurant)) do
+        %i.glyphicon.glyphicon-pencil
+        Edit Details
 
     .block= @restaurant.address
     .block= @restaurant.phone
@@ -9,22 +12,24 @@
 
     -if @restaurant.zomato_url
       .clearfix
-        = link_to 'Zomato Reviews',(@admin ? zomato_admin_restaurant_reviews_path(@restaurant) : zomato_restaurant_reviews_path(@restaurant)),class: "btn tiny block"
+        = link_to 'Zomato Reviews',(@admin ? zomato_admin_restaurant_reviews_path(@restaurant) : zomato_restaurant_reviews_path(@restaurant)),class: "btn btn-default tiny block"
     -if @restaurant.burrp_url
       .clearfix
-        = link_to 'Burrp Reviews',(@admin ? burrp_admin_restaurant_reviews_path(@restaurant) : burrp_restaurant_reviews_path(@restaurant)),class: "btn tiny block"
+        = link_to 'Burrp Reviews',(@admin ? burrp_admin_restaurant_reviews_path(@restaurant) : burrp_restaurant_reviews_path(@restaurant)),class: "btn btn-default tiny block"
     -if @restaurant.yelp_url
       .clearfix
-        = link_to 'Yelp Reviews',(@admin ? yelp_admin_restaurant_reviews_path(@restaurant) : yelp_restaurant_reviews_path(@restaurant)),class: "btn tiny block"
+        = link_to 'Yelp Reviews',(@admin ? yelp_admin_restaurant_reviews_path(@restaurant) : yelp_restaurant_reviews_path(@restaurant)),class: "btn btn-default tiny block"
     -#-if @restaurant.foursquare_url
       .clearfix
         = link_to "Foursquare Reviews",(@admin ? foursquare_admin_restaurant_reviews_path(@restaurant) : foursquare_restaurant_reviews_path(@restaurant)), class: "btn tiny block"
-  .span4.offset1
-    %h5 New Review
+  .col-md-6.col-xs-6#new_review
+    %h4
+      %i.glyphicon.glyphicon-puls-sign
+      New Review
     = render 'reviews/form'
 
   - if false
-    .row-fluid.span6.offset1
+    .row.col-md-6.col-xs-12.col-md-offset-1
       %h4 Cluster Metrics
       - @clusters.each_with_index do |cluster, index|
         %h6

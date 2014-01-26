@@ -1,47 +1,82 @@
 #restaurant {
   .paginate {
-    margin:5px;
+    margin:5px 15px 5px 0px;
     float:right;
     display: block;
     word-spacing:2px
+  }
+
+  .heading{
+    margin:25px 0px;
+    font-size:20px;
+    font-weight:bold;
+  }
+
+  .edit-action{
+    a{color:#FF8C00;}
+    width:100px;
+    text-align:center;
+  }
+
+  .show-action{
+    a{color: #13AA31;}
+    width:100px;
+    text-align:center;
+  }
+
+  .delete-action{
+    a{color: #EE1515;}
+    width:100px;
+    text-align:center;
+  }
+
+  .form-group {
+    display:inline-block;
+    clear:both;
+    margin-bottom:5px;
+    label{
+      float:left;
+      line-height:25px;
+    }
+    .form-control{
+      float:right;
+    }
   }
 
   td {
     padding: 10px ;
   }
 
-  .name {
-    width:200px;
-  }
-  .phone {
-    width:200px;
-  }
-  .address {
-    width: 400px;
+  th{
+    text-align:center;
+    padding: 10px;
   }
 
   .new-restaurant {
-    margin-top:10px !important;
+    margin-top:20px;
+    font-style:normal;
   }
 
   #new_review {
-    textarea{
-      height: 50px !important;
-    }
   }
+
   .tiny {
     width:140px;
   }
+
   .block {
     display: block;
     margin: 5px;
   }
+
   label {
     width: 80px !important;
   }
+
   .right {
     float: right;
   }
+
   .left {
     float: left;
   }

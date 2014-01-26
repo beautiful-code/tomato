@@ -1,30 +1,35 @@
-#restaurant
-  .span10.offset1
-    %h4
+#restaurant.container-center
+  .col-xs-12
+    %h4.heading
       Restaurants
-    %table.table-striped
+      %i.glyphicon.glyphicon-glass
+    %table.table-striped.table-bordered
       %tr
-        %th.name
-          %h5 Name
-        %th.address
-          %h5 Address
-        %th.phone
-          %h5 Phone
-        %th
-        %th
-        %th
+        %th Name
+        %th Address
+        %th Phone
+        %th{colspan:'3'} Actions
       -@restaurants.each do |restaurant|
         %tr
           %td= link_to restaurant.name,(@admin ? admin_restaurant_path(restaurant) : restaurant_path(restaurant))
           %td= restaurant.address
           %td= restaurant.phone
-          %td= link_to 'Show', (@admin ? admin_restaurant_path(restaurant) : restaurant_path(restaurant))
-          %td= link_to 'Edit', (@admin ? edit_admin_restaurant_path(restaurant) : edit_restaurant_path(restaurant))
-          %td= link_to 'Destroy', (@admin ? admin_restaurant_path(restaurant) : restaurant_path(restaurant)), method: :delete, data: { confirm: 'Are you sure?' }
-  .span11
-    %h3
-    %i.icon-add
-    = link_to 'New Restaurant',(@admin ? new_admin_restaurant_path : new_restaurant_path), class: 'new-restaurant'
+          %td.show-action
+            = link_to (@admin ? admin_restaurant_path(restaurant) : restaurant_path(restaurant)) do
+              %i.glyphicon.glyphicon-new-window
+              Show
+          %td.edit-action
+            = link_to (@admin ? edit_admin_restaurant_path(restaurant) : edit_restaurant_path(restaurant)) do
+              %i.glyphicon.glyphicon-pencil
+              Edit
+          %td.delete-action
+            = link_to (@admin ? admin_restaurant_path(restaurant) : restaurant_path(restaurant)), method: :delete, data: { confirm: 'Are you sure?' } do
+              %i.glyphicon.glyphicon-trash
+              Destroy
+  .col-xs-12
+    = link_to (@admin ? new_admin_restaurant_path : new_restaurant_path), class: 'new-restaurant btn btn-default' do
+      %i.glyphicon.glyphicon-plus-sign
+      New Restaurant
     .paginate
       = paginate @restaurants
 

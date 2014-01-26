@@ -1,6 +1,6 @@
 #admin_reviews_show
-  .row-fluid
-    .span10.offset1
+  .row
+    .col-xs-10.col-md-offset-1
       %center
         %p.prev-next
           = link_to "Prev", admin_restaurant_review_path(@restaurant, @review.prev) if @review.prev.present?
@@ -12,12 +12,12 @@
           = @review.rating
       %p= raw(@review.desc)
 
-      .row-fluid
+      .row
         %h4 Consolidated Feedback
 
-        .span12
-          .span6
-            %table.table-striped.small
+        .col-xs-12
+          .col-xs-6
+            %table.table-striped.small.table-bordered
               %thead
                 %th Item
                 %th Rating
@@ -26,8 +26,8 @@
                   %td= k
                   %td= v
 
-          .span6
-            %table.table-striped.small
+          .col-xs-6
+            %table.table-striped.small.table-bordered
               %thead
                 %th Parameter
                 %th Value
@@ -36,16 +36,19 @@
                   %td= k
                   %td= v
 
-      .row-fluid
-        .span12
+      .row
+        .col-xs-12
           %h4= "User Feedbacks (#{@feedbacks.count})"
           - @feedbacks.each do |feedback|
-            .span3
+            .col-xs-4
               %center
-                %h5= feedback.user.email
+                - if feedback.user.present?
+                  %h5= feedback.user.email
+                - else
+                  %h5 User email N/A
                 = render :partial => 'notes/list', :locals => {:notes => feedback.notes, :restaurant => @review.restaurant}
 
-                %table.table-striped.small
+                %table.table-striped.small.table-bordered
                   %tr
                     %th.parameter Parameter
                     %th.value Value

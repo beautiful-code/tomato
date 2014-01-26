@@ -5,3 +5,4 @@
 //= require flatty/bootstrap/bootstrap.min
 //= require flatty/plugins/plugins
 //= require_tree ./data
+//= require 'jquery_ujs'

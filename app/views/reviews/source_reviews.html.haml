@@ -1,5 +1,5 @@
-#source_reviews.row-fluid
-  .span10.offset2
+#source_reviews.row
+  .col-md-10.col-xs-10.col-md-offset-1
     %h4= "#{@source.capitalize} Reviews"
 
     = render :partial => 'reviews/table', :locals => {:reviews => @reviews}

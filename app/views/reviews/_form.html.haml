@@ -8,18 +8,21 @@
         -@review.errors.full_messages.each do |msg|
           %li
             = msg
-  #new_review
-    .field
-      = f.label :title, class: 'inline'
-      = f.text_field :title
-    .field
-      = f.label :desc, class: 'inline'
-      = f.text_area :desc
-    .field.inline
-      = f.label :source
-      = f.text_field :source
-    .field.inline
-      = f.label :author
-      = f.text_field :author
-    .field.inline
-      = f.submit :Save, class: 'small button success radius'
+  .form-group
+    = f.label :title
+    .col-md-8
+      = f.text_field :title, class: 'form-control'
+  .form-group
+    = f.label :desc
+    .col-md-8
+      = f.text_field :desc, class: 'form-control'
+  .form-group
+    = f.label :source
+    .col-md-8
+      = f.text_field :source, class: 'form-control'
+  .form-group
+    = f.label :author
+    .col-md-8
+      = f.text_field :author, class: 'form-control'
+  .form-group.block
+    = f.submit :Save, class: 'btn btn-default'

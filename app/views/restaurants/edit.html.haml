@@ -1,5 +1,5 @@
-.row-fluid
-  .span10.offset1
+.row
+  .col-xs-12.container-center
     %h4
       Editing restaurant
 
@@ -7,4 +7,3 @@
     = link_to '< Back', (@admin ? admin_restaurants_path : restaurants_path)
     |
     = link_to 'Show', (@admin ? admin_restaurant_path(@restaurant) : restaurant_path(@restaurant))
-   

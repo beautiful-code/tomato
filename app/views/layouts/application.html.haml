@@ -7,52 +7,52 @@
     = javascript_include_tag "data"
     = csrf_meta_tags
 %body
-  .navbar.navbar-fixed-top
-  .navbar-inner
-    .container-fluid
-      %a.btn.btn-navbar(data-target=".nav-collapse" data-toggle="collapse")
+
+.navbar.navbar-inverse.navbar-fixed-top{:role => "navigation"}
+  .container
+    .navbar-header
+      %button.navbar-toggle{"data-target" => ".navbar-collapse", "data-toggle" => "collapse", :type => "button"}
         %span.icon-bar
         %span.icon-bar
-        %span.icon-bar
-      .brand Tomato
-      .container.nav-collapse
-        %ul.nav
-          %li= link_to 'Restaurants',restaurants_path
-          %li.dropdown
-            %a{ href: '#',class:"dropdown-toggle", "data-toggle"=>"dropdown"}
-              Admin
+      %a.navbar-brand{:href => root_path} Tomato
+    .collapse.navbar-collapse
+      %ul.nav.navbar-nav
+        %li= link_to 'Restaurants',restaurants_path
+        %li.dropdown
+          %a{ href: '#',class:"dropdown-toggle", "data-toggle"=>"dropdown"}
+            Admin
+            %b.caret
+            %ul.dropdown-menu
+              %li= link_to 'Restaurants', admin_restaurants_path
+      %ul.nav.navbar-nav.pull-right
+        - if user_signed_in?
+          %li= link_to 'User Feedback',user_feedbacks_path
+        %li.dropdown
+          %a{ href: '#',class:"dropdown-toggle", "data-toggle"=>"dropdown"}
+            - if user_signed_in?
+              %i.glyphicon.glyphicon-user
+              = current_user.email
               %b.caret
               %ul.dropdown-menu
-                %li= link_to 'Restaurants', admin_restaurants_path
+                %li= link_to 'Edit Account', edit_user_registration_path
+                %li= link_to 'Sign Out', destroy_user_session_path, method: :delete
+            -else
+              %li= link_to 'Sign In',new_user_session_path
 
+.col-xs-12
+  .container-center.row
+    = render 'layouts/messages'
+  - if @breadcrumbs.present?
+    .breadcrumb
+      - @breadcrumbs[0..-2].each do |txt, path|
+        = link_to(txt, path)
+        %span{:class => "divider"}
+        &raquo;
+      = @breadcrumbs.last.first
+  = yield
 
-        %ul.nav.pull-right
-          - if user_signed_in?
-            %li= link_to 'User Feedback',user_feedbacks_path
-          %li.dropdown
-            %a{ href: '#',class:"dropdown-toggle", "data-toggle"=>"dropdown"}
-              - if user_signed_in?
-                = current_user.email
-                %b.caret
-                %ul.dropdown-menu
-                  %li= link_to 'Edit Account', edit_user_registration_path
-                  %li= link_to 'Sign Out', destroy_user_session_path, method: :delete
-              -else
-                %li= link_to 'Sign In',new_user_session_path
-
-  .container-fluid
-    .row-fluid
-      - if @breadcrumbs.present?
-        .breadcrumb
-          - @breadcrumbs[0..-2].each do |txt, path|
-            = link_to(txt, path)
-            %span{:class => "divider"}
-            &raquo;
-          = @breadcrumbs.last.first
-      = yield
-
-    .footer.span10.offset1
-      %center
-        %hr
-        Tomato &copy;
-        = Time.now.year
+.footer.span10.offset1
+  %center
+    %hr
+    Tomato &copy;
+    = Time.now.year

@@ -1,12 +1,12 @@
-#source_reviews.row-fluid
+#source_reviews
   #review_notes
-    #review.span9
+    #review.col-xs-9
       %h5
         = @review.title
         .review-rating
           = @review.rating
       .desc= raw(@review.desc)
-    #notes.span3
+    #notes.col-xs-3
       %center
         %p.prev-next
           = link_to "Prev", restaurant_review_path(@restaurant, @review.prev) if @review.prev.present?
@@ -27,15 +27,15 @@
   %hr
   - if @feedback.present?
     = form_for(@feedback.parameter, :url => feedback_parameter_path(:feedback_id => @feedback.id)) do |f|
-      .span12
+      .col-xs-12
         %center
           = f.submit 'Update',class: 'btn btn-info save-button'
-      .span11
-        .span4
+      .col-xs-12
+        .col-xs-4
           = render :partial => 'category_features', :locals => {:category => 'restaurant', :f => f}
-        .span4
+        .col-xs-4
           = render :partial => 'category_features', :locals => {:category => 'service', :f => f}
 
           = render :partial => 'category_features', :locals => {:category => 'food', :f => f}
-        .span4
+        .col-xs-4
           = render :partial => 'category_features', :locals => {:category => 'context', :f => f}

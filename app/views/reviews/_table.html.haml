@@ -1,5 +1,5 @@
 #source_reviews
-  %table.table-striped
+  %table.table-striped.table-bordered
     %tr
       %th.wide ID
       %th.wide Feedback
@@ -15,4 +15,7 @@
               = "#{review.get_feedback(current_user).notes.count} notes"
             - else
               = link_to 'Give Feedback', give_feedback_restaurant_review_path(review.restaurant, review)
-        %td= link_to 'Show', (@admin ? admin_restaurant_review_path(review.restaurant,review) : restaurant_review_path(review.restaurant,review))
+        %td
+          = link_to (@admin ? admin_restaurant_review_path(review.restaurant,review) : restaurant_review_path(review.restaurant,review)) do
+            %i.glyphicon.glyphicon-new-window
+            Show

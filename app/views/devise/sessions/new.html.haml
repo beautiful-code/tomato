@@ -1,19 +1,23 @@
-.row-fluid
-  .span4.offset1
+.row
+  .col-xs-6.col-md-offset-1
     %h2 Sign in
 
     = form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f|
-      .field
-        = f.label :email, class:"right inline"
-        = f.email_field :email, :autofocus => true
-      .field
-        = f.label :password, class:"right inline"
-        = f.password_field :password
+      .form-group
+        = f.label :email, class: "col-sm-2 control-label"
+        .col-sm-10
+          = f.email_field :email, :autofocus => true, class: "form-control"
+      .form-group
+        = f.label :password, class: "col-sm-2 control-label"
+        .col-sm-10
+          = f.password_field :password, class: "form-control"
       - if devise_mapping.rememberable?
-        .field.inline
-          = f.label :remember_me
-          = f.check_box :remember_me
-      .field
-        = f.submit "Sign in", class:"btn btn-success"
+        .form-group
+          .col-sm-offset-2.col-sm-10
+            .checkbox
+              = f.label :remember_me
+              = f.check_box :remember_me
+            .form-group
+              = f.submit "Sign in", class:"btn btn-success"
 
-      = render "devise/shared/links"
+            = render "devise/shared/links"
