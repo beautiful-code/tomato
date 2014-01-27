@@ -7,21 +7,26 @@
       %input.form-control.daterange{:placeholder => "Select daterange", :type => "text", name: 'daterange'}
         %span#daterange2.input-group-addon
           %i.icon-calendar
+
 :javascript
-   $('input[name="daterange"]').daterangepicker(
-   { 
-      format: 'YYYY-MM-DD',
-      startDate: #{Date.today.strftime},
-      endDate: #{Date.today.next_month.strftime}
-   },
-     function(start, end) {
-       // TO DO: Draw chart 
-       //alert('A date range was chosen: ' + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
-     }
-   );
+  // Reset the dates from cookie
+  $('input[name="daterang"]').resetDateCookie();
 
+  $('input[name="daterange"]').daterangepicker(
+  {
+    format: 'YYYY-MM-DD',
+    startDate: #{Date.today.strftime},
+    endDate: #{Date.today.next_month.strftime}
+  },
+   function(start, end) {
+     start = start.format('YYYY-MM-DD')
+     end = end.format('YYYY-MM-DD')
+     $(this).setDateCookie(start,end);
+     drawChart();
+   }
+  );
 
-- if false     
+- if false
   %span.date-range
   = form_tag '', method: :get do
     = date_select("date" , "start_date", {:default => @start_date, :order => [:month, :day, :year], :use_short_month => true, :end_year => Date.today.year}, {:class => "input-mini"})

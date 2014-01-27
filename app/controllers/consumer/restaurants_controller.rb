@@ -83,7 +83,7 @@ class Consumer::RestaurantsController < ApplicationController
 
   def load_start_and_end_dates
     # Cookies were set on the browser.
-    if (cookies['start_day'])
+    if (cookies['start_day'].present?)
       @start_date = Date.new cookies['start_year'].to_i, cookies['start_month'].to_i, cookies['start_day'].to_i
       @end_date = Date.new cookies['end_year'].to_i, cookies['end_month'].to_i, cookies['end_day'].to_i
     else
