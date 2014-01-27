@@ -3,3 +3,5 @@
 //= require flatty/plugins/jquery_cookie/jquery.cookie
 //= require flatty/plugins/bootstrap_datetimepicker/bootstrap-datetimepicker
 //= require flatty/plugins/bootstrap_daterangepicker/bootstrap-daterangepicker
+//= require flatty/plugins/common/moment.min
+

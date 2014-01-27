@@ -1,7 +1,7 @@
 $(document).ready(function () {
 
         //Set default chart parameters as soons as screen loads and fdraw the graph
-        category = [$('.category-name').data('category')];
+        category = [$('.category-name').attr('data')];
         $.cookie('category', category);
 
 

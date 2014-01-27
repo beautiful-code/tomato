@@ -1,7 +1,7 @@
 .page-header.page-header-with-buttons
   %h1.pull-left
     %i.icon-dashboard
-    %span=heading
+    %span.category-name{data: @category}=heading
   #date_range.col-md-3
     .input-group
       %input.form-control.daterange{:placeholder => "Select daterange", :type => "text", name: 'daterange'}
