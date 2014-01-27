@@ -20,12 +20,12 @@
           %center
             = render 'notes/form'
       - else
-        = link_to 'Give Feedback', give_feedback_restaurant_review_path(@restaurant, @review)
+        %center= link_to 'Give Feedback', give_feedback_restaurant_review_path(@restaurant, @review)
 
 
-#parameters
-  %hr
+#parameters.row
   - if @feedback.present?
+    %hr
     = form_for(@feedback.parameter, :url => feedback_parameter_path(:feedback_id => @feedback.id)) do |f|
       .col-xs-12
         %center

@@ -1,5 +1,5 @@
 #restaurant.container-center
-  .col-md-6.col-xs-6
+  .col-xs-8
     %h3= @restaurant.name
     .right
       = link_to (@admin ? edit_admin_restaurant_path(@restaurant) : edit_restaurant_path(@restaurant)) do
@@ -22,7 +22,7 @@
     -#-if @restaurant.foursquare_url
       .clearfix
         = link_to "Foursquare Reviews",(@admin ? foursquare_admin_restaurant_reviews_path(@restaurant) : foursquare_restaurant_reviews_path(@restaurant)), class: "btn tiny block"
-  .col-md-6.col-xs-6#new_review
+  .col-xs-4#new_review
     %h4
       %i.glyphicon.glyphicon-puls-sign
       New Review
