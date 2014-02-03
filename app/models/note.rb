@@ -1,5 +1,5 @@
 class Note < ActiveRecord::Base
-  attr_accessible :item, :rating
+  attr_accessible :item, :rating, :why
 
   belongs_to :feedback
 

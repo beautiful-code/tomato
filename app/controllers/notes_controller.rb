@@ -12,7 +12,6 @@ class NotesController < ApplicationController
 
   def create
     @feedback = current_user.feedbacks.find(params[:feedback_id])
-
     @note = @feedback.notes.build(params[:note])
     if @note.save
       render :partial => 'notes/list', :locals => {:notes => @feedback.notes, :restaurant => @restaurant}

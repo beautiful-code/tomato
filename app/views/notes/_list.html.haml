@@ -4,6 +4,7 @@
       %tr
         %th.item Item
         %th.rating Rating
+        %th.why Why ?
         %th.delete
       - notes.each do |note|
         %tr
@@ -11,5 +12,7 @@
             = note.item
           %td
             = note.rating
+          %td
+            = note.why
           %td
             = link_to 'X', (@admin ? admin_restaurant_review_note_path(restaurant,note.review,note) : feedback_note_path(note.feedback ,note)), data: { confirm: 'Are you sure?' }, method: :delete, class: 'delete-note'

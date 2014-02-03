@@ -3,11 +3,15 @@
   .new-note-form
     = form_for [@feedback,Note.new], html: { class: 'note-form' } do |f|
       .field
+        = f.label :item
         = f.text_field :item
       .field
         - [1,2,3,4,5].each do |rating|
           = f.radio_button :rating,rating
           = f.label rating
+      .field
+        = f.label 'Why ?'
+        = f.text_field :why
       .field
         = f.submit 'Save Note' , class: 'btn btn-success save-button'
         = button_tag 'Cancel', class: "btn btn-danger cancel-button"
