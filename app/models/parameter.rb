@@ -108,7 +108,13 @@ class Parameter < ActiveRecord::Base
 
   FEATURES.each do |key, info|
     define_method key do
-      self.content[key]
+      self.content[key] && self.content[key][:value]
+    end
+  end
+
+  FEATURES.each do |key, info|
+    define_method "#{key}_why" do
+      self.content[key] && self.content[key][:why]
     end
   end
 

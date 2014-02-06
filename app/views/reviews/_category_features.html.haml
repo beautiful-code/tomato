@@ -8,4 +8,5 @@
       - info["values"].each do |val|
         = f.radio_button key, val.first
         = f.label val.first
+      = f.text_field "#{key}_why"
     .clear

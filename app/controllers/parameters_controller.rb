@@ -4,8 +4,8 @@ class ParametersController < ApplicationController
   def update
     @feedback = current_user.feedbacks.find(params[:feedback_id])
     @parameter = @feedback.parameter
-
-    if @parameter.update_attribute(:content, params[:parameter])
+    parameters = construct_parameters params
+    if @parameter.update_attribute(:content, parameters)
       redirect_to request.referer, notice: 'Parameters was successfully updated.'
     else
       render action: "edit"
@@ -20,5 +20,17 @@ class ParametersController < ApplicationController
       format.html { redirect_to parameters_url }
       format.json { head :no_content }
     end
+  end
+
+  private
+
+  # Construct params like so {:queue_at_counter=>{:value=>'Long',:why=>'some reason'}, :ambience=>{:value=>'good',:why=>'some reason'} }
+  def construct_parameters params
+    params = params[:parameter].select{|k,v| v.present?}
+    why_params = par.select {|k,v|  k.include? "_why" }
+    params.reject! {|k,v|  k.include? "_why" }
+    pa = {}
+    par.each {|k,v| why_params.each{|k1,v1| k1.include?(k) ? (pa[k]={:value=>v,:why=>v1} ) : (nil) } }
+    pa
   end
 end
