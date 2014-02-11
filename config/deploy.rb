@@ -47,7 +47,6 @@ namespace :nginx do
     template_configure 'nginx.conf'
   end
 
-=begin
   [ :stop, :restart, :status ].each do |action|
     task action do
       sudo "service nginx #{action}"
@@ -57,7 +56,6 @@ namespace :nginx do
   task :start do
     sudo "nginx -c #{shared_path}/config/nginx.conf" 
   end
-=end
 end
 
 set :unicorn_config_path, "#{current_path}/config/unicorn.rb"
