@@ -51,6 +51,6 @@ Tomato::Application.routes.draw do
     resource :parameter, :only => :update
   end
 
-  root :to => 'restaurants#index'
+  root :to => 'home#index'
 end
 

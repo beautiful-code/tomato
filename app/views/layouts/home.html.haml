@@ -1,0 +1,41 @@
+!!!
+%html
+  %head
+    %title Foodlytics | Understand customers like never before
+    %meta{:content => "width=device-width, initial-scale=1, maximum-scale=1", :name => "viewport"}/
+    %meta{:content => "text/html; charset=utf-8", "http-equiv" => "Content-Type"}/
+    %link{:href => "http://fonts.googleapis.com/css?family=Roboto:400,300,700,500,900", :rel => "stylesheet", :type => "text/css"}/
+    %link{:href => "//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css", :rel => "stylesheet"}/
+    = stylesheet_link_tag "home", media: 'all'
+    = javascript_include_tag "home"
+    = favicon_link_tag 'favicon.ico'
+  %body
+    #home.header
+      .header_top
+        .wrap
+          .logo
+            = link_to root_path do
+              .logo-img= image_tag "logo.png"
+          .menu
+            %ul
+              %li
+                %a.scroll{:href => "#home"} Home
+              %li
+                %a.scroll{:href => "#features"} Features
+              %li
+                %a.scroll{:href => "#tour"} Tour
+              %li
+                %a.scroll{:href => "#pricing_dashboard"} Pricing
+              %li.login
+                #loginContainer
+                  = link_to 'Login',new_user_session_path,id: '#loginButton'
+    .main
+      .content
+        = yield
+    .copy_right
+      .wrap
+        %p
+          %i.fa.fa-heart
+          = link_to 'Beautifulcode',"http://beautifulcode.in"
+          &copy;
+          = Time.now.year
