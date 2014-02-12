@@ -47,7 +47,7 @@ img{
 	position: fixed;
 	z-index: 1;
 	width: 100%;
-	clear: both;
+	4clear: both;
 	background: #FFF;
  }
   .logo{
@@ -388,7 +388,7 @@ input:focus {
 }
 .banner_desc{
 	float:left;
-	width:62%;
+	width:52%;
 	padding:10em 0 4em 0;
 	text-align:center;
 	color: #FFF;
@@ -492,12 +492,15 @@ input:focus {
 
 .ipad{
 	float:right;
-	width:37%;
+	width:47%;
   margin-bottom: -10em;
-	padding-top:6.5em;
+	padding-top:7.5em;
 }
 .ipad img{
 	display:block;
+  cursor: zoom-in;
+  cursor: -webkit-zoom-in;
+  cursor: -moz-zoom-in;
 }
 /**** Content top ****/
 .features{
@@ -957,7 +960,8 @@ input:focus {
  		width:90%;
  	}
  	.banner_desc{
-       width:60%; 	
+       width:45%; 
+     padding-top:8em;  
  	}
  	.banner_desc h1{
  	   font-size:3em;
@@ -966,12 +970,35 @@ input:focus {
  	   font-size:1.2em;
  	   margin-top:5px;
  	}
+
+  .content_top{
+    height:650px;
+  }
+  
+  .sign_up input[type="text"] {
+    display:block;
+    width:60%;
+    margin-left:4em;
+  }
+
+  .sign_up input[type="submit"] {
+    margin-left:21px;
+    margin-top:5px;
+    width:67%;
+  }
+
  	.ipad{
- 	   width:40%;
+ 	   width:50%;
+     padding-top:9em;
  	}
  	.customer_desc span.testimonial-arrow{
         left:5em;	
- 	}	
+ 	}
+  
+  .pricing-table{
+    width:28%;
+    height:535px;
+  }  
  }
  @media all and (max-width:800px){
  	.wrap{
