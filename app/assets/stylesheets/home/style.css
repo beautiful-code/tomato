@@ -20,7 +20,11 @@ a{text-decoration:none;}
 .underline{	padding-bottom:5px;	border-bottom: 1px solid #eee; margin:0 0 20px 0;}/* Add 5px bottom padding and a underline */
 nav.vertical ul li{	display:block;}/* vertical menu */
 nav.horizontal ul li{	display: inline-block;}/* horizontal menu */
-img{max-width:100%;}
+
+img{
+  max-width:100%;
+  height:98%;
+}
 /*end reset*/
 
 
@@ -93,7 +97,7 @@ img{max-width:100%;}
 	  -webkit-border-radius:3px;
 	  -moz-border-radius:3px;
 	  -o-border-radius:3px;
-    padding:5px 10px 5px 10px;
+    padding:5px 15px 5px 15px;
  }
  .menu li.login a:hover{
   background: #e6474f;
@@ -419,7 +423,7 @@ input:focus {
 }
 .sign_up input[type="text"]{
 	padding:6px 10px 9px;
-	width:300px;
+	width:22%;
 	margin:0;
 	border:1px solid #EE4747;
 	background:#FFF;
@@ -432,18 +436,22 @@ input:focus {
 .sign_up input[type="text"]:focus{
 	color:#686868;
 }
+
 .sign_up input[type="submit"]{
 	    -webkit-box-shadow: inset 0px 1px 0px rgba(255, 255, 255, 0.5), 0px 2px 1px #EE4747;
 		-moz-box-shadow:inset 0px 1px 0px rgba(255, 255, 255, 0.5), 0px 2px 1px #EE4747;
 		 box-shadow:inset 0px 1px 0px rgba(255, 255, 255, 0.5), 0px 2px 1px #EE4747; 
-		background: -webkit-linear-gradient(top,  #EE4747 0%,#EB272E 0%,#EE4747 100%,#7846ba 100%);
+		
+	    background: -webkit-linear-gradient(top,  #EE4747 0%,#EB272E 0%,#EE4747 100%,#BA4646 100%);
 		background: -o-linear-gradient(top,  #EE4747 0%,#EB272E 0%,#EE4747 100%,#7846ba 100%);
 		background: -ms-linear-gradient(top,  #EE4747 0%,#EB272E 0%,#EE4747 100%,#7846ba 100%);
-		background: linear-gradient(to bottom,  #EE4747 0%,#EB272E 0%,#EE4747 100%,#7846ba 100%);
+		
+	    background: linear-gradient(to bottom,  #E71F1F 0%,#FF5F65 0%,#DA2727 100%,#E42424 100%);
 		filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#EE4747', endColorstr='#7846ba',GradientType=0 );
 	  display: inline-block;
-	  border: 1px solid #EE4747;
-	  padding:7px 40px;
+	  
+	    border: 1px solid #F55454;
+	  padding:7px 25px 11px 25px;
 	  font-size:1em;
 	  font-family: 'Roboto', sans-serif;
 	  color: #FFF;
@@ -462,24 +470,25 @@ input:focus {
       transition: all 0.5s ease;
 }
 .sign_up input[type="submit"]:hover{
-	    background: #EE4747;
+	    background: #EB1E1E;
 		background: -moz-linear-gradient(top,  #7846ba 0%, #6b36af 0%, #EB272E 100%, #6c38af 100%);
-		background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#EE4747), color-stop(0%,#6b36af), color-stop(100%,#EB272E), color-stop(100%,#6c38af));
-		background: -webkit-linear-gradient(top,  #7846ba 0%,#6b36af 0%,#EB272E 100%,#6c38af 100%);
+		
+	    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#EE4747), color-stop(0%,#D42C2C), color-stop(100%,#EB272E), color-stop(100%,#DA2727));
+		
+	    background: -webkit-linear-gradient(top,  #C71313 0%,#F01414 0%,#EB272E 100%,#E01B1B 100%);
 		background: -o-linear-gradient(top,  #7846ba 0%,#6b36af 0%,#EB272E 100%,#6c38af 100%);
 		background: -ms-linear-gradient(top,  #7846ba 0%,#6b36af 0%,#EB272E 100%,#6c38af 100%);
-		background: linear-gradient(to bottom,  #7846ba 0%,#6b36af 0%,#EB272E 100%,#6c38af 100%);
+		
+	    background: linear-gradient(to bottom,  #D61313 0%,#EE2A2A 0%,#EB272E 100%,#D80C0C 100%);
 		filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#7846ba', endColorstr='#6c38af',GradientType=0 );
 }
 .sign_up input[type="submit"]:active{
-	    -webkit-box-shadow: inset 0px 1px 0px rgba(255, 255, 255, 0.5), 0px 2px 1px rgba(58, 22, 104, 0.81);
-		-moz-box-shadow:inset 0px 1px 0px rgba(255, 255, 255, 0.5), 0px 2px 1px rgba(58, 22, 104, 0.81);
-		 box-shadow:inset 0px 1px 0px rgba(255, 255, 255, 0.5), 0px 2px 1px rgba(58, 22, 104, 0.81);
-		 border: 1px solid #51258A;
-		 background:#622EA5;
+	    -webkit-box-shadow: inset 0px 1px 0px rgba(255, 255, 255, 0.5), 0px 2px 1px #EE2A2A;
+		-moz-box-shadow:inset 0px 1px 0px rgba(255, 255, 255, 0.5), 0px 2px 1px #EE4747;
+		 box-shadow:inset 0px 1px 0px rgba(255, 255, 255, 0.5), 0px 2px 1px #EB272E;
+		 border: 1px solid #EB272E;
+		 background:#DA2727;
 }
-
-
 
 .ipad{
 	float:right;
@@ -677,14 +686,14 @@ input:focus {
   margin-left:25px;
 	border: 3px solid #E43535;
 	border-radius: 4px;
-	height: 530px;
+	height: 510px;
   display: inline-block;
 }
 
 .pricing-table .header{
 	background: #E43535;
-	padding-top: 20px;
-	padding-bottom: 20px; 
+	padding-top: 10px;
+	padding-bottom: 10px; 
 	color: #fff;
 	font-size: 24px;
 	font-weight: bold;
@@ -940,7 +949,7 @@ input:focus {
 		width:90%;
 	}
 	.ipad{
-		padding-top:12em;
+		padding-top:7em;
 	}
 
 @media all and (max-width:1024px){

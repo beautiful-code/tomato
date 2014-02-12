@@ -15,11 +15,12 @@
           %span online reviews
       %h3
         Start your free
-        %span 30-days trail
+        %span 30-days trial
         today!
       %p No credit card required.
       .sign_up
         %form
+          %input{:onblur => "if (this.value == '') {this.value = 'Restaurant Name';}", :onfocus => "this.value = '';", :type => "text", :value => "Restaurant Name"}
           %input{:onblur => "if (this.value == '') {this.value = 'E-mail address';}", :onfocus => "this.value = '';", :type => "text", :value => "E-mail address "}
             %input{:type => "submit", :value => "Sign Up"}
     .ipad
