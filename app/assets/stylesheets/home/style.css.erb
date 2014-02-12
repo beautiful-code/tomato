@@ -383,15 +383,26 @@ input:focus {
 /*** main ****/
 .content_top{	
 	position:relative;
-	background:#EE4747;
+	//background:#EE4747;
+  background-image:url(<%= asset_path 'bg.jpg' %>);
 	height: 600px;
 }
-.banner_desc{
+.wrap#banner{
+  background:rgba(0,0,0,0.5);
+  width:100%;
+  padding-bottom:1em;
+ }
+
+ .logo-text{
+  
+ }
+ 
+ .banner_desc{
 	float:left;
-	width:52%;
+	width:46%;
 	padding:10em 0 4em 0;
 	text-align:center;
-	color: #FFF;
+	color: #fff;
 	font-weight:300;
 	text-shadow: 0px 1px 3px rgba(0, 0, 0, 0.31);
 	font-family: 'Roboto', sans-serif;
@@ -493,8 +504,8 @@ input:focus {
 .ipad{
 	float:right;
 	width:47%;
-  margin-bottom: -10em;
-	padding-top:7.5em;
+  margin-bottom: -6em;
+	padding-top:9em;
 }
 .ipad img{
 	display:block;
